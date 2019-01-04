@@ -19,8 +19,7 @@ namespace ISEKAI_Model
 
 
         public void Proceed() // if you want to move on (next season, or next turn), just call it.
-        {                          // this function returns EventType enum value, which indicates that whether bad ending happened or not, and if happend, which kind of it is.
-                                   // so when using this function, you should wrap it in <if> block so that view can catch forced events.
+        {
             switch (turn.state)
             {
                 case State.PreTurn:
