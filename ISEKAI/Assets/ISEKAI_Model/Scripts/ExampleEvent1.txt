@@ -1,0 +1,44 @@
+Load Background "Assets/Background/Placeholder.png"
+Play Music "Assets/BGM/Placeholder.mp3" -r
+# "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." 
+# "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+# "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+Load Character "Assets/Sprites/Characters/Placeholder.png" -center
+## "와!" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." -center
+## "나" "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+# "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+Unload Character -center
+Load Character "Assets/Sprites/Characters/Placeholder.png" -left
+Load Character "Assets/Sprites/Characters/Placeholder2.png" -right
+## "와!" "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." -left
+## "와!" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." -left
+## "와! 2" "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." -right
+## "와! 2" "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. " -right
+## "와! 2" "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." -right
+## "나" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+## "와!" "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." -left
+# "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+# "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+Choice
+-- "Lorem ipsum" -FoodP (+50) -Food (-20) -Morale (+5)
+-- "dolor sit amet" -FoodP (+70) -Food (-30)
+-- "consectetur adipiscing elit" -FoodP (+100) -Food (-50) -Morale (-30)
+-#
+--1 ## "와!" "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." -left
+--2 ## "와!" "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." -left
+--3 ## "와! 2" "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." -right
+--1 Unload Character -right
+--2 Unload Character -right
+--3 Unload Character -left
+--1 Unload Character -left
+--2 Unload Character -left
+--3 Unload Character -right
+--1 Load Character "Assets/Sprites/Characters/Placeholder.png" -center
+--2 Load Character "Assets/Sprites/Characters/Placeholder.png" -center
+--3 Load Character "Assets/Sprites/Characters/Placeholder2.png" -center
+--1 ## "와!" "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." -center
+--2 ## "와!" "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." -center
+--3 ## "와! 2" "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." -center
+Unload Character -center
+# "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." 
+# "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."

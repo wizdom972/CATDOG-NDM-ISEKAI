@@ -13,22 +13,42 @@ namespace ISEKAI_Model
     }
     public class Turn
     {
-        public Turn() // initiallize turn instance. It should be immediately proceeded to be {Spring, PreTurn, 1}, so should be look like this.
+        public Turn() // initiallize turn instance.
         {
             season = Season.Winter;
             state = State.PreTurn;
-            turnNumber = 1;
+            year = 1994;
         }
         public Season season {get; private set;}
         public State state {get; private set;}
-        public int turnNumber {get; private set;}
+        public int year {get; private set;}
+        public int turnNumber { get; private set; }
 
         public override string ToString()
         {
-            if (state == State.PreTurn || state == State.PostTurn)
-                return state + " of Turn " + turnNumber;
+            /*if (state == State.PreTurn || state == State.PostTurn)
+                return state + " of Turn " + year;
             else
-                return season + " of Turn " + turnNumber;
+                return season + " of Turn " + year;*/
+            string s;
+            switch(season)
+            {
+                case Season.Autumn:
+                    s = "가을";
+                    break;
+                case Season.Spring:
+                    s = "봄";
+                    break;
+                case Season.Summer:
+                    s = "여름";
+                    break;
+                case Season.Winter:
+                    s = "겨울";
+                    break;
+                default:
+                    throw new InvalidOperationException("season of turn cannot be None.");
+            }
+            return (year + "년 " + s);
         }
         public bool IsFormerSeason() // if the current season is winter or summer, it returns true.
         {
@@ -40,6 +60,7 @@ namespace ISEKAI_Model
             {
                 case Season.Winter:
                     season = Season.Spring;
+                    year++;
                     break;
 
                 case Season.Spring:

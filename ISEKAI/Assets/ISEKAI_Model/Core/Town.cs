@@ -6,7 +6,7 @@ namespace ISEKAI_Model
     {
         public Town() // initiallizes town instance with basic stats.
         {
-            remainFoodAmount = 100000f;
+            remainFoodAmount = 50f;
             maxFoodConsumption = 100f;
             totalFoodProduction = 50f;
             totalPleasantAmount = 100f;
@@ -14,6 +14,8 @@ namespace ISEKAI_Model
             suggestedFoodConsumption = 80f;
             totalIronProduction = 0f;
             totalHorseAmount = 0f;
+            totalHorseProduction = 0f;
+            totalIronAmount = 0f;
         }
         public float remainFoodAmount {get; set;}
         public float totalFoodProduction {get; set;}
@@ -23,8 +25,10 @@ namespace ISEKAI_Model
         public float pleasantWeightFactor {get; set;}
         public float suggestedFoodConsumption {get; set;}
         public float pleasantChange => pleasantWeightFactor * (totalFoodConsumption - suggestedFoodConsumption);
+        public float totalIronAmount { get; set; }
         public float totalIronProduction {get; set;}
         public float totalHorseAmount {get; set;}
+        public float totalHorseProduction { get; set; }
         
         public void AddFoodProduction() // just adds current food production to remaining food amount.
         {

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace ISEKAI_Model
 {
@@ -9,7 +10,9 @@ namespace ISEKAI_Model
         public override int turnsLeft {get; protected set;}
         public override int cost {get {return 2;}}
         public override Season availableSeason {get {return Season.Summer;}}
-        public override bool isForcedEvent {get {return false;}}
+        public override int forcedEventPriority {get {return 0;}}
+
+        public override List<Command> script {get {return Parser.ParseScript("Scripts/ExampleEvent1.txt");}} // command list.
         protected override bool exclusiveCondition(Game game)
         {
             bool chanceCheck;

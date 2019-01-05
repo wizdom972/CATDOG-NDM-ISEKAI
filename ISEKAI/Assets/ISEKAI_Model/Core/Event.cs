@@ -11,13 +11,13 @@ namespace ISEKAI_Model
     public abstract class Event // Every future event must inherit this.
     {
         private bool _isActivatedAlready;
-        public abstract bool isForcedEvent {get;}
+        public List<(int, int)> choiceHistory = new List<(int, int)>(); // <item1>th choice, selected <item2>th branch. (0-based)
+        public abstract int forcedEventPriority {get;} // 0 if the event is not forced event.
         public abstract string eventName {get;}
         public EventStatus status {get; set;}
         public abstract int givenMaxTurn {get;}
         public abstract int turnsLeft {get; protected set;} // how many turns left for this event to be gone.
         public abstract int cost {get;} // how many AP this event takes.
-
         public abstract Season availableSeason {get;} // when this event is available.
 
         protected abstract bool exclusiveCondition(Game game); // exclusive emergence condition of each event.
@@ -25,7 +25,7 @@ namespace ISEKAI_Model
         {
             _activatedEvents.Add(new ExampleEvent1());
         }
-        public static void OccurEvents(Game game)
+        public static void OccurEvents(Game game) // Not recommended to call manually. Only called by Proceed().
         {
             foreach (Event e in _activatedEvents)
             {
@@ -82,5 +82,6 @@ namespace ISEKAI_Model
                 seasonCheck = availableSeason == game.turn.season;
             return seasonCheck;
         }
+        public abstract List<Command> script {get;}
     }
 }

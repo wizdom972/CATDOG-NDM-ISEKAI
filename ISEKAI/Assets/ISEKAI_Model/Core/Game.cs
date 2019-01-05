@@ -72,5 +72,61 @@ namespace ISEKAI_Model
             town.ConsumeFood();
             town.ApplyPleasantChange();
         }
+
+        public void ApplyChoiceEffect(ChoiceEffect choiceEffect)
+        {
+            foreach((ChoiceEffectKind, ChoiceEffectType, float) effect in choiceEffect.effectList)
+            {
+                ChoiceEffectType type = effect.Item2;
+                float f = effect.Item3;
+                switch (effect.Item1)
+                {
+                    case ChoiceEffectKind.Food:
+                        town.remainFoodAmount = ApplyChoiceEffect(town.remainFoodAmount, type, f);
+                        break;
+                    case ChoiceEffectKind.FoodP:
+                        town.totalFoodProduction = ApplyChoiceEffect(town.totalFoodProduction, type, f);
+                        break;
+                    case ChoiceEffectKind.Horse:
+                        town.totalHorseAmount = ApplyChoiceEffect(town.totalHorseAmount, type, f);
+                        break;
+                    case ChoiceEffectKind.HorseP:
+                        town.totalHorseProduction = ApplyChoiceEffect(town.totalHorseProduction, type, f);
+                        break;
+                    case ChoiceEffectKind.Morale:
+                        town.totalPleasantAmount = ApplyChoiceEffect(town.totalPleasantAmount, type, f);
+                        break;
+                    case ChoiceEffectKind.Steel:
+                        town.totalIronAmount = ApplyChoiceEffect(town.totalIronAmount, type, f);
+                        break;
+                    case ChoiceEffectKind.SteelP:
+                        town.totalIronProduction = ApplyChoiceEffect(town.totalIronProduction, type, f);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        private float ApplyChoiceEffect(float toChange, ChoiceEffectType type, float f)
+        {
+            float result;
+            switch (type)
+            {
+                case ChoiceEffectType.Add:
+                    result = toChange + f;
+                    return result;
+                case ChoiceEffectType.Divide:
+                    result = toChange / f;
+                    return result;
+                case ChoiceEffectType.Multiply:
+                    result = toChange * f;
+                    return result;
+                case ChoiceEffectType.Subtract:
+                    result = toChange - f;
+                    return result;
+                default:
+                    throw new InvalidOperationException("Error on ApplyChoiceEffect()");
+            }
+        }
     }
 }
