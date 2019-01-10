@@ -8,7 +8,7 @@ namespace ISEKAI_Model
         {
             turn = new Turn();
             town = new Town();
-            Event.InitEvents();
+            EventCore.InitEvents();
             Proceed();
         }
         public const int maxAP = 4; // max AP of the game.
@@ -38,7 +38,7 @@ namespace ISEKAI_Model
                     if (turn.IsFormerSeason())
                     {
                         turn.MoveToNextSeason();
-                        Event.OccurEvents(this);
+                        EventCore.OccurEvents(this);
                     }
                     else
                     {
@@ -52,7 +52,7 @@ namespace ISEKAI_Model
                     turn.MoveToNextState();
                     turn.MoveToNextSeason();
                     turn.IncreaseTurnNumber();
-                    Event.ReduceTurnsLeft();
+                    EventCore.ReduceTurnsLeft();
                     Proceed();
                     break;
             }
@@ -64,7 +64,7 @@ namespace ISEKAI_Model
             remainAP = maxAP;
             town.AddFoodProduction();
             town.ApplyPleasantChange();
-            Event.OccurEvents(this);
+            EventCore.OccurEvents(this);
         }
         private void _DoPostTurnBehavior()
         {

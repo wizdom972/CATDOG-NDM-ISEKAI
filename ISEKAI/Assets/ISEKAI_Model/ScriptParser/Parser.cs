@@ -24,7 +24,9 @@ namespace ISEKAI_Model
              @"^(\d?)\-?\-?(\d?) ?Load Minigame ""(.*)""$", //13
              @"^(\d?)\-?\-?(\d?) ?Load Video ""(.*)""$", //14
              @"^(\d?)\-?\-?(\d?) ?Choice$", //15
-             @"-- ""(.*)""( \-(\w+) \(([\+\-\*])(\d+)\))*"};
+             @"-- ""(.*)""( \-(\w+) \(([\+\-\*])(\d+)\))*", // 16
+             @"^(\d?)\-?\-?(\d?) ?VFXTransition$", //17
+             @"^(\d?)\-?\-?(\d?) ?VFXPause \-(.*)$"}; //18
         private static SpriteLocation _ParseSpriteLocation(string location)
         {
             if(location.Equals("left"))
@@ -75,11 +77,11 @@ namespace ISEKAI_Model
             else
             {
                 int cNumber;
-                int cResult = Int32.Parse(choiceResult);
+                int cResult = int.Parse(choiceResult);
                 if (choiceNumber == "")
                     cNumber = 0;
                 else
-                    cNumber = Int32.Parse(choiceNumber);
+                    cNumber = int.Parse(choiceNumber);
                 command.choiceDependency = (cNumber,cResult);
             }
         }
@@ -170,7 +172,7 @@ namespace ISEKAI_Model
                     string filePath = match.Groups[3].Value;
                     string width = match.Groups[4].Value;
                     string height = match.Groups[5].Value;
-                    var vfxLoadSprite = new VFXLoadSprite(filePath, Int32.Parse(width), Int32.Parse(height));
+                    var vfxLoadSprite = new VFXLoadSprite(filePath, int.Parse(width), int.Parse(height));
                     _SetChoiceDependency(vfxLoadSprite, match.Groups[1].Value, match.Groups[2].Value);
                     refinedList.Add(vfxLoadSprite);
                 }
@@ -223,6 +225,19 @@ namespace ISEKAI_Model
                     var choice = new Choice(choiceNumber, choiceList);
                     refinedList.Add(choice);
                     choiceNumber++;
+                }
+                else if ((match = Regex.Match(command, _commandPattern[17])).Success)
+                {
+                    var vfxTransition = new VFXTransition();
+                    _SetChoiceDependency(vfxTransition, match.Groups[1].Value, match.Groups[2].Value);
+                    refinedList.Add(vfxTransition);
+                }
+                else if ((match = Regex.Match(command, _commandPattern[18])).Success)
+                {
+                    string second = match.Groups[3].Value;
+                    var vfxPause = new VFXPause(int.Parse(second));
+                    _SetChoiceDependency(vfxPause, match.Groups[1].Value, match.Groups[2].Value);
+                    refinedList.Add(vfxPause);
                 }
             }
             return refinedList;

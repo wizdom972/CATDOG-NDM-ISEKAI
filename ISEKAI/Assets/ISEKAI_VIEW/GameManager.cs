@@ -6,6 +6,19 @@ using ISEKAI_Model;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,11 +27,6 @@ public class GameManager : MonoBehaviour
         textTurn.text = game.turn.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public Text textPleasant;
     public Text textFood;
     public Text textTurn;

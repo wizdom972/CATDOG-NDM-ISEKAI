@@ -47,3 +47,6 @@ TagManager:
   - name: people
     uniqueID: 2371533901
     locked: 0
+  - name: text
+    uniqueID: 4289377047
+    locked: 0
