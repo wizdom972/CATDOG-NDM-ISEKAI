@@ -2,9 +2,19 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class EventManager : MonoBehaviour
 {
+    public GameObject containerFullScript;
+    public GameObject containerChoice;
+    public GameObject containerConversation;
+
+    public Text textCharacterInfo;
+    public Text textScript;
+    public Text textFullScript;
+
+     
 
     public EventManager(EventCore eventCore) // when playing new event, this instance should be made.
     {
@@ -91,11 +101,18 @@ public class EventManager : MonoBehaviour
 
     private void _Explanation(Explanation explanation)
     {
-
+        containerChoice.SetActive(false);
+        containerConversation.SetActive(false);
+        containerFullScript.SetActive(true);
     }
 
     private void _Conversation(Conversation conversation)
     {
+        containerChoice.SetActive(false);
+        containerConversation.SetActive(true);
+        containerFullScript.SetActive(false);
+
+        textCharacterInfo.text = conversation.characterName;
 
     }
 
@@ -166,7 +183,9 @@ public class EventManager : MonoBehaviour
 
     private void _Choice(Choice choice)
     {
-
+        containerChoice.SetActive(true);
+        containerConversation.SetActive(false);
+        containerFullScript.SetActive(false);
     }
 
     private void _VFXTransition(VFXTransition vfxTransition)

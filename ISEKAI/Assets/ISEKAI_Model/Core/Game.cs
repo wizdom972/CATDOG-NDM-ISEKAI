@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ISEKAI_Model
 {
@@ -8,15 +10,17 @@ namespace ISEKAI_Model
         {
             turn = new Turn();
             town = new Town();
-            EventCore.InitEvents();
+            _InitEvents();
             Proceed();
         }
         public const int maxAP = 4; // max AP of the game.
-        public int remainAP {get; private set;} // remaining AP of the game.
+        public int remainAP {get; set;} // remaining AP of the game.
         public Town town {get; private set;} // main town of the game. see Town class.
         public Turn turn {get; private set;} // indicating season, turn number, etc. see Turn class. 
 
+        public List<EventCore> allEventsList = new List<EventCore>();
 
+        public List<EventCore> visibleEventsList => allEventsList.FindAll(e => e.status == EventStatus.Visible);
 
         public void Proceed() // if you want to move on (next season, or next turn), just call it.
         {
@@ -25,20 +29,13 @@ namespace ISEKAI_Model
                 case State.PreTurn:
                     _DoPreTurnBehavior();
                     turn.MoveToNextState();
-                    if (town.totalPleasantAmount <= 0)
-                    {
-                        // TODO: Make bad ending event and set it to Visible.
-                    }
-                    else
-                    {
-                    }
                     break;
 
                 case State.InTurn:
                     if (turn.IsFormerSeason())
                     {
                         turn.MoveToNextSeason();
-                        EventCore.OccurEvents(this);
+                        _OccurEvents();
                     }
                     else
                     {
@@ -49,10 +46,6 @@ namespace ISEKAI_Model
 
                 case State.PostTurn:
                     _DoPostTurnBehavior();
-                    turn.MoveToNextState();
-                    turn.MoveToNextSeason();
-                    turn.IncreaseTurnNumber();
-                    EventCore.ReduceTurnsLeft();
                     Proceed();
                     break;
             }
@@ -64,13 +57,18 @@ namespace ISEKAI_Model
             remainAP = maxAP;
             town.AddFoodProduction();
             town.ApplyPleasantChange();
-            EventCore.OccurEvents(this);
+            _SetAllEventActivable();
+            _OccurEvents();
         }
         private void _DoPostTurnBehavior()
         {
             //Console.WriteLine ("This is PostTurn");
             town.ConsumeFood();
             town.ApplyPleasantChange();
+            turn.MoveToNextState();
+            turn.MoveToNextSeason();
+            turn.IncreaseTurnNumber();
+            _ReduceEveryEventsTurnsLeft();
         }
 
         public void ApplyChoiceEffect(ChoiceEffect choiceEffect)
@@ -127,6 +125,53 @@ namespace ISEKAI_Model
                 default:
                     throw new InvalidOperationException("Error on ApplyChoiceEffect()");
             }
+        }
+
+        private void _ReduceEveryEventsTurnsLeft() // Not recommended to call manually. Only called by Proceed().
+        {
+            foreach (EventCore e in allEventsList)
+            {
+                if(e.isActivatedAlready)
+                    e.ReduceTurnsLeft();
+
+                if (e.turnsLeft <= 0 && e.isActivatedAlready)
+                {
+                    e.status = EventStatus.Ready;
+                    e.isActivatedAlready = false;
+                    e.isRemovedLastTurn = true;
+                }
+            }
+        }
+
+        private void _SetAllEventActivable()
+        {
+            foreach (EventCore e in allEventsList)
+                e.isRemovedLastTurn = false;
+        }
+
+        private void _OccurEvents() // Not recommended to call manually. Only called by Proceed().
+        {
+            foreach (EventCore e in allEventsList)
+            {
+                if (e.IsFirstVisible() && 
+                    e.status == EventStatus.Ready && 
+                    !e.isActivatedAlready)
+                {
+                    e.ActivateEvent();
+                }
+                else if (e.isActivatedAlready)
+                {
+                    if (e.seasonCheck() && e.turnsLeft > 0)
+                        e.status = EventStatus.Visible;
+                    else
+                        e.status = EventStatus.Ready;
+                }
+            }
+        }
+
+        private void _InitEvents() // should add EVERY events when new event plan comes.
+        {
+            allEventsList.Add(new ExampleEvent1(this));
         }
     }
 }

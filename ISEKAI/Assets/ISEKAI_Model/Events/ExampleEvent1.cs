@@ -5,15 +5,15 @@ namespace ISEKAI_Model
 {
     class ExampleEvent1 : EventCore
     {
-        public override string eventName {get {return "¿¹½Ã ÀÌº¥Æ®";}}
+        public override string eventName {get {return "ì˜ˆì‹œ ì´ë²¤íŠ¸";}}
         public override int givenMaxTurn {get {return 4;}}
         public override int turnsLeft {get; protected set;}
         public override int cost {get {return 2;}}
         public override Season availableSeason {get {return Season.Summer;}}
         public override int forcedEventPriority {get {return 0;}}
-
+        public override EventLocation location { get { return EventLocation.Field; } }
         public override List<Command> script {get {return Parser.ParseScript("Scripts/ExampleEvent1.txt");}} // command list.
-        protected override bool exclusiveCondition(Game game)
+        protected override bool exclusiveCondition()
         {
             bool chanceCheck;
             Random r = new Random();
@@ -23,13 +23,13 @@ namespace ISEKAI_Model
             else
                 chanceCheck = false;
             bool foodCheck;
-            if (game.town.remainFoodAmount >= 100)
+            if (game.town.totalPleasantAmount >= 100)
                 foodCheck = true;
             else
                 foodCheck = false;
             return chanceCheck && foodCheck;
         }
-        public ExampleEvent1()
+        public ExampleEvent1(Game game) : base(game)
         {
             turnsLeft = 0;
         }
