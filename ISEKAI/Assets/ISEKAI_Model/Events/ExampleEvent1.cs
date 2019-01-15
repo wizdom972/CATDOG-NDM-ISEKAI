@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ISEKAI_Model
 {
@@ -12,7 +13,7 @@ namespace ISEKAI_Model
         public override Season availableSeason {get {return Season.Summer;}}
         public override int forcedEventPriority {get {return 0;}}
         public override EventLocation location { get { return EventLocation.Field; } }
-        public override List<Command> script {get {return Parser.ParseScript("Scripts/ExampleEvent1.txt");}} // command list.
+        public override List<Command> script {get {return Parser.ParseScript("Assets/ISEKAI_Model/Scripts/ExampleEvent1.txt");}} // command list.
         protected override bool exclusiveCondition()
         {
             bool chanceCheck;

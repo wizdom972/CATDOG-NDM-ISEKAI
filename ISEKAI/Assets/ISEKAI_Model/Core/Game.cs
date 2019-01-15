@@ -19,7 +19,12 @@ namespace ISEKAI_Model
         public Turn turn {get; private set;} // indicating season, turn number, etc. see Turn class. 
 
         public List<EventCore> allEventsList = new List<EventCore>();
-
+        public List<EventCore> forcedVisibleEventList { get
+            {
+                var lst = allEventsList.FindAll(e => e.status == EventStatus.ForcedVisible);
+                _SortForcedEventList(lst);
+                return lst;
+            } }
         public List<EventCore> visibleEventsList => allEventsList.FindAll(e => e.status == EventStatus.Visible);
 
         public void Proceed() // if you want to move on (next season, or next turn), just call it.
@@ -57,8 +62,8 @@ namespace ISEKAI_Model
             remainAP = maxAP;
             town.AddFoodProduction();
             town.ApplyPleasantChange();
-            _SetAllEventActivable();
             _OccurEvents();
+            _SetAllEventActivable();
         }
         private void _DoPostTurnBehavior()
         {
@@ -153,6 +158,11 @@ namespace ISEKAI_Model
         {
             foreach (EventCore e in allEventsList)
             {
+                if (e.isForcedEvent && e.IsFirstVisible())
+                {
+                    e.status = EventStatus.ForcedVisible;
+                    continue;
+                }
                 if (e.IsFirstVisible() && 
                     e.status == EventStatus.Ready && 
                     !e.isActivatedAlready)
@@ -172,6 +182,13 @@ namespace ISEKAI_Model
         private void _InitEvents() // should add EVERY events when new event plan comes.
         {
             allEventsList.Add(new ExampleEvent1(this));
+            allEventsList.Add(new Prolog_1(this));
+            allEventsList.Add(new Prolog_2(this));
+        }
+
+        private void _SortForcedEventList(List<EventCore> lst)
+        {
+            lst.Sort(delegate (EventCore e1, EventCore e2) { return e2.forcedEventPriority.CompareTo(e1.forcedEventPriority); });
         }
     }
 }

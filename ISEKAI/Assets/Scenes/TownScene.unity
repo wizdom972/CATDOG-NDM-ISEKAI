@@ -342,6 +342,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173303854}
   m_CullTransparentMesh: 0
+--- !u!1 &277250602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 277250603}
+  m_Layer: 0
+  m_Name: Town
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &277250603
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277250602}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1773535928}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &370719916
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,6 +408,8 @@ MonoBehaviour:
   textPleasant: {fileID: 664483366}
   textFood: {fileID: 1433933408}
   textTurn: {fileID: 1496842630}
+  textAP: {fileID: 654927513}
+  textLocation: {fileID: 375941633}
   turnsLeftSprites:
   - {fileID: 21300000, guid: aaf9351c0f512de488c121fcc7d3763b, type: 3}
   - {fileID: 21300000, guid: d34b9589c543d6c448562360b6b948d0, type: 3}
@@ -393,6 +425,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ed4b39fc94c334d4988c82964a699f47, type: 3}
   - {fileID: 21300000, guid: 475a467753b84594eb0cc414056f9227, type: 3}
   - {fileID: 21300000, guid: 8802e46c0e17e2449b7f9f9433bd451a, type: 3}
+  town: {fileID: 277250603}
+  outskirts: {fileID: 1303797059}
   eventSDList: []
 --- !u!4 &370719918
 Transform:
@@ -478,7 +512,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB9C8\uC744"
+  m_Text: "\uB9C8\uC744 \uC678\uACFD"
 --- !u!222 &375941634
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1410,6 +1444,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250882727}
   m_CullTransparentMesh: 0
+--- !u!1 &1303797058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1303797059}
+  m_Layer: 0
+  m_Name: Outskirts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1303797059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303797058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1773535928}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1346498941
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,6 +2075,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1738500955}
   m_CullTransparentMesh: 0
+--- !u!1 &1773535927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1773535928}
+  m_Layer: 0
+  m_Name: EventSDs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1773535928
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773535927}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5299074, y: -2.0677583, z: -9.58246}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1303797059}
+  - {fileID: 277250603}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1874416366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2185,7 +2281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f5ef3df2d2457747b2435b5921a34e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentEvent: {fileID: 0}
+  currentEventName: 
 --- !u!4 &1934312140
 Transform:
   m_ObjectHideFlags: 0

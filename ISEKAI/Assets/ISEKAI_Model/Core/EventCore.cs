@@ -6,7 +6,7 @@ namespace ISEKAI_Model
 {
     public enum EventStatus
     {
-        Completed, Ready, Visible
+        Completed, Ready, Visible, ForcedVisible
     }
 
     public enum EventLocation
@@ -27,7 +27,7 @@ namespace ISEKAI_Model
     public abstract class EventCore // Every future event must inherit this.
     {
         public bool isNew => (_seasonMadeIn == game.turn.season) && (turnsLeft == givenMaxTurn);
-
+        public bool isForcedEvent => forcedEventPriority > 0;
         public bool isActivatedAlready;
         public List<(int, int)> choiceHistory = new List<(int, int)>(); // <item1>th choice, selected <item2>th branch. (0-based)
         public abstract int forcedEventPriority {get;} // 0 if the event is not forced event.
@@ -60,7 +60,7 @@ namespace ISEKAI_Model
         }
 
         
-        public bool IsFirstVisible() // if this returns true, event is set to Visible.
+        public bool IsFirstVisible() // if this returns true, event is set to Visible. (or ForcedVisible)
         {
             bool result;
             result =  exclusiveCondition() && seasonCheck();

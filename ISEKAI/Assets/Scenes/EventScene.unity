@@ -1454,8 +1454,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419722515}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.46, y: -0.85, z: -3.640625}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.65, y: -0.63, z: -3.640625}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -1781,7 +1781,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793098992}
   m_LocalRotation: {x: -0, y: -0, z: 0.11549074, w: -0.9933086}
-  m_LocalPosition: {x: -6.15, y: -0.67, z: -3.625}
+  m_LocalPosition: {x: -4.73, y: -0.75, z: -3.625}
   m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1816,12 +1816,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6821ed56879faa44b0709948e77c84f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  containerFullScript: {fileID: 0}
-  containerChoice: {fileID: 0}
-  containerConversation: {fileID: 0}
-  textCharacterInfo: {fileID: 0}
-  textScript: {fileID: 0}
-  textFullScript: {fileID: 0}
+  containerFullScript: {fileID: 54311925}
+  containerChoice: {fileID: 1140836743}
+  containerConversation: {fileID: 1810580216}
+  spritePeopleLeft: {fileID: 1793098992}
+  spritePeopleCenter: {fileID: 1227607383}
+  sprtiePeopleRight: {fileID: 1419722515}
+  textCharacterInfo: {fileID: 623449835}
+  textScript: {fileID: 1126384283}
+  textFullScript: {fileID: 902959466}
 --- !u!4 &1800731944
 Transform:
   m_ObjectHideFlags: 0
@@ -2174,6 +2177,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0890da63f6eb9d43935372e93fc0920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  containerFullScript: {fileID: 54311925}
+  containerChoice: {fileID: 1140836743}
+  containerConversation: {fileID: 1810580216}
+  spritePeopleLeft: {fileID: 1793098992}
+  spritePeopleCenter: {fileID: 1227607383}
+  sprtiePeopleRight: {fileID: 1419722515}
   buttonSkip: {fileID: 1257526654}
   buttonAuto: {fileID: 1692013385}
   buttonNext: {fileID: 165578307}

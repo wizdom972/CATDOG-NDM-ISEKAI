@@ -10,6 +10,10 @@ public class EventManager : MonoBehaviour
     public GameObject containerChoice;
     public GameObject containerConversation;
 
+    public GameObject spritePeopleLeft;
+    public GameObject spritePeopleCenter;
+    public GameObject sprtiePeopleRight;
+
     public Text textCharacterInfo;
     public Text textScript;
     public Text textFullScript;
@@ -18,16 +22,17 @@ public class EventManager : MonoBehaviour
 
     public EventManager(EventCore eventCore) // when playing new event, this instance should be made.
     {
-        currentEvent = eventCore;
+        this.eventCore = eventCore;
         scriptEnumerator = eventCore.script.GetEnumerator();
     }
 
-    public EventCore currentEvent { get; private set; } // when event SD is clicked and scene changed, it should be set to that event.
+    public EventCore eventCore { get; private set; } // when event SD is clicked and scene changed, it should be set to that event.
 
     public List<Command>.Enumerator scriptEnumerator;
 
     public void ExecuteOneScript()
     {
+        Debug.Log("asdf");
         // TODO:
         // when MoveNext() returns false, it must go back to TownScene.
         scriptEnumerator.MoveNext();
