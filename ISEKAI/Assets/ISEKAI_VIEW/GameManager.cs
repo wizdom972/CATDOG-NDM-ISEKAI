@@ -8,7 +8,7 @@ using System.Linq;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public string currentEventName;
+    public EventCore currentEvent;
     void Awake()
     {
         if (instance == null)

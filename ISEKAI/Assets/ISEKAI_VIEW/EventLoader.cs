@@ -28,11 +28,11 @@ public class EventLoader : MonoBehaviour // This script is attatched to event SD
     {
         EventCore eventCore = UITownManager.instance.GetEventCoreFromEventSd(gameObject.transform);
         SceneManager.LoadScene("EventScene", LoadSceneMode.Single);
-        GameManager.instance.currentEventName = eventCore.eventName;
+        GameManager.instance.currentEvent = eventCore;
     }
     public void LoadEventScene(EventCore eventCore)
     {
         SceneManager.LoadScene("EventScene", LoadSceneMode.Single);
-        GameManager.instance.currentEventName = eventCore.eventName;
+        GameManager.instance.currentEvent = eventCore;
     }
 }

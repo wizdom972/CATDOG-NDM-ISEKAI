@@ -19,19 +19,10 @@ public class UIEventManager : MonoBehaviour
     public Button buttonAuto;
     public Button buttonNext;
 
-    private EventManager _eventManager;
+    public EventManager eventManager;
 
-    void OnEnable()
+    void Start()
     {
-        SceneManager.sceneLoaded += _InitEventManager;
-    }
-
-    private void _InitEventManager(Scene s, LoadSceneMode m)
-    {
-        Game game = GameManager.instance.game;
-        var eventList = game.allEventsList;
-        _eventManager = new EventManager(eventList.Find(e => e.eventName.Equals(GameManager.instance.currentEventName)));
-
         containerChoice.SetActive(false);
         containerConversation.SetActive(false);
         containerFullScript.SetActive(false);
@@ -53,6 +44,6 @@ public class UIEventManager : MonoBehaviour
 
     public void OnClickNextButton()
     {
-        _eventManager.ExecuteOneScript();
+        eventManager.ExecuteOneScript();
     }
 }
