@@ -88,7 +88,7 @@ Load CG "Assets\CG\Firstmeeting.png"
 # "나는 어릴 적 뒷산에서 아버지와 같이 사냥하던 때를 회상하며, 급소로 날을 집어 넣었다。"
 VFX Transition
 Load Background "Assets\Background\Blackbackground.png"
-VFX Load Sprite "Assets\VFX\Swordstrike.gif"
+VFX Load Sprite "Assets\VFX\Swordstrike.gif" -0 -0
 VFX Sound "Assets\VFX\Swordstrike.mp3"
 VFX Pause -1000
 VFX Unload Sprite
@@ -97,7 +97,7 @@ Load Background "Assets\Background\Darkforest.png"
 ## "" "「 꾸에에에에에에에에에에에엑━━━━━━!!! 」
 # "갑작스런 상황변화를 받아들이지 못하고, 멧돼지는 그 분노를 격렬한 몸부림을 통해 배출한다。하지만 이미 이 성난 괴수의 운명은 정해져 있었다。"
 # "나는 멧돼지의 등을 온 힘 다해 잡으며 검을 더 깊숙이 심장을 향해 찔러 넣는다。"
-VFX Load Sprite "Assets\VFX\Blood.png"
+VFX Load Sprite "Assets\VFX\Blood.png" -0 -0
 VFX Pause -1000
 # "몇 분 동안의 의미 없는 몸부림과 괴성을 지르던 야수는, 결국 체액이 빠지며 힘을 잃어가다 결국에는 쓰러진다。"
 Load Character "Assets\Sprites\Heroine\a\normal.png" -center

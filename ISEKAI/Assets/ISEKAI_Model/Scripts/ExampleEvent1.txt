@@ -1,5 +1,7 @@
-Load Background "Assets/Background/Placeholder.png"
+Load Background Background/bg_outskirts"
 Play Music "Assets/BGM/Placeholder.mp3" -r
+Load CG "Background/tumblr_mp0gw41iwP1rlchn1o1_1280"
+VFX Camerashake
 # "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." 
 # "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 # "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -8,7 +10,7 @@ Load Character "Assets/Sprites/Characters/Placeholder.png" -center
 ## "나" "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 # "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
 Unload Character -center
-Load Character "Assets/Sprites/Characters/Placeholder.png" -left
+Load Character "Sprites/Characters/idol_ai_110007_2" -left
 Load Character "Assets/Sprites/Characters/Placeholder2.png" -right
 ## "와!" "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." -left
 ## "와!" "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." -left

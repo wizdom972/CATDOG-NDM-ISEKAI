@@ -16,8 +16,11 @@ namespace ISEKAI_Model
         public const int maxAP = 4; // max AP of the game.
         public int remainAP {get; set;} // remaining AP of the game.
         public Town town {get; private set;} // main town of the game. see Town class.
-        public Turn turn {get; private set;} // indicating season, turn number, etc. see Turn class. 
-
+        public Turn turn {get; private set; } // indicating season, turn number, etc. see Turn class.
+        public bool isIronActivated = false;
+        public bool isHorseActivated = false;
+        public bool isRangedWeaponActivated = false;
+        public Dictionary<string, List<(int, int)>> choiceHistories = new Dictionary<string, List<(int, int)>>(); // <item1>th choice, selected <item2>th branch. (0-based)
         public List<EventCore> allEventsList = new List<EventCore>();
         public List<EventCore> forcedVisibleEventList { get
             {

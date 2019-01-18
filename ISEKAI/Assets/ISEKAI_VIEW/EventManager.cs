@@ -3,29 +3,42 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEditor;
+using System.Collections;
 
 public class EventManager : MonoBehaviour
 {
+
+    public GameObject UI;
     public GameObject containerFullScript;
     public GameObject containerChoice;
     public GameObject containerConversation;
 
-    public GameObject spritePeopleLeft;
-    public GameObject spritePeopleCenter;
-    public GameObject sprtiePeopleRight;
-
-    public Image test;
-
     public GameObject[] spritePeople;   // use same location index from SpriteLocation
+
+    public GameObject spriteBackground;
+    public GameObject spriteCG;
+
+    public GameObject prefabChoiceButton;
+
+    public GameObject cameraMainCamera;
+    public float shakeAmount = 0.7f;
+
+    public AudioSource audioBGM;
+
+    public Animator animatorCamera;
 
     public Text textCharacterInfo;
     public Text textScript;
     public Text textFullScript;
 
-    
+    private String _fullScript = "";
+    private int _scriptLength = 4;
+
     void Start()
     {
         SetUpEventManager();
+        ExecuteOneScript();
     }
 
     public void SetUpEventManager() // when playing new event, this instance should be made.
@@ -40,14 +53,25 @@ public class EventManager : MonoBehaviour
 
     public void ExecuteOneScript()
     {
-        // TODO:
-        // when MoveNext() returns false, it must go back to TownScene.
-        scriptEnumerator.MoveNext();
-        _ExecuteCommand(scriptEnumerator.Current);
+        if (!scriptEnumerator.MoveNext())
+        {
+            eventCore.Complete();
+            //SceneManager.LoadScene("TownScene", LoadSceneMode.Single);
+            //UITownManager.instance.TryOccurForcedEvent();
+        }
+        else
+        {
+            _ExecuteCommand(scriptEnumerator.Current);
+        }
     }
 
     private void _ExecuteCommand(Command c)
     {
+        if(c.commandNumber != 0) //if not explanation
+        {
+            _fullScript = "";
+        }
+
         switch (c.commandNumber)
         {
             case 0:
@@ -111,31 +135,36 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    private void _enableContainerConversation(bool i)
-    {
-        GameObject contianerTest = GameObject.Find("Canvas/ContainerConversation/ContainerCharacterInfo/BackgroundCharacterInfo");
-        Image testImage = contianerTest.GetComponent<Image>();
-
-        if (i == true)
-        {
-            testImage.enabled = false;
-        }
-    }
-
     private void _Explanation(Explanation explanation)
     {
         Debug.Log("explanation");
 
-        //if(GameObject.Find("Canvas/ContainerConversation") == null)
-        //{
-        //    Debug.Log("안찾아짐");
-        //}
+        containerChoice.SetActive(false);
+        containerConversation.SetActive(false);
+        containerFullScript.SetActive(true);
 
-        //_enableContainerConversation(true);
+        textFullScript.text = _fullScriptHandler(explanation.contents);
+    }
 
-        //containerChoice.SetActive(false);
-        //containerConversation.SetActive(false);
-        //containerFullScript.SetActive(true);
+    private String _fullScriptHandler(String s)
+    {
+        if(_scriptLength > 0)
+        {
+            if (_fullScript.Equals(""))
+                _fullScript = s;
+            else
+                _fullScript = _fullScript + "\n" + s;
+
+            _scriptLength--;
+        }
+        else
+        {
+            _fullScript = "";
+            _fullScript += s;
+            _scriptLength = 4;
+        }
+        
+        return _fullScript + "<<";
     }
 
     private void _Conversation(Conversation conversation)
@@ -149,53 +178,131 @@ public class EventManager : MonoBehaviour
         textCharacterInfo.text = conversation.characterName;
         textScript.text = conversation.contents;
         if (conversation.brightCharacter != SpriteLocation.None)
-            spritePeople[(int) conversation.brightCharacter].SetActive(true);
-        _setBright(conversation.brightCharacter);
+            _setBright(conversation.brightCharacter);
     }
 
     private void _LoadCharacter(LoadCharacter loadCharacter)
     {
         Debug.Log("LoadCharacter");
+        Sprite character;
+
+        if(loadCharacter.location != SpriteLocation.None)
+        {
+            character = Resources.Load<Sprite>(loadCharacter.filePath);
+            spritePeople[(int)loadCharacter.location].GetComponent<SpriteRenderer>().sprite = character;
+
+            spritePeople[(int)loadCharacter.location].SetActive(true);
+        }
+
+        ExecuteOneScript();
     }
 
     private void _UnloadCharacter(UnloadCharacter unloadCharacter)
     {
         Debug.Log("UnloadCharacter");
+
+        if (unloadCharacter.location != SpriteLocation.None)
+        {
+            spritePeople[(int)unloadCharacter.location].SetActive(false);
+        }
+
+        ExecuteOneScript();
     }
 
     private void _LoadBackground(LoadBackground loadBackground)
     {
         Debug.Log("LoadBackground");
+
+        Sprite background;
+
+        background = Resources.Load<Sprite>(loadBackground.filePath);
+        spriteBackground.GetComponent<SpriteRenderer>().sprite = background;
+
+        spriteBackground.SetActive(true);
+
+        ExecuteOneScript();
     }
 
     private void _PlayMusic(PlayMusic playMusic)
     {
         Debug.Log("PlayMusic");
+
+        AudioClip bgm;
+        bgm = Resources.Load<AudioClip>(playMusic.filePath);
+        audioBGM.clip = bgm;
+
+        audioBGM.Play();
+
+        ExecuteOneScript();
     }
 
     private void _StopMusic(StopMusic stopMusic)
     {
         Debug.Log("StopMusic");
+
+        audioBGM.Stop();
+
+        ExecuteOneScript();
     }
 
     private void _LoadCG(LoadCG loadCG)
     {
         Debug.Log("LoadCG");
+
+        Sprite cg;
+        cg = Resources.Load<Sprite>(loadCG.filePath);
+        spriteCG.GetComponent<SpriteRenderer>().sprite = cg;        
+
+        StartCoroutine("showCG");
+    }
+
+    IEnumerator showCG()
+    {
+        spriteCG.SetActive(true);
+        UI.SetActive(false);
+
+        yield return new WaitForSeconds(1f);
+
+        //Debug.Log("hi");
+        spriteCG.GetComponent<SpriteRenderer>().sortingLayerName = "background"; 
+        UI.SetActive(true);
+
+        ExecuteOneScript();
     }
 
     private void _UnloadCG(UnloadCG unloadCG)
     {
         Debug.Log("UnloadCG");
+
+        spriteCG.SetActive(false);
+
+        ExecuteOneScript();
     }
 
     private void _VFXCamerashake(VFXCameraShake vfxCameraShake)
     {
         Debug.Log("VFXCamerashake");
+
+        StartCoroutine("cameraShake");
+    }
+
+    IEnumerator cameraShake()
+    {
+        animatorCamera.Play("shake");
+
+        float aniLength = animatorCamera.GetCurrentAnimatorStateInfo(0).length * 2;
+
+        yield return new WaitForSeconds(aniLength);
+
+        ExecuteOneScript();
     }
 
     private void _VFXLoadSprite(VFXLoadSprite vfxLoadSprite)
     {
         Debug.Log("VFXLoadSprite");
+
+        Sprite vfxSprite;
+        vfxSprite = Resources.Load<Sprite>(vfxLoadSprite.filePath);
     }
 
     private void _VFXUnloadSprite(VFXUnloadSprite vfxUnloadSprite)
@@ -225,6 +332,42 @@ public class EventManager : MonoBehaviour
         containerChoice.SetActive(true);
         containerConversation.SetActive(false);
         containerFullScript.SetActive(false);
+
+        //choice fuction
+        _choiceHandler(choice.choiceList);
+    }
+
+    private void _choiceHandler(List<ChoiceEffect> l)
+    {
+        int listNum;
+        listNum = l.Count;
+        Debug.Log(listNum);
+
+        int yPos = 0;
+
+        for (int i = 0; i < listNum; i++)
+        {
+            if(listNum % 2 == 0)        //if list length is even
+            {
+                //Debug.Log("in even case");
+                yPos = (-25) * (int)Math.Pow(-1, i + 1) * ((-2 * (i + 1)) + (int)Math.Pow(-1, i + 1) + 1);
+            }
+            else                        //if list length is odd
+            {
+                //Debug.Log("in odd case");
+                yPos = (-25) * (int)Math.Pow(-1, i + 1) * ((2 * (i + 1)) + (int)Math.Pow(-1, i + 1) - 1);
+                //Debug.Log(yPos);
+            }
+
+
+            GameObject choice = Instantiate(prefabChoiceButton,
+                                        new Vector3(0, 0, 0), Quaternion.identity,
+                                        containerChoice.GetComponent<Transform>());
+            choice.GetComponent<Transform>().localPosition = new Vector3(0, yPos, 0);
+            choice.GetComponentInChildren<Text>().text = l[i].choiceName;
+
+            //TODO: add onClick function
+        }
     }
 
     private void _VFXTransition(VFXTransition vfxTransition)
@@ -248,11 +391,11 @@ public class EventManager : MonoBehaviour
        
             if(i == bright)
             {
-                temp.color = new Color(255f, 255f, 255f, 255f);
+                temp.color = new Color(1f, 1f, 1f, 1f);
                 continue;
             }
 
-            temp.color = new Color(97f, 97f, 97f, 255f);
+            temp.color = new Color(0.2f, 0.2f, 0.2f, 1f);
         }
     }
 }

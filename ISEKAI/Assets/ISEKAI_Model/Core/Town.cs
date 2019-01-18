@@ -8,7 +8,7 @@ namespace ISEKAI_Model
         {
             remainFoodAmount = 50f;
             maxFoodConsumption = 100f;
-            totalFoodProduction = 50f;
+            totalFoodProduction = 10f;
             totalPleasantAmount = 100f;
             pleasantWeightFactor = 1f;
             suggestedFoodConsumption = 80f;
@@ -20,7 +20,7 @@ namespace ISEKAI_Model
         public float remainFoodAmount {get; set;}
         public float totalFoodProduction {get; set;}
         public float maxFoodConsumption {get; set;}
-        public float totalFoodConsumption => Math.Max(maxFoodConsumption, remainFoodAmount / 2);
+        public float totalFoodConsumption => Math.Min(maxFoodConsumption, remainFoodAmount / 2);
         public float totalPleasantAmount {get; set;}
         public float pleasantWeightFactor {get; set;}
         public float suggestedFoodConsumption {get; set;}
@@ -53,7 +53,7 @@ namespace ISEKAI_Model
         }
         public void ApplyPleasantChange() // apply current pleasant change to total pleasant amount.
         {
-            totalPleasantAmount = Math.Min(200, totalPleasantAmount + pleasantChange);
+            totalPleasantAmount = Math.Max(0, Math.Min(200, totalPleasantAmount + pleasantChange));
         }
     }
 }

@@ -24,7 +24,7 @@ namespace ISEKAI_Model
             else
                 chanceCheck = false;
             bool foodCheck;
-            if (game.town.totalPleasantAmount >= 100)
+            if (game.town.totalPleasantAmount >= 0)
                 foodCheck = true;
             else
                 foodCheck = false;

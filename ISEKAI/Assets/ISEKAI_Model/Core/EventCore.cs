@@ -29,7 +29,6 @@ namespace ISEKAI_Model
         public bool isNew => (_seasonMadeIn == game.turn.season) && (turnsLeft == givenMaxTurn);
         public bool isForcedEvent => forcedEventPriority > 0;
         public bool isActivatedAlready;
-        public List<(int, int)> choiceHistory = new List<(int, int)>(); // <item1>th choice, selected <item2>th branch. (0-based)
         public abstract int forcedEventPriority {get;} // 0 if the event is not forced event.
         public abstract string eventName {get;}
         public EventStatus status {get; set;}
@@ -78,15 +77,18 @@ namespace ISEKAI_Model
             return seasonCheck;
         }
 
-        public void CompleteEvent(Game game) // should be called when the event is completed.
-        {
-            game.remainAP -= cost;
-            status = EventStatus.Completed;
-        }
 
         public void ReduceTurnsLeft()
         {
             turnsLeft--;
+        }
+
+        public void Complete()
+        {
+            status = EventStatus.Completed;
+            game.remainAP -= cost;
+            if (game.remainAP <= 2 && game.turn.IsFormerSeason())
+                game.Proceed();
         }
     }
 }

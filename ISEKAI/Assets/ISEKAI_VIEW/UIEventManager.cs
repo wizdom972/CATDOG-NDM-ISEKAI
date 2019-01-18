@@ -46,4 +46,9 @@ public class UIEventManager : MonoBehaviour
     {
         eventManager.ExecuteOneScript();
     }
+
+    public void OnClickChoiceButton()
+    {
+        eventManager.ExecuteOneScript();
+    }
 }

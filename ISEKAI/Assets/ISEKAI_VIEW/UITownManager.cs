@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using ISEKAI_Model;
+using UnityEngine.SceneManagement;
 
 public class UITownManager : MonoBehaviour
 {
@@ -12,8 +13,9 @@ public class UITownManager : MonoBehaviour
         Outskirts, Town
     }
 
-    public static UITownManager instance;
+    public Transform test;
 
+    public static UITownManager instance;
 
     public Transform eventPrefab;
 
@@ -26,6 +28,9 @@ public class UITownManager : MonoBehaviour
     public Text textAP;
     public Text textLocation;
 
+    public Sprite townSprite;
+    public Sprite outskirtsSprite;
+
     private Button _moveBtnLocation;
     private Text _moveTxtlocation;
     private SpriteRenderer _background;
@@ -37,6 +42,8 @@ public class UITownManager : MonoBehaviour
     public Sprite[] numberSprites;
 
     public Transform town, outskirts;
+
+    public List<EventCore>.Enumerator forcedEventEnumerator;
 
     void Awake()
     {
@@ -57,16 +64,19 @@ public class UITownManager : MonoBehaviour
         _moveBtnLocation = moveBtnLocation.GetComponent<Button>();
         _moveTxtlocation = moveBtnLocation.GetComponentInChildren<Text>();
         _moveBtnLocation.onClick.AddListener(OnMoveBtnClick);
+        //forcedEventEnumerator = _game.forcedVisibleEventList.GetEnumerator();
+        //TryOccurForcedEvent();
         UpdatePanel();
     }
 
     //If button clicked, change location, and replace ui depend on location
     public void OnMoveBtnClick()
     {
+        TutorialManager.instance.ProceedTutorial();
         switch (_location)
         {
             case Location.Outskirts:
-               _background.sprite = Resources.Load<Sprite>("bg_town");
+                _background.sprite = townSprite;
                 _location = Location.Town;
                 outskirts.gameObject.SetActive(false);
                 town.gameObject.SetActive(true);
@@ -75,7 +85,7 @@ public class UITownManager : MonoBehaviour
                 break;
 
             case Location.Town:
-                _background.sprite = Resources.Load<Sprite>("bg_outskirts");
+                _background.sprite = outskirtsSprite;
                 _location = Location.Outskirts;
                 outskirts.gameObject.SetActive(true);
                 town.gameObject.SetActive(false);
@@ -92,6 +102,8 @@ public class UITownManager : MonoBehaviour
     {
         Game _game = GameManager.instance.game;
         _game.Proceed();
+        //forcedEventEnumerator = _game.forcedVisibleEventList.GetEnumerator();
+        //TryOccurForcedEvent();
         UpdatePanel();
     }
 
@@ -166,6 +178,13 @@ public class UITownManager : MonoBehaviour
         }
     }
 
+    public void TryOccurForcedEvent()
+    {
+        if (!forcedEventEnumerator.MoveNext())
+            return;
+        _LoadEventScene(forcedEventEnumerator.Current);
+    }
+
     public EventCore GetEventCoreFromEventSd(Transform sd)
     {
         Game game = GameManager.instance.game;
@@ -181,5 +200,11 @@ public class UITownManager : MonoBehaviour
             return Location.Outskirts;
         else
             return Location.Town;
+    }
+
+    private void _LoadEventScene(EventCore eventCore)
+    {
+        SceneManager.LoadScene("EventScene", LoadSceneMode.Single);
+        GameManager.instance.currentEvent = eventCore;
     }
 }
