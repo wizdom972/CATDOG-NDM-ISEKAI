@@ -1083,6 +1083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 127d68b9de89d3c4b9f5b45accbf5cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialManager: {fileID: 1044825101}
   test: {fileID: 1250787778}
   eventPrefab: {fileID: 3920842106340043547, guid: be615c87dea007e4192b5cd9befe2098,
     type: 3}
@@ -1439,85 +1440,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 437631397}
   m_CullTransparentMesh: 0
---- !u!1 &458279124
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 458279126}
-  - component: {fileID: 458279125}
-  m_Layer: 0
-  m_Name: image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &458279125
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 458279124}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f4e63c0505524444e867dc2e8317b0ba, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 2.84, y: 5}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &458279126
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 458279124}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 183.91515, y: 108.604866, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &482812142
 GameObject:
   m_ObjectHideFlags: 0
@@ -2815,7 +2737,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1044825101
 MonoBehaviour:
@@ -2846,89 +2768,6 @@ MonoBehaviour:
   currentTutorialIdx: 0
   allTexts: []
   tutorialLengths: 
-  plainText:
-  - "\uC548\uB155\uD558\uC9C0\uBE44 \uB3D9\uBB34!"
-  - "\uBCF8\uACA9\uC801\uC73C\uB85C \uC774 \uBCF8\uC778\uC744 \uC81C\uB300\uB85C \uC18C\uAC1C\uD558\uACE0
-    \uC2F6\uC218\uB2E4!"
-  - "\uB0B4 \uC774\uB984\uC740 \"\uB9AC\uC120\uB140\"\uB77C\uC6B0!"
-  - "\uBCF8\uC778\uC758 \uC544\uBC14\uC774\uB294 \uC774 \uBD80\uB77D\uC758 \uC791\uC5C5\uBC18\uC7A5\uC774\uC2DC\uC790
-    \uBCF8\uBA85\uC740 \"\uB9AC\uBAA8\uCF58\" \uB3D9\uC9C0\uC77C\uC218\uB2E4!"
-  - "\uC7DD \uB3D9\uBB34\uC5D0\uAC8C \uC6B0\uB9AC \uBD80\uB77D\uC758 \uAD6C\uC870\uB97C
-    \uC124\uBA85\uD574\uB4DC\uB9AC\uACA0\uC62C\uC18C\uC774\uB2E4!"
-  resourceBarText:
-  - "\uB9E8 \uBA3C\uC800 \uC704\uB97C \uBCF4\uBA74 \uB3D9\uBB34\uB294 \uD604\uC7AC
-    \uB0A0\uC9DC\uC640 \uACC4\uC808, \uBD80\uB77D\uC5D0 \uB0A8\uC544\uC788\uB294 \uC74C\uC2DD\uB7C9,
-    \uADF8\uB9AC\uACE0 \uBD80\uB77D \uC8FC\uBBFC\uB4E4\uC758 \uCF8C\uC801\uB3C4\uB97C
-    \uC54C\uC218 \uC788\uC18C\uC774\uB2E4!"
-  nextTurnText:
-  - "\uD604\uC7AC\uC758 \uB0A0\uC9DC\uC640 \uACC4\uC808\uC740 \uB9E4 \uD134\uB9C8\uB2E4
-    \uBC14\uB014\uC218\uB2E4."
-  - "\uD55C \uD134\uC740 6\uAC1C\uC6D4\uC758 \uAE38\uC774\uB85C\uC368, \uC5EC\uB984-\uAC00\uC744
-    \uD134\uACFC \uACA8\uC6B8-\uBD04 \uD134\uC73C\uB85C \uC885\uB958\uAC00 \uB098\uB260\uC218\uB2E4."
-  - "\uACC4\uC808\uC774 \uBC14\uAFE8\uB2E4\uACE0 \uC0C8\uB85C\uC6B4 \uD134\uC774 \uB41C\uAC74
-    \uC544\uB2C8\uB2C8 \uC8FC\uC758\uD558\uAE30 \uBC14\uB784\uC2B5\uC138!"
-  foodAndPleasantText:
-  - "\uD604\uC7AC\uC758 \uB0A0\uC9DC\uC640 \uACC4\uC808\uC740 \uB9E4 \uD134\uB9C8\uB2E4
-    \uBC14\uB014\uC218\uB2E4."
-  - "\uD55C \uD134\uC740 6\uAC1C\uC6D4\uC758 \uAE38\uC774\uB85C\uC368, \uC5EC\uB984-\uAC00\uC744
-    \uD134\uACFC \uACA8\uC6B8-\uBD04 \uD134\uC73C\uB85C \uC885\uB958\uAC00 \uB098\uB260\uC218\uB2E4."
-  - "\uACC4\uC808\uC774 \uBC14\uAFE8\uB2E4\uACE0 \uC0C8\uB85C\uC6B4 \uD134\uC774 \uB41C\uAC74
-    \uC544\uB2C8\uB2C8 \uC8FC\uC758\uD558\uAE30 \uBC14\uB784\uC2B5\uC138!"
-  outskirtsText:
-  - "\uB2E4\uC74C\uC73C\uB85C \uB3D9\uBB34\uB294 \uC9C0\uAE08 \u300E\uB9C8\uC744 \uBD80\uB77D\u300F\uC744
-    \uBCF4\uACE0 \uACC4\uC2DC\uC62C\uC2B5\uBA54\uB2E4."
-  - "\uC5EC\uAE30\uB294 \uB9C8\uC744\uC5D0 \uC0AC\uB294 \uC5EC\uB7EC \uB3D9\uC9C0\uB4E4\uC758
-    \uC9D1\uB4E4\uACFC \uAC19\uC740 \uC7A5\uC18C\uB4E4\uC774 \uC788\uC2B5\uBA54\uB2E4."
-  - "\uB3D9\uBB34\uAC00 \uB354 \uB9C8\uC744\uC5D0 \uC624\uB7AC\uB3D9\uC548 \uC788\uC74C\uC5D0
-    \uB530\uB77C \uB354 \uB9CE\uC740 \uC7A5\uC18C\uB4E4\uC774 \uB4F1\uC7A5\uD560 \uC218\uB3C4
-    \uC788\uC18C\uB2E4."
-  - "\uC774\uB7F0 \uC7A5\uC18C\uB4E4\uC5D0\uC11C \uBB34\uC2A8 \uC77C\uC774 \uC788\uC744
-    \uB54C\uB9C8\uB2E4 \uC0AC\uB78C\uC774 \uAE30\uB2E4\uB9AC\uACE0 \uC788\uC744\uD14C\uB2C8
-    \uADF8\uB4E4\uACFC \uB9CC\uB098\uC11C \uB300\uD654\uB97C \uD574\uBCF4\uB294\uAC8C
-    \uC88B\uC744 \uAC83\uC774\uC218\uB2E4."
-  apText:
-  - "\uB2E8, \uB9E4 \uD134\uB9C8\uB2E4 \uB300\uD654\uB97C \uD560\uC218 \uC788\uB294
-    \uD69F\uC218\uAC00 \uC81C\uD55C\uB418\uC5B4\uC788\uC218\uB2E4."
-  - "\uC5EC\uAE30 \uC624\uB978\uCABD \uC544\uB798\uC5D0\uB294 \uC7DD \uB3D9\uBB34\uAC00
-    \uC774\uBC88 \uD134\uC5D0 \uD560\uC218 \uC788\uB294 \uD589\uB3D9\uC744 \uC81C\uD55C\uD558\uB294
-    \uD589\uB3D9\uB825, \uC989 Action Point(AP)\uAC00 \uD45C\uC2DC\uB418\uC788\uB294\uB370,
-    \uB300\uD654\uB97C \uD558\uAE30 \uC804\uC5D0 \uADF8 \uB300\uD654\uAC00 \uD589\uB3D9\uB825\uC744
-    \uC5BC\uB9C8\uB098 \uC18C\uBAA8\uD558\uB294\uC9C0 \uC798 \uC0B4\uD3B4\uBCF4\uACE0
-    \uC2E0\uC911\uD788 \uACB0\uC815\uD574\uC57C \uD560\uAC83\uC774\uC218\uB2E4!"
-  - "\uC774 \uB9D0\uACE0\uB3C4 \uC5B4\uB5A4 \uB300\uD654\uB4E4\uC740 \uD2B9\uC815
-    \uC2DC\uAE30\uC5D0\uB9CC \uD560\uC218 \uC788\uC73C\uB2C8 \uC8FC\uC758\uD558\uAE30
-    \uBC14\uB77C\uC6B0!"
-  turnAndAPText:
-  - "\uB610\uD55C, \uB0A8\uC544\uC788\uB294 AP\uAC00 2 \uC774\uD558\uB85C \uB5A8\uC5B4\uC9C8
-    \uACBD\uC6B0 \uD55C \uD134 \uB0B4\uC758 \uACC4\uC808\uC774 \uBC14\uB00C\uB2C8
-    \uADF8\uAC83 \uB610\uD55C \uC8FC\uC758\uD574\uC57C \uD560\uAC83\uC774\uC624!"
-  eventText:
-  - "\uB9CC\uC57D \uC5B4\uB514\uC11C \uB204\uAD6C\uB791 \uB300\uD654\uB97C \uD560\uC218
-    \uC788\uAC8C \uB41C\uB2E4\uBA74, \uC774\uB807\uAC8C \uC0DD\uAE34 \uC54C\uB9BC\uC774
-    \uB730\uAC83\uC77C\uC218\uB2E4!"
-  - "\uC774\uAC83\uC744 \uBCF4\uBA74 \uD574\uB2F9 \uB300\uD654\uB97C \uD558\uB294\uB370
-    \uC18C\uBAA8\uD558\uB294 AP\uB294 \uBB3C\uB860, \uADF8 \uB300\uD654\uAC00 \uC0AC\uB77C\uC9C0\uAE30
-    \uAE4C\uC9C0 \uB0A8\uC740 \uD134\uC774\uB098 \uB098\uD0C0\uB098\uB294 \uD2B9\uC815
-    \uACC4\uC808 \uAC19\uC740\uAC83 \uB610\uD55C \uC54C\uC218 \uC788\uC218\uB2E4!"
-  townButtonText:
-  - "\uADF8\uB7FC \uC774\uC81C \uB9C8\uC744 \uC548\uCABD\uC744 \uD55C\uBC88 \uC0B4\uD3B4
-    \uBD05\uC18C\uB2E4!"
-  townText:
-  - "\uBB34\uC0AC\uD788 \uBD80\uB77D\uC548\uC73C\uB85C \uB3CC\uC544\uC654\uAE30\uB798
-    \uB3D9\uBB34!"
-  - "\uB098\uB294 \uB610 \uAE38\uC744 \uC783\uC744 \uAE4C\uBD10 \uAC71\uC815\uD588\uC2B4\uBA54."
-  - "\uBCF4\uB2E4\uC2DC\uD53C \uB9C8\uC744 \uC678\uACFD\uACFC \uB611\uAC19\uC774 \uB9C8\uC744
-    \uC548\uCABD\uC5D0\uB3C4 \uC5EC\uB7EC \uC7A5\uC18C\uB4E4\uC774 \uC788\uC18C\uC774\uB2E4."
-  - "\uB9C8\uC744 \uC678\uACFD \uCC98\uB7FC \uC5EC\uAE30\uC11C\uB3C4 \uB9CE\uC740
-    \uC0AC\uB78C\uB4E4\uACFC \uB9CC\uB098 \uC598\uAE30 \uD574\uBCFC \uC218 \uC788\uC73C\uB2C8,
-    \uAF2D \uC0AC\uB78C\uB4E4\uC774 \uB098\uD0C0\uB0A0\uB54C\uB9C8\uB2E4 \uB9D0\uC744
-    \uAC78\uC5B4\uBCF4\uB294\uAC78 \uCD94\uCC9C\uD560\uC218\uB2E4!"
-  - "\uD760, \uC774\uCBE4 \uB42C\uC73C\uBA74 \uD1B5\uACC4\uC6D0 \uB3D9\uC9C0\uC640
-    \uC544\uBC14\uC774 \uB3D9\uC9C0\uAC00 \uC11C\uB958 \uC791\uC5C5\uC744 \uB2E4 \uB05D\uB0C8\uC744
-    \uAC83\uC18C\uC774\uB2E4."
-  - "\uB9C8\uC744 \uC678\uACFD\uC758 \uB17C\uBC2D \uC5D0\uC11C \uAE30\uB2E4\uB9B4\uD14C\uB2C8
-    \uB9C8\uC744\uACFC \uB9C8\uC744\uC758 \uC74C\uC2DD \uC0C1\uD669\uC744 \uB354 \uC0B4\uD3B4\uBCF4\uACE0
-    \uC2F6\uB2E4\uBA74 \uB9C8\uC74C \uAECF \uBCF4\uB77C\uC6B0 \uC7DD \uB3D9\uBB34!"
 --- !u!1 &1052582073
 GameObject:
   m_ObjectHideFlags: 0
@@ -5438,6 +5277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f5ef3df2d2457747b2435b5921a34e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTutorialPlayed: 0
 --- !u!4 &1934312140
 Transform:
   m_ObjectHideFlags: 0

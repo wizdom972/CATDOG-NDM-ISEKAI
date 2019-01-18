@@ -13,9 +13,9 @@ public class UITownManager : MonoBehaviour
         Outskirts, Town
     }
 
-    public Transform test;
+    public TutorialManager tutorialManager;
 
-    public static UITownManager instance;
+    public Transform test;
 
     public Transform eventPrefab;
 
@@ -42,19 +42,7 @@ public class UITownManager : MonoBehaviour
     public Sprite[] numberSprites;
 
     public Transform town, outskirts;
-
-    public List<EventCore>.Enumerator forcedEventEnumerator;
-
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(gameObject);
-    }
+    
 
     // Start is called before the first frame update
     void Start()
@@ -64,15 +52,18 @@ public class UITownManager : MonoBehaviour
         _moveBtnLocation = moveBtnLocation.GetComponent<Button>();
         _moveTxtlocation = moveBtnLocation.GetComponentInChildren<Text>();
         _moveBtnLocation.onClick.AddListener(OnMoveBtnClick);
-        //forcedEventEnumerator = _game.forcedVisibleEventList.GetEnumerator();
-        //TryOccurForcedEvent();
         UpdatePanel();
+        if (!GameManager.instance.isTutorialPlayed)
+        {
+            tutorialManager.InitTexts();
+            tutorialManager.ProceedTutorial();
+        }
     }
 
     //If button clicked, change location, and replace ui depend on location
     public void OnMoveBtnClick()
     {
-        TutorialManager.instance.ProceedTutorial();
+        tutorialManager.ProceedTutorial();
         switch (_location)
         {
             case Location.Outskirts:
@@ -102,7 +93,6 @@ public class UITownManager : MonoBehaviour
     {
         Game _game = GameManager.instance.game;
         _game.Proceed();
-        //forcedEventEnumerator = _game.forcedVisibleEventList.GetEnumerator();
         //TryOccurForcedEvent();
         UpdatePanel();
     }
@@ -151,7 +141,7 @@ public class UITownManager : MonoBehaviour
         List<Transform> toDestroyList = new List<Transform>();
         foreach(Transform sd in eventSDList)
         {
-            EventCore e = GetEventCoreFromEventSd(sd);
+            EventCore e = GameManager.instance.GetEventCoreFromEventSd(sd);
             if (e.turnsLeft <= 0)
             {
                 toDestroyList.Add(sd);
@@ -178,18 +168,7 @@ public class UITownManager : MonoBehaviour
         }
     }
 
-    public void TryOccurForcedEvent()
-    {
-        if (!forcedEventEnumerator.MoveNext())
-            return;
-        _LoadEventScene(forcedEventEnumerator.Current);
-    }
-
-    public EventCore GetEventCoreFromEventSd(Transform sd)
-    {
-        Game game = GameManager.instance.game;
-        return game.allEventsList.Find(e => e.eventName.Equals(sd.name));
-    }
+    
 
     private Location _SmallLocationToBigLocation(EventLocation l)
     {
@@ -201,10 +180,10 @@ public class UITownManager : MonoBehaviour
         else
             return Location.Town;
     }
-
-    private void _LoadEventScene(EventCore eventCore)
+    /*
+    public void LoadEventScene(EventCore eventCore)
     {
         SceneManager.LoadScene("EventScene", LoadSceneMode.Single);
         GameManager.instance.currentEvent = eventCore;
-    }
+    }*/
 }

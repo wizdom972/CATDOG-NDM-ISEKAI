@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEditor;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour
 {
+
 
     public GameObject UI;
     public GameObject containerFullScript;
@@ -56,8 +58,8 @@ public class EventManager : MonoBehaviour
         if (!scriptEnumerator.MoveNext())
         {
             eventCore.Complete();
-            //SceneManager.LoadScene("TownScene", LoadSceneMode.Single);
-            //UITownManager.instance.TryOccurForcedEvent();
+            SceneManager.LoadScene("TownScene", LoadSceneMode.Single);
+            GameManager.instance.TryOccurForcedEvent();
         }
         else
         {
@@ -142,7 +144,6 @@ public class EventManager : MonoBehaviour
         containerChoice.SetActive(false);
         containerConversation.SetActive(false);
         containerFullScript.SetActive(true);
-
         textFullScript.text = _fullScriptHandler(explanation.contents);
     }
 

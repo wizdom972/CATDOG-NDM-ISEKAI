@@ -8,25 +8,25 @@ namespace ISEKAI_Model
     public static class Parser
     {
         private static string[] _commandPattern =
-             {@"^(\d?)\-?\-?(\d?) ?# ""(.*)""$", //0
-             @"^(\d?)\-?\-?(\d?) ?## ""(.*)"" ""(.*)"" ?\-?(.*)?$", //1
-             @"^(\d?)\-?\-?(\d?) ?Load Character ""(.*)"" \-(.*)$", //2
-             @"^(\d?)\-?\-?(\d?) ?Unload Character \-(.*)", //3
-             @"^(\d?)\-?\-?(\d?) ?Load Background ""(.*)""$", //4
-             @"^(\d?)\-?\-?(\d?) ?Play Music ""(.*)"" ?\-?(.*)?$", //5
-             @"^(\d?)\-?\-?(\d?) ?Stop Music$", //6
-             @"^(\d?)\-?\-?(\d?) ?Load CG ""(.*)""$", //7
-             @"^(\d?)\-?\-?(\d?) ?Unload CG$", //8
-             @"^(\d?)\-?\-?(\d?) ?VFX Camerashake$", //9
-             @"^(\d?)\-?\-?(\d?) ?VFX Load Sprite ""(.*)"" \-(.*) \-(.*)$", //10
-             @"^(\d?)\-?\-?(\d?) ?VFX Unload Sprite$", //11
-             @"^(\d?)\-?\-?(\d?) ?VFX Sound ""(.*)""$", //12
-             @"^(\d?)\-?\-?(\d?) ?Load Minigame ""(.*)""$", //13
-             @"^(\d?)\-?\-?(\d?) ?Load Video ""(.*)""$", //14
-             @"^(\d?)\-?\-?(\d?) ?Choice$", //15
+             {@"(\d?)\-?\-?(\d?) ?# ""(.*)""", //0
+             @"(\d?)\-?\-?(\d?) ?## ""(.*)"" ""(.*)"" ?\-?(.*)?", //1
+             @"(\d?)\-?\-?(\d?) ?Load Character ""(.*)"" \-(.*)", //2
+             @"(\d?)\-?\-?(\d?) ?Unload Character \-(.*)", //3
+             @"(\d?)\-?\-?(\d?) ?Load Background ""(.*)""", //4
+             @"(\d?)\-?\-?(\d?) ?Play Music ""(.*)"" ?\-?(.*)?", //5
+             @"(\d?)\-?\-?(\d?) ?Stop Music", //6
+             @"(\d?)\-?\-?(\d?) ?Load CG ""(.*)""", //7
+             @"(\d?)\-?\-?(\d?) ?Unload CG", //8
+             @"(\d?)\-?\-?(\d?) ?VFX Camerashake", //9
+             @"(\d?)\-?\-?(\d?) ?VFX Load Sprite ""(.*)"" \-(.*) \-(.*)", //10
+             @"(\d?)\-?\-?(\d?) ?VFX Unload Sprite", //11
+             @"(\d?)\-?\-?(\d?) ?VFX Sound ""(.*)""", //12
+             @"(\d?)\-?\-?(\d?) ?Load Minigame ""(.*)""", //13
+             @"(\d?)\-?\-?(\d?) ?Load Video ""(.*)""", //14
+             @"(\d?)\-?\-?(\d?) ?Choice", //15
              @"-- ""(.*)""( \-(\w+) \(([\+\-\*])(\d+)\))*", // 16
-             @"^(\d?)\-?\-?(\d?) ?VFXTransition$", //17
-             @"^(\d?)\-?\-?(\d?) ?VFXPause \-(.*)$"}; //18
+             @"(\d?)\-?\-?(\d?) ?VFXTransition", //17
+             @"(\d?)\-?\-?(\d?) ?VFXPause \-(.*)"}; //18
         private static SpriteLocation _ParseSpriteLocation(string location)
         {
             if(location.Equals("left"))
