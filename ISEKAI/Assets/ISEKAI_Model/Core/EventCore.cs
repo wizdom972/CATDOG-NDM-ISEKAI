@@ -32,8 +32,8 @@ namespace ISEKAI_Model
         public abstract int forcedEventPriority {get;} // 0 if the event is not forced event.
         public abstract string eventName {get;}
         public EventStatus status {get; set;}
-        public abstract int givenMaxTurn {get;}
-        public abstract int turnsLeft {get; protected set;} // how many turns left for this event to be gone.
+        public abstract int givenMaxTurn {get;} // -1 if the event is permanent.
+        public int turnsLeft {get; protected set;} // how many turns left for this event to be gone.
         public abstract int cost {get;} // how many AP this event takes.
         public abstract Season availableSeason {get;} // when this event is available.
         public abstract EventLocation location { get; }
@@ -56,6 +56,7 @@ namespace ISEKAI_Model
         {
             status = EventStatus.Ready;
             this.game = game;
+            turnsLeft = 0;
         }
 
         

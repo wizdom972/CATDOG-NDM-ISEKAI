@@ -8,7 +8,6 @@ namespace ISEKAI_Model
     {
         public override string eventName {get {return "예시 이벤트";}}
         public override int givenMaxTurn {get {return 4;}}
-        public override int turnsLeft {get; protected set;}
         public override int cost {get {return 2;}}
         public override Season availableSeason {get {return Season.Summer;}}
         public override int forcedEventPriority {get {return 0;}}
@@ -32,7 +31,6 @@ namespace ISEKAI_Model
         }
         public ExampleEvent1(Game game) : base(game)
         {
-            turnsLeft = 0;
         }
         
     }

@@ -9,6 +9,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject clickDetector;
     public GameObject entireTutorial;
     public GameObject[] tutorials;
+    public GameObject eventSDs;
     public bool isInTutorial = true;
     public int currentTutorialIdx = 0;
     public List<string> allTexts = new List<string>();
@@ -26,15 +27,16 @@ public class TutorialManager : MonoBehaviour
 
     public void ProceedTutorial()
     {
+        eventSDs.SetActive(false);
         if (currentTutorialIdx == allTexts.Count)
         {
+            eventSDs.SetActive(true);
             GameManager.instance.isTutorialPlayed = true;
             entireTutorial.SetActive(false);
             return;
         }
         SetActiveTutorial(GetTutNum(currentTutorialIdx));
         tutorials[GetTutNum(currentTutorialIdx)].transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text = allTexts[currentTutorialIdx];
-        Debug.Log(allTexts[currentTutorialIdx] + " " + currentTutorialIdx + " " + GetTutNum(currentTutorialIdx));
         currentTutorialIdx++;
     }
 

@@ -139,6 +139,10 @@ namespace ISEKAI_Model
         {
             foreach (EventCore e in allEventsList)
             {
+                if (e.givenMaxTurn < 0)
+                    continue;
+                if (e.status == EventStatus.Completed)
+                    continue;
                 if(e.isActivatedAlready)
                     e.ReduceTurnsLeft();
 
@@ -161,6 +165,8 @@ namespace ISEKAI_Model
         {
             foreach (EventCore e in allEventsList)
             {
+                if (e.status == EventStatus.Completed)
+                    continue;
                 if (e.isForcedEvent && e.IsFirstVisible())
                 {
                     e.status = EventStatus.ForcedVisible;
@@ -187,6 +193,8 @@ namespace ISEKAI_Model
             allEventsList.Add(new ExampleEvent1(this));
             allEventsList.Add(new Prolog_1(this));
             allEventsList.Add(new Prolog_2(this));
+            allEventsList.Add(new Farming_1(this));
+            allEventsList.Add(new Farming_2(this));
         }
 
         private void _SortForcedEventList(List<EventCore> lst)

@@ -1085,8 +1085,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialManager: {fileID: 1044825101}
   test: {fileID: 1250787778}
-  eventPrefab: {fileID: 3920842106340043547, guid: be615c87dea007e4192b5cd9befe2098,
-    type: 3}
   moveBtnLocation: {fileID: 1346498941}
   background: {fileID: 1226834386}
   textPleasant: {fileID: 664483366}
@@ -1096,21 +1094,7 @@ MonoBehaviour:
   textLocation: {fileID: 375941633}
   townSprite: {fileID: 21300000, guid: 83b697996c055a84a8c5e82746eff5ff, type: 3}
   outskirtsSprite: {fileID: 21300000, guid: 8e1c07192964cba47bcb36e41a23ff53, type: 3}
-  turnsLeftSprites:
-  - {fileID: 21300000, guid: aaf9351c0f512de488c121fcc7d3763b, type: 3}
-  - {fileID: 21300000, guid: d34b9589c543d6c448562360b6b948d0, type: 3}
-  - {fileID: 21300000, guid: ff9011d21b8d80e40885121e93fe0ed2, type: 3}
-  - {fileID: 21300000, guid: 751abaa361ba69c4582d4e02eeaf73b8, type: 3}
-  seasonSprites:
-  - {fileID: 21300000, guid: d73b5e078ae9eca499416f87dc02f18d, type: 3}
-  - {fileID: 21300000, guid: ae14224f1c3b2d14e981972d812a728d, type: 3}
-  - {fileID: 21300000, guid: 58a37176638876e4d96ed2034316f9b8, type: 3}
-  - {fileID: 21300000, guid: e92f27a6f1c9fe64cbd21afd3c532d09, type: 3}
-  numberSprites:
-  - {fileID: 21300000, guid: 9f5ce47489853df47b94657bda1b7cee, type: 3}
-  - {fileID: 21300000, guid: ed4b39fc94c334d4988c82964a699f47, type: 3}
-  - {fileID: 21300000, guid: 475a467753b84594eb0cc414056f9227, type: 3}
-  - {fileID: 21300000, guid: 8802e46c0e17e2449b7f9f9433bd451a, type: 3}
+  nextTurn: {fileID: 1567870480}
   town: {fileID: 277250603}
   outskirts: {fileID: 1303797059}
   eventSDList: []
@@ -2764,6 +2748,7 @@ MonoBehaviour:
   - {fileID: 801529208}
   - {fileID: 1250787777}
   - {fileID: 199451095}
+  eventSDs: {fileID: 1773535927}
   isInTutorial: 1
   currentTutorialIdx: 0
   allTexts: []
@@ -5277,7 +5262,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f5ef3df2d2457747b2435b5921a34e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventPrefab: {fileID: 3920842106340043547, guid: be615c87dea007e4192b5cd9befe2098,
+    type: 3}
+  turnsLeftSprites:
+  - {fileID: 21300000, guid: aaf9351c0f512de488c121fcc7d3763b, type: 3}
+  - {fileID: 21300000, guid: d34b9589c543d6c448562360b6b948d0, type: 3}
+  - {fileID: 21300000, guid: ff9011d21b8d80e40885121e93fe0ed2, type: 3}
+  - {fileID: 21300000, guid: 751abaa361ba69c4582d4e02eeaf73b8, type: 3}
+  seasonSprites:
+  - {fileID: 21300000, guid: d73b5e078ae9eca499416f87dc02f18d, type: 3}
+  - {fileID: 21300000, guid: ae14224f1c3b2d14e981972d812a728d, type: 3}
+  - {fileID: 21300000, guid: 58a37176638876e4d96ed2034316f9b8, type: 3}
+  - {fileID: 21300000, guid: e92f27a6f1c9fe64cbd21afd3c532d09, type: 3}
+  numberSprites:
+  - {fileID: 21300000, guid: 9f5ce47489853df47b94657bda1b7cee, type: 3}
+  - {fileID: 21300000, guid: ed4b39fc94c334d4988c82964a699f47, type: 3}
+  - {fileID: 21300000, guid: 475a467753b84594eb0cc414056f9227, type: 3}
+  - {fileID: 21300000, guid: 8802e46c0e17e2449b7f9f9433bd451a, type: 3}
+  - {fileID: 21300000, guid: a740aaedae81c80419fa5ea8826c4d03, type: 3}
+  town: {fileID: 277250603}
+  outskirts: {fileID: 1303797059}
   isTutorialPlayed: 0
+  eventSDList: []
 --- !u!4 &1934312140
 Transform:
   m_ObjectHideFlags: 0
