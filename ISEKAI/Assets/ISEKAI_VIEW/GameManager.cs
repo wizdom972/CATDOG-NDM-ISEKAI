@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
             if (sd == null)
                 return;
             EventCore e = GetEventCoreFromEventSd(sd);
-            if (e.seasonCheck())
+            if (e.SeasonCheck())
                 sd.gameObject.SetActive(true);
             else
                 sd.gameObject.SetActive(false);

@@ -1,5 +1,5 @@
-Load Background "Background\fields.png"
-Load Character "Character\farmer\a\normal.png" -center
+Load Background "Background\fields"
+Load Character "Character\farmer\a\normal" -center
 ## "마을 사람" "아이고~ 우린 이제 망했다~" -center
 # "수확할 시기가 되자 내 우려는 현실이 됬다."
 # "마을의 밭에는 시들어 가거나 제대로 자라지 못한 작물들로 가득했다."
@@ -7,8 +7,8 @@ Load Character "Character\farmer\a\normal.png" -center
 # "물론 내가 담당한 밭의 일부는 풍성하게 자라 있었다."
 # "분명 이번 년 마을 사람들은 음식을 아끼며 배고프게 지내야 하겠지만, 적어도 풍요로운 내 밭의 모습은 그들에게 조금이 나마 안심이 되겠지, 라던지의 생각을 나는 했다."
 Unload Character -center
-Load Character "Character\Heroine\b\sad.png" -left
-Load Character "Character\Father\b\sad.png" -right
+Load Character "Character\Heroine\b\sad" -left
+Load Character "Character\Father\b\sad" -right
 ## "작업반장 동지" "흠......쟝 동무, 뭐라 할 말이 없구먼 그래." -right
 ## "작업반장 동지" "그저 의심해서 미안하고, 이해해 줬으면 부탁한다 할 수 밖에 없다네." -right
 ## "작업반장 동지" "우리가 자네 말을 들었더라면 당이랑 연락이 복귀될 때까지 조금을 버텨봤을수도 있겠지만......" -right
@@ -62,7 +62,7 @@ Choice
 -- "휴경지에 토끼풀을 심는다" -FoodP (+80) -Food (+10) -Morale (-20)
 -- "휴경지에 콩과 순무를 심는다" -FoodP (+30) -Food (+50) -Morale (-10)
 -#
---1 # "그래, 안전하게 가는 것이 좋다. 뭔가를 옮겨 심을 필요 없으니 마을 사람들도 덜 힘들 것이다."
---2 # "실험적이지만, 장기적으로나 단기적으로 지금 당장 지력을 회복시키지 않으면 위험했다."
---2 # "토끼풀을 심게 하자."
---3 # "단기적으로 지력을 깍아 먹겠지만, 적어도 콩과 순무가 수확되면 이를 어느 정도 상쇄해줄지도 모른다. 게다가 장기적으론 이 방법이 제일 확실했다."
+--0 # "그래, 안전하게 가는 것이 좋다. 뭔가를 옮겨 심을 필요 없으니 마을 사람들도 덜 힘들 것이다."
+--1 # "실험적이지만, 장기적으로나 단기적으로 지금 당장 지력을 회복시키지 않으면 위험했다."
+--1 # "토끼풀을 심게 하자."
+--2 # "단기적으로 지력을 깍아 먹겠지만, 적어도 콩과 순무가 수확되면 이를 어느 정도 상쇄해줄지도 모른다. 게다가 장기적으론 이 방법이 제일 확실했다."

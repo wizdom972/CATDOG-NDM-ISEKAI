@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class EventManager : MonoBehaviour
 {
@@ -18,19 +19,24 @@ public class EventManager : MonoBehaviour
 
     public GameObject spriteBackground;
     public GameObject spriteCG;
+    public GameObject spriteVFX;
 
     public GameObject prefabChoiceButton;
 
     public GameObject cameraMainCamera;
-    public float shakeAmount = 0.7f;
 
     public AudioSource audioBGM;
+    public AudioSource audioVFX;
+
+    public VideoPlayer videoVFX;
 
     public Animator animatorCamera;
 
     public Text textCharacterInfo;
     public Text textScript;
     public Text textFullScript;
+
+    public bool isNextButtonActive;
 
     private String _fullScript = "";
     private int _scriptLength = 4;
@@ -39,6 +45,18 @@ public class EventManager : MonoBehaviour
     {
         SetUpEventManager();
         ExecuteOneScript();
+    }
+
+    void Update()
+    {
+        if (videoVFX.isPlaying && Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("stop");
+            StopCoroutine("loadVideo");
+            videoVFX.Stop();
+            UI.SetActive(true);
+            ExecuteOneScript();
+        }
     }
 
     public void SetUpEventManager() // when playing new event, this instance should be made.
@@ -72,9 +90,88 @@ public class EventManager : MonoBehaviour
 
     private void _ExecuteCommand(Command c)
     {
+        int choiceDependencyNum;
+        choiceDependencyNum = c.choiceDependency.Item1;
+
+        int choiceBranchDependencyNum;
+        choiceBranchDependencyNum = c.choiceDependency.Item2;
+
+
+        if(choiceDependencyNum == -1)
+        {
+            if(choiceBranchDependencyNum == -1)         //(-1, -1)
+            {
+                //do nothing
+            }
+            else        // choice branch num is 0-9     //(-1, n)
+            {
+                string currentEvent;
+                currentEvent = GameManager.instance.currentEvent.eventName;
+
+                List<(int, int)> choiceHistory = new List<(int, int)>();
+                GameManager.instance.game.choiceHistories.TryGetValue(currentEvent, out choiceHistory);
+
+                int choiceBranch;
+                choiceBranch = choiceHistory[choiceHistory.Count - 1].Item2;
+
+                if (c.choiceDependency.Item2 != choiceBranch)
+                {
+                    ExecuteOneScript();
+                }
+            }
+        }
+        else        //choice num is 0-9                 //(n, m)
+        {
+            string currentEvent;
+            currentEvent = GameManager.instance.currentEvent.eventName;
+
+            List<(int, int)> choiceHistory = new List<(int, int)>();
+            GameManager.instance.game.choiceHistories.TryGetValue(currentEvent, out choiceHistory);
+
+            for (int i = 0; i < choiceHistory.Count; i++)
+            {
+                if(choiceHistory[i] != (choiceDependencyNum, choiceBranchDependencyNum))       //if dependency not match, return
+                {
+                    ExecuteOneScript();
+                }
+                else
+                {
+                    // do nothing
+                }
+            }
+        }
+        
+
+
+        //for full script
         if(c.commandNumber != 0) //if not explanation
         {
             _fullScript = "";
+            _scriptLength = 4;
+        }
+
+        if(c.choiceDependency == (-1, -1))
+        {
+            //아무것도 안-함
+        }
+        else if(c.choiceDependency.Item1 == -1)     //choice dependency is (-1, n)
+        {
+            string currentEvent;
+            currentEvent = GameManager.instance.currentEvent.eventName;
+
+            List<(int, int)> choiceHistory = GameManager.instance.game.choiceHistories[currentEvent];
+
+            int choiceBranch;
+            choiceBranch = choiceHistory[choiceHistory.Count - 1].Item2;
+
+            if (c.choiceDependency.Item2 != choiceBranch)
+            {
+                return;
+            }
+        }
+        else
+        {
+            
         }
 
         switch (c.commandNumber)
@@ -307,16 +404,41 @@ public class EventManager : MonoBehaviour
 
         Sprite vfxSprite;
         vfxSprite = Resources.Load<Sprite>(vfxLoadSprite.filePath);
+
+        spriteVFX.GetComponent<SpriteRenderer>().sprite = vfxSprite;
+        spriteVFX.transform.position = new Vector3(vfxLoadSprite.width, vfxLoadSprite.height, 0);
+
+        spriteVFX.SetActive(true);
     }
 
     private void _VFXUnloadSprite(VFXUnloadSprite vfxUnloadSprite)
     {
         Debug.Log("VFXUnloadSprite");
+
+        spriteVFX.SetActive(false);
     }
 
     private void _VFXSound(VFXSound vfxSound)
     {
         Debug.Log("VFXSoun");
+
+        StartCoroutine(soundVFXPlay(vfxSound));
+    }
+
+    IEnumerator soundVFXPlay(VFXSound vfxSound)
+    {
+        AudioClip vfx;
+        vfx = Resources.Load<AudioClip>(vfxSound.filePath);
+        audioVFX.clip = vfx;
+
+        float soundLength;
+        soundLength = (float)audioVFX.clip.length;
+
+        audioVFX.Play();
+
+        yield return new WaitForSeconds(soundLength);
+
+        ExecuteOneScript();
     }
 
     private void _LoadMinigame(LoadMinigame loadMinigame)
@@ -327,6 +449,28 @@ public class EventManager : MonoBehaviour
     private void _LoadVideo(LoadVideo loadVideo)
     {
         Debug.Log("LoadVideo");
+
+        VideoClip videoClip;
+        videoClip = Resources.Load<VideoClip>(loadVideo.filePath);
+
+        videoVFX.clip = videoClip;
+
+        StartCoroutine("loadVideo");
+    }
+
+    IEnumerator loadVideo()
+    {
+        float videoLength;
+        videoLength = (float) videoVFX.clip.length;
+
+        videoVFX.Play();
+        UI.SetActive(false);
+
+        yield return new WaitForSeconds(videoLength);
+
+        UI.SetActive(true);
+
+        ExecuteOneScript();
     }
 
     private void _Choice(Choice choice)
@@ -336,22 +480,33 @@ public class EventManager : MonoBehaviour
         containerChoice.SetActive(true);
         containerConversation.SetActive(false);
         containerFullScript.SetActive(false);
+        UI.transform.Find("ContainerSetting").gameObject.SetActive(false);
+        UI.transform.Find("ButtonNext").gameObject.SetActive(false);
 
         //choice fuction
-        _choiceHandler(choice.choiceList);
+        _choiceHandler(choice);
     }
 
-    private void _choiceHandler(List<ChoiceEffect> l)
+    private void _choiceHandler(Choice mChoice)
     {
+        List<ChoiceEffect> l = mChoice.choiceList;
+
         int listNum;
         listNum = l.Count;
-        Debug.Log(listNum);
+        //Debug.Log(listNum);
+
+        int choiceNum;
+        choiceNum = mChoice.choiceNumber;
+
+        Debug.Log("choiceNum:" + choiceNum);
 
         int yPos = 0;
 
         for (int i = 0; i < listNum; i++)
         {
-            if(listNum % 2 == 0)        //if list length is even
+            ChoiceEffect currentChoiceEffect = l[i];
+                       
+            if (listNum % 2 == 0)        //if list length is even
             {
                 //Debug.Log("in even case");
                 yPos = (-25) * (int)Math.Pow(-1, i + 1) * ((-2 * (i + 1)) + (int)Math.Pow(-1, i + 1) + 1);
@@ -368,10 +523,71 @@ public class EventManager : MonoBehaviour
                                         new Vector3(0, 0, 0), Quaternion.identity,
                                         containerChoice.GetComponent<Transform>());
             choice.GetComponent<Transform>().localPosition = new Vector3(0, yPos, 0);
-            choice.GetComponentInChildren<Text>().text = l[i].choiceName;
+            choice.GetComponentInChildren<Text>().text = currentChoiceEffect.choiceName;
 
             //TODO: add onClick function
+            choice.GetComponent<Button>().onClick.AddListener
+                (() => _OnClickChoiceButton(currentChoiceEffect, choiceNum));
         }
+    }
+
+    private void _OnClickChoiceButton
+        (ChoiceEffect mChoiceEffect, int mChoiceNum)
+    {
+        int mChoiceBranchNum;
+        mChoiceBranchNum = mChoiceEffect.choiceBranchNumber;
+
+        Debug.Log("choiceBranchNum: " + mChoiceBranchNum);
+
+        //Add chosen choice effect to choice history
+        Dictionary<string, List<(int, int)>> choiceHistory =
+            GameManager.instance.game.choiceHistories;
+
+        String currentEventName;
+        currentEventName = GameManager.instance.currentEvent.eventName;
+
+        List<(int, int)> choiceList = new List<(int, int)>();
+
+        bool isEventExist;
+        isEventExist = choiceHistory.ContainsKey(currentEventName);
+
+        Debug.Log("isEventExist: " + isEventExist);
+
+        bool isChoiceListExist;
+        isChoiceListExist = choiceHistory.TryGetValue(currentEventName, out choiceList);
+
+        Debug.Log("isChoiceListExist: " + isChoiceListExist);
+
+        //for if there exist one more events
+        if((!isEventExist) && (!isChoiceListExist))     //if key and value does not exist
+        {
+            Debug.Log("first case");
+
+            choiceList = new List<(int, int)>();
+
+            choiceList.Add((mChoiceNum, mChoiceBranchNum));
+            choiceHistory.Add(currentEventName, choiceList);
+        }
+        else if(isEventExist)                           //if key exist
+        {
+            Debug.Log("second case");
+
+            choiceHistory.TryGetValue(currentEventName, out choiceList);
+            choiceList.Add((mChoiceNum, mChoiceBranchNum));
+            choiceHistory[currentEventName] = choiceList;
+        }
+        
+        Debug.Log(choiceHistory[currentEventName]);
+
+        GameManager.instance.game.ApplyChoiceEffect(mChoiceEffect);
+        GameManager.instance.game.choiceHistories = choiceHistory;
+
+        Debug.Log((GameManager.instance.game.choiceHistories[currentEventName])[0]);
+
+        ExecuteOneScript();
+
+        UI.transform.Find("ContainerSetting").gameObject.SetActive(true);
+        UI.transform.Find("ButtonNext").gameObject.SetActive(true);
     }
 
     private void _VFXTransition(VFXTransition vfxTransition)

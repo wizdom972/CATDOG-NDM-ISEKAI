@@ -24,7 +24,7 @@ namespace ISEKAI_Model
              @"^(\d?)\-?\-?(\d?) ?Load Minigame ""(.*)""$", //13
              @"^(\d?)\-?\-?(\d?) ?Load Video ""(.*)""$", //14
              @"^(\d?)\-?\-?(\d?) ?Choice$", //15
-             @"-- ""(.*)""( \-(\w+) \(([\+\-\*])(\d+)\))*$", // 16
+             @"-- ""(.*)""( \-(\w+) \(([\+\-\*])(\d+)\))*", // 16
              @"^(\d?)\-?\-?(\d?) ?VFXTransition$", //17
              @"^(\d?)\-?\-?(\d?) ?VFXPause \-(.*)$"}; //18
         private static SpriteLocation _ParseSpriteLocation(string location)
@@ -60,13 +60,13 @@ namespace ISEKAI_Model
 
         private static ChoiceEffectType _ParseChoiceEffectType(string type)
         {
-            if (type.Equals("Add"))
+            if (type.Equals("+"))
                 return ChoiceEffectType.Add;
-            else if (type.Equals("Divide"))
+            else if (type.Equals("/"))
                 return ChoiceEffectType.Divide;
-            else if (type.Equals("Substract"))
+            else if (type.Equals("-"))
                 return ChoiceEffectType.Subtract;
-            else if (type.Equals("Multiply"))
+            else if (type.Equals("*"))
                 return ChoiceEffectType.Multiply;
             else
                 return ChoiceEffectType.None;
@@ -79,7 +79,7 @@ namespace ISEKAI_Model
                 int cNumber;
                 int cResult = int.Parse(choiceResult);
                 if (choiceNumber == "")
-                    cNumber = 0;
+                    cNumber = -1;
                 else
                     cNumber = int.Parse(choiceNumber);
                 command.choiceDependency = (cNumber,cResult);
@@ -213,9 +213,9 @@ namespace ISEKAI_Model
                         string choiceName = match.Groups[1].Value;
                         for (int _counter = 0; _counter < match.Groups[3].Captures.Count; _counter++)
                         {
-                            var choiceEffectKind = _ParseChoiceEffectKind(match.Groups[3].Captures[_counter].Value);
-                            var choiceEffectType = _ParseChoiceEffectType(match.Groups[4].Captures[_counter].Value);
-                            float choiceEffectAmount = float.Parse(match.Groups[5].Captures[_counter].Value);
+                            var choiceEffectKind = _ParseChoiceEffectKind(match.Groups[3].Captures[_counter].Value.Trim());
+                            var choiceEffectType = _ParseChoiceEffectType(match.Groups[4].Captures[_counter].Value.Trim());
+                            float choiceEffectAmount = float.Parse(match.Groups[5].Captures[_counter].Value.Trim());
                             effectList.Add((choiceEffectKind, choiceEffectType, choiceEffectAmount));
                         }
                         var choiceEffect = new ChoiceEffect(choiceBranchNumber, choiceName, effectList);

@@ -54,3 +54,6 @@ TagManager:
   - name: cg
     uniqueID: 1172560955
     locked: 0
+  - name: vfx
+    uniqueID: 2726395505
+    locked: 0

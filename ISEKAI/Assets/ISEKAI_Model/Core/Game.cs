@@ -19,7 +19,9 @@ namespace ISEKAI_Model
         public Turn turn {get; private set; } // indicating season, turn number, etc. see Turn class.
         public bool isIronActivated = false;
         public bool isHorseActivated = false;
-        public bool isRangedWeaponActivated = false;
+        public bool isArrowWeaponActivated = false;
+        public bool isBowActivated = false;
+        public bool isRifleActivated = false;
         public Dictionary<string, List<(int, int)>> choiceHistories = new Dictionary<string, List<(int, int)>>(); // <item1>th choice, selected <item2>th branch. (0-based)
         public List<EventCore> allEventsList = new List<EventCore>();
         public List<EventCore> forcedVisibleEventList { get
@@ -131,7 +133,7 @@ namespace ISEKAI_Model
                     result = toChange - f;
                     return result;
                 default:
-                    throw new InvalidOperationException("Error on ApplyChoiceEffect()");
+                    throw new InvalidOperationException(toChange.ToString() + " " + type.ToString() +  " " + f.ToString());
             }
         }
 
@@ -180,7 +182,7 @@ namespace ISEKAI_Model
                 }
                 else if (e.isActivatedAlready)
                 {
-                    if (e.seasonCheck() && e.turnsLeft > 0)
+                    if (e.SeasonCheck() && e.turnsLeft > 0)
                         e.status = EventStatus.Visible;
                     else
                         e.status = EventStatus.Ready;
@@ -190,9 +192,9 @@ namespace ISEKAI_Model
 
         private void _InitEvents() // should add EVERY events when new event plan comes.
         {
-            allEventsList.Add(new ExampleEvent1(this));
-            allEventsList.Add(new Prolog_1(this));
-            allEventsList.Add(new Prolog_2(this));
+            //allEventsList.Add(new ExampleEvent1(this));
+            //allEventsList.Add(new Prolog_1(this));
+            //allEventsList.Add(new Prolog_2(this));
             allEventsList.Add(new Farming_1(this));
             allEventsList.Add(new Farming_2(this));
         }

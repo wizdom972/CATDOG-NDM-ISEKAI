@@ -63,12 +63,12 @@ namespace ISEKAI_Model
         public bool IsFirstVisible() // if this returns true, event is set to Visible. (or ForcedVisible)
         {
             bool result;
-            result =  exclusiveCondition() && seasonCheck();
+            result =  exclusiveCondition() && SeasonCheck();
             if (result) _seasonMadeIn = game.turn.season;
             return result && !isRemovedLastTurn;
         }
         
-        public bool seasonCheck()
+        public bool SeasonCheck()
         {
             bool seasonCheck;
             if (availableSeason == Season.None)
