@@ -35,8 +35,10 @@ public class EndingGameManager : MonoBehaviour
         
         InitGameInfo();
         UpdatePanel();
-        StartCoroutine(StartMakingUnits());
+        TurnOnAndOffNextWaveButton();
     }
+
+    public bool isInWave = false;
 
     public Transform unitPrefab;
 
@@ -48,7 +50,7 @@ public class EndingGameManager : MonoBehaviour
     public List<Queue<string>> waves = new List<Queue<string>>();
 
     public Image[] productionQueueImage;
-
+    public Button nextWave;
     public int riflemanCount = 3;
     public int currentWaveNumber = 0;
 
@@ -59,6 +61,9 @@ public class EndingGameManager : MonoBehaviour
 
     public Button meleeButton, archerButton, riflemanButton, knightButton;
     public string meleeUnit, archerUnit, rifleUnit, knightUnit = "기사";
+
+    private EndingGameUnit _justMadeAllyUnit = null, _justMadeEnemyUnit = null;
+
     public void UpdatePanel()
     {
         food.text = "음식: " + game.town.remainFoodAmount;
@@ -130,14 +135,47 @@ public class EndingGameManager : MonoBehaviour
         waves.Add(wave1);
         waves.Add(wave2);
     }
+
     public void MakeAllyUnit(string unitName)
     {
         var unitObject = Instantiate(unitPrefab.GetChild(_GetUnitNumber(unitName)), new Vector3(AllyStartPosition, -4f, 0), Quaternion.identity);
         unitObject.GetComponent<EndingGameUnit>().endingGame = this;
+        unitObject.GetComponent<EndingGameUnit>().frontUnit = _justMadeAllyUnit;
         unitObject.gameObject.SetActive(true);
         unitObject.GetChild(0).GetComponent<TextMesh>().text = "HP: " + unitObject.GetComponent<EndingGameUnit>().hp;
         deployedAllyUnits.Enqueue(unitObject.gameObject);
+        _justMadeAllyUnit = unitObject.GetComponent<EndingGameUnit>();
     }
+
+    public void MakeEnemyUnit(string unitName)
+    {
+        var unitObject = Instantiate(unitPrefab.GetChild(_GetUnitNumber(unitName)), new Vector3(EnemyStartPosition, -4f, 0), Quaternion.identity);
+        unitObject.GetComponent<EndingGameUnit>().endingGame = this;
+        unitObject.GetComponent<EndingGameUnit>().frontUnit = _justMadeEnemyUnit;
+        unitObject.gameObject.SetActive(true);
+        unitObject.GetChild(0).GetComponent<TextMesh>().text = "HP: " + unitObject.GetComponent<EndingGameUnit>().hp;
+        deployedEnemyUnits.Enqueue(unitObject.gameObject);
+        _justMadeEnemyUnit = unitObject.GetComponent<EndingGameUnit>();
+    }
+
+    public void ProceedWave()
+    {
+        isInWave = true;
+        TurnOnAndOffNextWaveButton();
+        StartCoroutine(_StartWave());
+        StartCoroutine(StartMakingUnits());
+    }
+
+    private IEnumerator _StartWave()
+    {
+        foreach (string unitName in waves[currentWaveNumber])
+        {
+            MakeEnemyUnit(unitName);
+            yield return new WaitForSeconds(1f);
+        }
+        currentWaveNumber++;
+    }
+
     private bool _IsUnitProducible(string unitName)
     {
         switch (unitName)
@@ -353,5 +391,23 @@ public class EndingGameManager : MonoBehaviour
             yield return null;
         }
         progressBar.value = progressBar.minValue;
+    }
+
+    public void TurnOnAndOffNextWaveButton()
+    {
+        nextWave.interactable = !isInWave;
+        meleeButton.interactable = isInWave;
+        archerButton.interactable = isInWave;
+        riflemanButton.interactable = isInWave;
+        knightButton.interactable = isInWave;
+    }
+
+    public void CleanUpAllyUnits()
+    {
+        foreach (GameObject e in deployedAllyUnits)
+            Destroy(e);
+        while (deployedAllyUnits.Count == 0)
+            deployedEnemyUnits.Dequeue();
+        StopCoroutine(StartMakingUnits());
     }
 }

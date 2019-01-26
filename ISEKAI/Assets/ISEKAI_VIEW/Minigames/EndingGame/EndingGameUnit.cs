@@ -9,12 +9,23 @@ public abstract class EndingGameUnit : MonoBehaviour
     public abstract int unitNumber { get; }
     public abstract string unitName { get; }
     public int hp;
-    public abstract int attackPower { get; }
+    public int attackPower;
     public abstract int attackSpeed { get; }
     public abstract int attackRange { get; }
     public const int speed = 2;
     public bool isInBattleState = false;
     public abstract bool isAllyUnit { get; }
+
+    public virtual float unitSize => 2;
+
+    public bool isTooCloseFrontUnit { get
+        {
+            if (frontUnit == null)
+                return false;
+            else
+                return (Mathf.Abs(frontUnit.transform.position.x - transform.position.x) <= (unitSize + frontUnit.unitSize) / 2);
+        }
+    }
 
     public EndingGameUnit frontUnit;
     public EndingGameManager endingGame;
@@ -47,8 +58,15 @@ public abstract class EndingGameUnit : MonoBehaviour
             CancelInvoke("Attack");
         }
 
-        if (!isInBattleState)
-            transform.Translate(speed * Time.deltaTime, 0, 0);
+        int moveSpeed;
+
+        if (isAllyUnit)
+            moveSpeed = speed;
+        else
+            moveSpeed = -speed;
+
+        if (!isInBattleState && !isTooCloseFrontUnit)
+            transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
     }
 
     public void Attack()
@@ -60,48 +78,21 @@ public abstract class EndingGameUnit : MonoBehaviour
         attackTarget.transform.GetChild(0).GetComponent<TextMesh>().text = "HP: " + attackTarget.hp;
         if (attackTarget.hp <= 0)
         {
+            Destroy(attackTarget.gameObject);
             if (isAllyUnit)
+            {
                 endingGame.deployedEnemyUnits.Dequeue();
+                if (EndingGameManager.instance.isInWave && endingGame.deployedEnemyUnits.Count == 0)
+                {
+                    EndingGameManager.instance.isInWave = false;
+                    EndingGameManager.instance.TurnOnAndOffNextWaveButton();
+                    EndingGameManager.instance.CleanUpAllyUnits();
+                }
+                    
+            }
             else
                 endingGame.deployedAllyUnits.Dequeue();
-
-            Destroy(attackTarget);
         }
     }
 
-    /*public void TryEnterBattleState()
-    {
-        isInBattleState = true;
-        if (attackTarget == null)
-        {
-            isInBattleState = false;
-            return;
-        }
-        StartCoroutine(StartBattle());
-    }
-
-    public virtual IEnumerator StartBattle()
-    {
-        while(attackTarget != null)
-        {
-            attackTarget.hp -= attackPower;
-            if (attackTarget.hp <= 0)
-            {
-                if (isAllyUnit)
-                    endingGame.deployedEnemyUnits.Dequeue();
-                else
-                    endingGame.deployedAllyUnits.Dequeue();
-
-                Destroy(attackTarget.gameObject);
-                ExitBattleState();
-                yield break;
-            }
-            yield return new WaitForSeconds(attackSpeed);
-        }
-    }
-
-    public void ExitBattleState()
-    {
-        isInBattleState = false;
-    }*/
 }

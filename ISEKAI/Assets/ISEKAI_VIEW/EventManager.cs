@@ -140,38 +140,12 @@ public class EventManager : MonoBehaviour
                 }
             }
         }
-        
-
-
+                
         //for full script
         if(c.commandNumber != 0) //if not explanation
         {
             _fullScript = "";
             _scriptLength = 4;
-        }
-
-        if(c.choiceDependency == (-1, -1))
-        {
-            //아무것도 안-함
-        }
-        else if(c.choiceDependency.Item1 == -1)     //choice dependency is (-1, n)
-        {
-            string currentEvent;
-            currentEvent = GameManager.instance.currentEvent.eventName;
-
-            List<(int, int)> choiceHistory = GameManager.instance.game.choiceHistories[currentEvent];
-
-            int choiceBranch;
-            choiceBranch = choiceHistory[choiceHistory.Count - 1].Item2;
-
-            if (c.choiceDependency.Item2 != choiceBranch)
-            {
-                return;
-            }
-        }
-        else
-        {
-            
         }
 
         switch (c.commandNumber)
