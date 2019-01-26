@@ -38,6 +38,9 @@ public class EndingGameManager : MonoBehaviour
         TurnOnAndOffNextWaveButton();
     }
 
+    private Coroutine _production;
+    private Coroutine _bar;
+
     public bool isInWave = false;
 
     public Transform unitPrefab;
@@ -69,8 +72,12 @@ public class EndingGameManager : MonoBehaviour
         food.text = "음식: " + game.town.remainFoodAmount;
         iron.text = "철: " + game.town.totalIronAmount;
         horse.text = "말: " + game.town.totalHorseAmount;
-        wave.text = (currentWaveNumber + 1) + "번째 공세";
         _CheckProducibleUnits();
+    }
+
+    public void UpdateWaveNumber()
+    {
+        wave.text = (currentWaveNumber + 1) + "번째 공세";
     }
 
     private void _UpdateProductionQueue()
@@ -163,7 +170,7 @@ public class EndingGameManager : MonoBehaviour
         isInWave = true;
         TurnOnAndOffNextWaveButton();
         StartCoroutine(_StartWave());
-        StartCoroutine(StartMakingUnits());
+        _production = StartCoroutine(StartMakingUnits());
     }
 
     private IEnumerator _StartWave()
@@ -374,7 +381,7 @@ public class EndingGameManager : MonoBehaviour
                 string unitName = productionQueue.Dequeue();
                 _UpdateProductionQueue();
                 float productionTime = _GetProductionTime(unitName);
-                yield return StartCoroutine(_ProgressBarHandler(productionTime));
+                yield return (_bar = StartCoroutine(_ProgressBarHandler(productionTime)));
                 MakeAllyUnit(unitName);
             }
         }
@@ -402,12 +409,15 @@ public class EndingGameManager : MonoBehaviour
         knightButton.interactable = isInWave;
     }
 
-    public void CleanUpAllyUnits()
+    public void CleanUp()
     {
-        foreach (GameObject e in deployedAllyUnits)
-            Destroy(e);
-        while (deployedAllyUnits.Count == 0)
-            deployedEnemyUnits.Dequeue();
-        StopCoroutine(StartMakingUnits());
+        foreach (GameObject e in deployedAllyUnits) Destroy(e);
+        while (deployedAllyUnits.Count != 0) deployedAllyUnits.Dequeue();
+        while (productionQueue.Count != 0) productionQueue.Dequeue();
+        StopCoroutine(_production);
+        StopCoroutine(_bar);
+        progressBar.value = progressBar.minValue;
+        _UpdateProductionQueue();
+        UpdateWaveNumber();
     }
 }

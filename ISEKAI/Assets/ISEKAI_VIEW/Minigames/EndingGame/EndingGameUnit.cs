@@ -86,7 +86,7 @@ public abstract class EndingGameUnit : MonoBehaviour
                 {
                     EndingGameManager.instance.isInWave = false;
                     EndingGameManager.instance.TurnOnAndOffNextWaveButton();
-                    EndingGameManager.instance.CleanUpAllyUnits();
+                    EndingGameManager.instance.CleanUp();
                 }
                     
             }

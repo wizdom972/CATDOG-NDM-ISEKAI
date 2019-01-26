@@ -34,12 +34,19 @@ public class NKSoldier : EndingGameUnit
         if (!isInBattleState && !isTooCloseFrontUnit)
             transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
 
+        
         if (endingGame.deployedAllyUnits.Count > 0)
-            if (endingGame.deployedAllyUnits.Peek().GetComponent<EndingGameUnit>().unitNumber == 8 
+            if (endingGame.deployedAllyUnits.Peek()?.GetComponent<EndingGameUnit>().unitNumber == 8 
                 && !endingGame.deployedEnemyUnits.Any(u => u.GetComponent<EndingGameUnit>().unitNumber == 10))
             {
                 endingGame.deployedEnemyUnits.Dequeue();
                 Destroy(gameObject);
+                if (endingGame.deployedEnemyUnits.Count == 0)
+                {
+                    endingGame.isInWave = false;
+                    endingGame.TurnOnAndOffNextWaveButton();
+                    endingGame.CleanUp();
+                }
             }
     }
 }
