@@ -54,6 +54,8 @@ public class EndingGameManager : MonoBehaviour
 
     public Image[] productionQueueImage;
     public Button nextWave;
+    public Text currentProductionText;
+
     public int riflemanCount = 3;
     public int currentWaveNumber = 0;
 
@@ -381,15 +383,17 @@ public class EndingGameManager : MonoBehaviour
                 string unitName = productionQueue.Dequeue();
                 _UpdateProductionQueue();
                 float productionTime = _GetProductionTime(unitName);
-                yield return (_bar = StartCoroutine(_ProgressBarHandler(productionTime)));
+                yield return (_bar = StartCoroutine(_ProgressBarHandler(unitName)));
                 MakeAllyUnit(unitName);
             }
         }
 
     }
 
-    private IEnumerator _ProgressBarHandler(float unitTime)
+    private IEnumerator _ProgressBarHandler(string unitName)
     {
+        currentProductionText.text = unitName + " 생산중";
+        float unitTime = _GetProductionTime(unitName);
         float progress = 0;
         while(progressBar.maxValue > progress)
         {
@@ -398,6 +402,7 @@ public class EndingGameManager : MonoBehaviour
             yield return null;
         }
         progressBar.value = progressBar.minValue;
+        currentProductionText.text = "";
     }
 
     public void TurnOnAndOffNextWaveButton()
@@ -417,6 +422,7 @@ public class EndingGameManager : MonoBehaviour
         StopCoroutine(_production);
         StopCoroutine(_bar);
         progressBar.value = progressBar.minValue;
+        currentProductionText.text = "";
         _UpdateProductionQueue();
         UpdateWaveNumber();
     }
