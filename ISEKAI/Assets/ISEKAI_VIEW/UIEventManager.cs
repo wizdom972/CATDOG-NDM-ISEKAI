@@ -21,7 +21,7 @@ public class UIEventManager : MonoBehaviour
 
     public EventManager eventManager;
 
-    void Start()
+    void Awake()
     {
         containerChoice.SetActive(false);
         containerConversation.SetActive(false);

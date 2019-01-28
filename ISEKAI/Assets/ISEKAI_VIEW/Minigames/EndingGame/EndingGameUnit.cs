@@ -60,30 +60,33 @@ public abstract class EndingGameUnit : MonoBehaviour
 
         int moveSpeed;
 
-        if (isAllyUnit)
+        if (!isTooCloseFrontUnit)
         {
-            moveSpeed = speed;
-            if (endingGame.deployedEnemyUnits.FirstOrDefault() != null)
+            if (isAllyUnit)
             {
-                if (endingGame.deployedEnemyUnits.First().transform.position.x - transform.position.x 
-                    >= (unitSize + endingGame.deployedEnemyUnits.First().GetComponent<EndingGameUnit>().unitSize) / 2)
+                moveSpeed = speed;
+                if (endingGame.deployedEnemyUnits.FirstOrDefault() != null)
+                {
+                    if (endingGame.deployedEnemyUnits.First().transform.position.x - transform.position.x
+                        >= (unitSize + endingGame.deployedEnemyUnits.First().GetComponent<EndingGameUnit>().unitSize) / 2)
+                        transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
+                }
+                else
                     transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
-            }
-            else
-                transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
 
-        }
-        else
-        {
-            moveSpeed = -speed;
-            if (endingGame.deployedAllyUnits.FirstOrDefault() != null)
-            {
-                if (-endingGame.deployedAllyUnits.First().transform.position.x + transform.position.x
-                    >= unitSize + endingGame.deployedAllyUnits.First().GetComponent<EndingGameUnit>().unitSize)
-                    transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
             }
             else
-                transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
+            {
+                moveSpeed = -speed;
+                if (endingGame.deployedAllyUnits.FirstOrDefault() != null)
+                {
+                    if (-endingGame.deployedAllyUnits.First().transform.position.x + transform.position.x
+                        >= unitSize + endingGame.deployedAllyUnits.First().GetComponent<EndingGameUnit>().unitSize)
+                        transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
+                }
+                else
+                    transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
+            }
         }
         
     }

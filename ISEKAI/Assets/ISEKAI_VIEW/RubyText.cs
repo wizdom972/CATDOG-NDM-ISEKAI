@@ -66,6 +66,8 @@ public class RubyText : MonoBehaviour
         }
     }
 
+    
+
     // TextPrefab をインスタンス化して配置する
     void PlaceRuby(float x, float y, string text)
     {

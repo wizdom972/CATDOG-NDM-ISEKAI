@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413a96063715a1b4f902d16d4ec537b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 50
+  hp: 100
   attackPower: 25
   isInBattleState: 0
   frontUnit: {fileID: 0}
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a87e57f34de0ceb4ab4ef8bad072008c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  hp: 40
   attackPower: 10
   isInBattleState: 0
   frontUnit: {fileID: 0}
@@ -609,7 +609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfec5ebf583e24488cd5c91adaebdfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  hp: 40
   attackPower: 6
   isInBattleState: 0
   frontUnit: {fileID: 0}
@@ -1345,7 +1345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207e4c2da994a5a4db8417fbb7882a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  hp: 200
   attackPower: 40
   isInBattleState: 0
   frontUnit: {fileID: 0}
@@ -2025,7 +2025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f27e2f6af0c6e4b8b4594f12815bd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  hp: 40
   attackPower: 10
   isInBattleState: 0
   frontUnit: {fileID: 0}
@@ -2167,7 +2167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13c82786fad785418474bbe47cd4fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  hp: 200
   attackPower: 100
   isInBattleState: 0
   frontUnit: {fileID: 0}
@@ -2766,7 +2766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87edfaef174f0743a9d72ff87f5bce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 15
+  hp: 30
   attackPower: 5
   isInBattleState: 0
   frontUnit: {fileID: 0}
@@ -3329,7 +3329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13c82786fad785418474bbe47cd4fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
+  hp: 20
   attackPower: 5
   isInBattleState: 0
   frontUnit: {fileID: 0}
@@ -3653,7 +3653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd5828989b7e26a4abf18227c1442abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 50
+  hp: 100
   attackPower: 20
   isInBattleState: 0
   frontUnit: {fileID: 0}
@@ -3795,7 +3795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50209c85b5796c64d81cc77ef008689b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 50
+  hp: 100
   attackPower: 20
   isInBattleState: 0
   frontUnit: {fileID: 0}
@@ -3937,7 +3937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0f51bf7f4b42e469cd8b0adfcc699e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  hp: 40
   attackPower: 20
   isInBattleState: 0
   frontUnit: {fileID: 0}

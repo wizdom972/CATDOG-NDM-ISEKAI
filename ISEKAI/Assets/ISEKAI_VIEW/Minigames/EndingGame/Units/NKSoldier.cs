@@ -26,15 +26,18 @@ public class NKSoldier : EndingGameUnit
 
         int moveSpeed;
 
-        moveSpeed = -speed;
-        if (endingGame.deployedAllyUnits.FirstOrDefault() != null)
+        if (!isTooCloseFrontUnit)
         {
-            if (-endingGame.deployedAllyUnits.First().transform.position.x + transform.position.x
-                >= unitSize + endingGame.deployedAllyUnits.First().GetComponent<EndingGameUnit>().unitSize)
+            moveSpeed = -speed;
+            if (endingGame.deployedAllyUnits.FirstOrDefault() != null)
+            {
+                if (-endingGame.deployedAllyUnits.First().transform.position.x + transform.position.x
+                    >= unitSize + endingGame.deployedAllyUnits.First().GetComponent<EndingGameUnit>().unitSize)
+                    transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
+            }
+            else
                 transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
         }
-        else
-            transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
 
 
         if (endingGame.deployedAllyUnits.Count > 0)
