@@ -10,6 +10,7 @@ public class UIEventManager : MonoBehaviour
     public GameObject containerFullScript;
     public GameObject containerChoice;
     public GameObject containerConversation;
+    public GameObject fade;
 
     public GameObject spritePeopleLeft;
     public GameObject spritePeopleCenter;
@@ -21,25 +22,135 @@ public class UIEventManager : MonoBehaviour
 
     public EventManager eventManager;
 
+    public bool isAuto;
+    public bool isSkip;
+
+    private bool _isSkipRunning;
+    private bool _isAutoRunning;
+
     void Awake()
     {
         containerChoice.SetActive(false);
         containerConversation.SetActive(false);
         containerFullScript.SetActive(false);
+        fade.SetActive(false);
 
         spritePeopleLeft.SetActive(false);
         spritePeopleCenter.SetActive(false);
         sprtiePeopleRight.SetActive(false);
+
+        isAuto = false;
+        isSkip = false;
+
+        _isAutoRunning = false;
+        _isSkipRunning = false;
     }
+
+    /*void Update()
+    {
+        //for auto on, automatically after choice
+        if(eventManager.scriptEnumerator.Current.commandNumber != 15
+            && isAuto == true
+            && _isAutoRunning == false)
+        {
+            StartCoroutine(autoPlay());
+        }
+
+        //for skip on, automatically after choice
+        if(eventManager.scriptEnumerator.Current.commandNumber != 15
+            && isSkip == true
+            && _isSkipRunning == false)
+        {
+            _skipPlay();
+        }
+    }*/
 
     public void OnClickSkipButton()
     {
+        isSkip = !isSkip;
+        Debug.Log("isSkip: " + isSkip);
 
+        if (isSkip == true)
+        {
+            buttonSkip.gameObject.
+                GetComponentInChildren<Text>().text = "Skip\nOn";
+
+            
+        }
+        else if (isSkip == false)
+        {
+            buttonSkip.gameObject.
+                GetComponentInChildren<Text>().text = "Skip\nOff";
+        }
+
+        _skipPlay();
+    }
+
+    private void _skipPlay()
+    {   
+        _isSkipRunning = true;
+
+        while (true)
+        {
+            if (eventManager.scriptEnumerator.Current.commandNumber == 15)       //if choice, stop excute and restart auto by update
+            {
+                _isAutoRunning = false;
+                break;
+            }
+
+            if(isSkip == false)
+            {
+                break;
+            }
+
+            eventManager.ExecuteOneScript();
+        }
     }
     
     public void OnClickAutoButton()
     {
+        isAuto = !isAuto;
+        Debug.Log("isAuto: " + isAuto);
 
+        if(isAuto == true)
+        {
+            buttonAuto.gameObject.
+                GetComponentInChildren<Text>().text = "Auto\nOn";
+
+            StartCoroutine(autoPlay());
+        }
+        else if(isAuto == false)
+        {
+            buttonAuto.gameObject.
+                GetComponentInChildren<Text>().text = "Auto\nOff";
+
+            Debug.Log("????");
+
+            StopCoroutine(autoPlay());
+        }
+    }
+
+    public IEnumerator autoPlay()
+    {
+        _isAutoRunning = true;
+
+        while(true)
+        {
+            if(eventManager.scriptEnumerator.Current.commandNumber == 15)       //if choice stop corutine and restart auto by update
+            {
+                _isAutoRunning = false;
+                break;
+            }
+            
+            if(isAuto == false)
+            {
+                break;
+            }
+
+            eventManager.ExecuteOneScript();
+
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     public void OnClickNextButton()

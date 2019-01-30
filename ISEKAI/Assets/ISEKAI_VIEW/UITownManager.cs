@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using ISEKAI_Model;
-using UnityEngine.SceneManagement;
+using System.Linq;
 
 public enum Location
 {
@@ -56,11 +56,13 @@ public class UITownManager : MonoBehaviour
             tutorialManager.InitTexts();
             tutorialManager.ProceedTutorial();
         }
+        SetParentsOfEvents();
     }
 
     //If button clicked, change location, and replace ui depend on location
     public void OnMoveBtnClick()
     {
+        GameManager gm = GameManager.instance;
         tutorialManager.ProceedTutorial();
         switch (_location)
         {
@@ -71,6 +73,7 @@ public class UITownManager : MonoBehaviour
                 town.gameObject.SetActive(true);
                 textLocation.text = "마을";
                 _moveTxtlocation.text = "마을 외곽으로";
+
                 break;
 
             case Location.Town:
@@ -80,20 +83,25 @@ public class UITownManager : MonoBehaviour
                 town.gameObject.SetActive(false);
                 textLocation.text = "마을 외곽";
                 _moveTxtlocation.text = "마을로";
+
                 break;
 
             default:
                 throw new InvalidOperationException("Location should be town or outskirts");
         }
-        UpdatePanel();
+        GameManager.instance.TryUpdateEventSDs();
     }
 
     public void OnClickNextTurnButton()
     {
         Game _game = GameManager.instance.game;
         _game.Proceed();
+        GameManager.instance.forcedEventEnumerator = GameManager.instance.game.forcedVisibleEventList.GetEnumerator();
         GameManager.instance.TryOccurForcedEvent();
         UpdatePanel();
+        Debug.Log(GameManager.instance.game.turn.turnNumber);
+        foreach (EventCore e in GameManager.instance.game.visibleEventsList)
+            Debug.Log(e.eventName);
     }
 
     public void UpdatePanel()
@@ -109,73 +117,23 @@ public class UITownManager : MonoBehaviour
             nextTurn.SetActive(true);
         GameManager.instance.TryInstantiateEventSDs();
         GameManager.instance.TryUpdateEventSDs();
+        SetParentsOfEvents();
     }
-
-    public List<Transform> eventSDList = new List<Transform>();
-    /*
-    public void TryInstantiateEventSDs() // find an events which is newly set to visible and make an SD of them.
+    
+    public void SetParentsOfEvents()
     {
-        Game game = GameManager.instance.game;
-        foreach (EventCore e in game.visibleEventsList)
+        GameManager gm = GameManager.instance;
+        foreach(Transform t in gm.eventSDList)
         {
-            Debug.Log(e.eventName + " " + e.status + " " + e.givenMaxTurn);
-            if (e.forcedEventPriority > 0) continue; // if event is forced event, there is no need to make SD.
-            if (e.isNew) // if 
-            {
-                var sd = Instantiate(eventPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                //TODO : set event sprite to the sprite of this event.
-                if (_SmallLocationToBigLocation(e.location) == Location.Town)
-                    sd.SetParent(town);
-                else
-                    sd.SetParent(outskirts);
-                sd.name = e.eventName;
-                if (e.givenMaxTurn < 0)
-                    sd.GetChild(2).gameObject.SetActive(false);
-                else
-                    sd.GetChild(2).GetComponent<SpriteRenderer>().sprite = turnsLeftSprites[e.givenMaxTurn - 1]; // sprite array index is 0-based, but starts with sprite of 1, so -1 is needed.
-                sd.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().sprite = numberSprites[e.cost];
-                if (e.availableSeason == Season.None)
-                    sd.GetChild(4).gameObject.SetActive(false);
-                else
-                    sd.GetChild(4).GetComponent<SpriteRenderer>().sprite = seasonSprites[(int)e.availableSeason - 1];
-                eventSDList.Add(sd);
-            }
-        }
-    }
-
-    public void TryUpdateEventSDs()
-    {
-        List<Transform> toDestroyList = new List<Transform>();
-        foreach(Transform sd in eventSDList)
-        {
-            
-            EventCore e = GameManager.instance.GetEventCoreFromEventSd(sd);
-            if (e.seasonCheck())
-                sd.gameObject.SetActive(true);
-            else
-                sd.gameObject.SetActive(false);
-
-            if (e.givenMaxTurn < 0)
-                return;
-            
-            sd.GetChild(2).GetComponent<SpriteRenderer>().sprite = turnsLeftSprites[e.turnsLeft - 1]; // sprite array index is 0-based, but starts with sprite of 1, so -1 is needed.
-            sd.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().sprite = numberSprites[e.cost];
-            if (e.availableSeason == Season.None)
-                sd.GetChild(4).gameObject.SetActive(false);
-            else
-                sd.GetChild(4).GetComponent<SpriteRenderer>().sprite = seasonSprites[(int)e.availableSeason - 1];
-            if (e.turnsLeft != e.givenMaxTurn)
-                sd.GetChild(3).gameObject.SetActive(false);
-            if (e.turnsLeft <= 0)
-            {
-                toDestroyList.Add(sd);
+            if (t == null)
                 continue;
+            else
+            {
+                if (gm.SmallLocationToBigLocation(gm.GetEventCoreFromEventSd(t).location) == Location.Town)
+                    t.SetParent(town);
+                else
+                    t.SetParent(outskirts);
             }
         }
-        foreach(Transform sd in toDestroyList)
-        {
-            Destroy(sd.gameObject);
-            eventSDList.Remove(sd);
-        }
-    }*/
+    }
 }

@@ -70,18 +70,14 @@ public class GameManager : MonoBehaviour
 
     public void TryInstantiateEventSDs() // find an events which is newly set to visible and make an SD of them.
     {
-        Game game = GameManager.instance.game;
         foreach (EventCore e in game.visibleEventsList)
         {
             if (e.forcedEventPriority > 0) continue; // if event is forced event, there is no need to make SD.
             if (e.isNew) // if 
             {
                 var sd = Instantiate(eventPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                //TODO : set event sprite to the sprite of this event.
-                if (_SmallLocationToBigLocation(e.location) == Location.Town)
-                    sd.SetParent(town);
-                else
-                    sd.SetParent(outskirts);
+
+                sd.position = GetEventSDVectorByLocation(e.location);
                 sd.name = e.eventName;
                 if (e.givenMaxTurn < 0)
                     sd.GetChild(2).gameObject.SetActive(false);
@@ -99,11 +95,10 @@ public class GameManager : MonoBehaviour
 
     public void TryUpdateEventSDs()
     {
+        eventSDList.RemoveAll(t => t == null);
         List<Transform> toDestroyList = new List<Transform>();
         foreach (Transform sd in eventSDList)
         {
-            if (sd == null)
-                return;
             EventCore e = GetEventCoreFromEventSd(sd);
             if (e.SeasonCheck())
                 sd.gameObject.SetActive(true);
@@ -113,7 +108,8 @@ public class GameManager : MonoBehaviour
             if (e.givenMaxTurn < 0)
                 return;
 
-            sd.GetChild(2).GetComponent<SpriteRenderer>().sprite = turnsLeftSprites[e.turnsLeft - 1]; // sprite array index is 0-based, but starts with sprite of 1, so -1 is needed.
+            if (e.turnsLeft >= 1)
+                sd.GetChild(2).GetComponent<SpriteRenderer>().sprite = turnsLeftSprites[e.turnsLeft - 1]; // sprite array index is 0-based, but starts with sprite of 1, so -1 is needed.
             sd.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().sprite = numberSprites[e.cost];
             if (e.availableSeason == Season.None)
                 sd.GetChild(4).gameObject.SetActive(false);
@@ -133,7 +129,7 @@ public class GameManager : MonoBehaviour
             eventSDList.Remove(sd);
         }
     }
-    private Location _SmallLocationToBigLocation(EventLocation l)
+    public Location SmallLocationToBigLocation(EventLocation l)
     {
         if (l == 0)
             throw new InvalidOperationException("Forced Event can't be located anywhere.");
@@ -142,5 +138,26 @@ public class GameManager : MonoBehaviour
             return Location.Outskirts;
         else
             return Location.Town;
+    }
+
+    public Vector3 GetEventSDVectorByLocation(EventLocation location)
+    {
+        return new Vector3((int)location - 6, (int)location - 6);
+        /*switch((int)location)
+        {
+            case 1:
+                return new Vector3(-1, 5);
+            case 2:
+                return new Vector3(1, -1);
+            case 3:
+                return new Vector3(8, 4);
+            case 4:
+                return new Vector3(0, 0);
+            case 5:
+                return new Vector3(0, 0);
+            case 6:
+                return new Vector3(3, 3);
+
+        }*/
     }
 }

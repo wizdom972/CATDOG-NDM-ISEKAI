@@ -32,6 +32,36 @@ namespace ISEKAI_Model
             } }
         public List<EventCore> visibleEventsList => allEventsList.FindAll(e => e.status == EventStatus.Visible);
 
+        public int TryGetChoiceHistory(string eventName, int choiceNumber) // returns -1 if it couldn't find that event.
+        {
+            if (!choiceHistories.ContainsKey(eventName))
+                return -1;
+            else
+            {
+                foreach ((int, int) his in choiceHistories[eventName])
+                {
+                    if (his.Item1 == choiceNumber)
+                        return his.Item2;
+                }
+                throw new InvalidOperationException("The event has no choice whose number is " + choiceNumber);
+            }
+        }
+
+        private void _InitEvents() // should add EVERY events when new event plan comes.
+        {
+            //allEventsList.Add(new ExampleEvent1(this));
+            //allEventsList.Add(new Prolog_1(this));
+            //allEventsList.Add(new Prolog_2(this));
+            allEventsList.Add(new Farming_1(this));
+            allEventsList.Add(new Farming_2(this));
+            allEventsList.Add(new Farming_3(this));
+            allEventsList.Add(new NKScout(this));
+            allEventsList.Add(new Hunting_1(this));
+            allEventsList.Add(new Hunting_2(this));
+            allEventsList.Add(new Hunting_3(this));
+            allEventsList.Add(new Mine_1(this));
+        }
+
         public void Proceed() // if you want to move on (next season, or next turn), just call it.
         {
             switch (turn.state)
@@ -188,15 +218,6 @@ namespace ISEKAI_Model
                         e.status = EventStatus.Ready;
                 }
             }
-        }
-
-        private void _InitEvents() // should add EVERY events when new event plan comes.
-        {
-            //allEventsList.Add(new ExampleEvent1(this));
-            //allEventsList.Add(new Prolog_1(this));
-            //allEventsList.Add(new Prolog_2(this));
-            allEventsList.Add(new Farming_1(this));
-            allEventsList.Add(new Farming_2(this));
         }
 
         private void _SortForcedEventList(List<EventCore> lst)

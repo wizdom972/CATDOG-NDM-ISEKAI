@@ -20,6 +20,7 @@ public class EventManager : MonoBehaviour
     public GameObject spriteBackground;
     public GameObject spriteCG;
     public GameObject spriteVFX;
+    public GameObject spriteFade;
 
     public GameObject prefabChoiceButton;
 
@@ -265,11 +266,30 @@ public class EventManager : MonoBehaviour
         {
             character = Resources.Load<Sprite>(loadCharacter.filePath);
             spritePeople[(int)loadCharacter.location].GetComponent<SpriteRenderer>().sprite = character;
-
-            spritePeople[(int)loadCharacter.location].SetActive(true);
+                        
+            StartCoroutine(fadeOut2(loadCharacter));
         }
 
         ExecuteOneScript();
+    }
+
+    IEnumerator fadeOut2(LoadCharacter loadCharacter)
+    {
+        Color color = spritePeople[(int)loadCharacter.location].GetComponent<SpriteRenderer>().color;
+        color.a = 0.0f;
+        spritePeople[(int)loadCharacter.location].GetComponent<SpriteRenderer>().color = color;
+
+        spritePeople[(int)loadCharacter.location].SetActive(true);
+
+        while (color.a < 1.0f)
+        {
+            color.a += 0.1f;
+            spritePeople[(int)loadCharacter.location].GetComponent<SpriteRenderer>().color = color;
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        
     }
 
     private void _UnloadCharacter(UnloadCharacter unloadCharacter)
@@ -358,7 +378,7 @@ public class EventManager : MonoBehaviour
     {
         Debug.Log("VFXCamerashake");
 
-        StartCoroutine("cameraShake");
+        StartCoroutine(cameraShake());
     }
 
     IEnumerator cameraShake()
@@ -429,10 +449,10 @@ public class EventManager : MonoBehaviour
 
         videoVFX.clip = videoClip;
 
-        StartCoroutine("loadVideo");
+        StartCoroutine(loadVideoandPlay());
     }
 
-    IEnumerator loadVideo()
+    IEnumerator loadVideoandPlay()
     {
         float videoLength;
         videoLength = (float) videoVFX.clip.length;
@@ -567,11 +587,65 @@ public class EventManager : MonoBehaviour
     private void _VFXTransition(VFXTransition vfxTransition)
     {
         Debug.Log("VFXTransition");
+
+        StartCoroutine(transtionVFXPlay());
+    }
+
+    IEnumerator transtionVFXPlay()
+    {
+        yield return StartCoroutine(fadeOut());
+
+        ExecuteOneScript();
+        yield return StartCoroutine(fadeIn());
+
+    }
+
+    IEnumerator fadeOut()
+    {
+        Color color = spriteFade.GetComponent<Image>().color;
+        color.a = 0.0f;
+        spriteFade.GetComponent<Image>().color = color;
+
+        spriteFade.SetActive(true);
+
+        while (color.a < 1.0f)
+        {
+            color.a += 0.1f;
+            spriteFade.GetComponent<Image>().color = color;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    IEnumerator fadeIn()
+    {
+        Color color = spriteFade.GetComponent<Image>().color;
+        color.a = 1.0f;
+        spriteFade.GetComponent<Image>().color = color;
+
+        spriteFade.SetActive(true);
+
+        while (color.a > 0.0f)
+        {
+            color.a -= 0.1f;
+            spriteFade.GetComponent<Image>().color = color;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        spriteFade.SetActive(false);
     }
 
     private void _VFXPause(VFXPause vfxPause)
     {
         Debug.Log("VFXPause");
+
+        StartCoroutine(pauseVFXPlay(vfxPause.second / 1000));       //millisecond to second
+    }
+
+    IEnumerator pauseVFXPlay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        ExecuteOneScript();
     }
 
     private void _setBright(SpriteLocation location)

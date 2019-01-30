@@ -15,6 +15,7 @@ namespace ISEKAI_Model
     {
         public Turn() // initiallize turn instance.
         {
+            turnNumber = 1;
             season = Season.Summer;
             state = State.PreTurn;
             year = 1994;

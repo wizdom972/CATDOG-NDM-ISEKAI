@@ -21,6 +21,7 @@ namespace ISEKAI_Model
         TechGuideStaffHouse,
         TownSquare,
         TownWell,
+        CarpenterHouse,
         SecretaryHouse, // Conditional
         TownWitchHouse // Conditional
     }
@@ -84,7 +85,7 @@ namespace ISEKAI_Model
             turnsLeft--;
         }
 
-        public void Complete()
+        public virtual void Complete()
         {
             status = EventStatus.Completed;
             game.remainAP -= cost;

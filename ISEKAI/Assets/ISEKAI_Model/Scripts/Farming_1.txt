@@ -1,4 +1,4 @@
-Load Background "Backgrounds\fields"
+Load Background "Background\fields"
 # "선녀가 가르켜 준대로 마을 바깥으로 나오자, 다시 그 이상한 작물이 잔뜩 심겨진 드넓은 밭이 보였다."
 # "내가 가야할 곳이 어딘지를 찾는건 어렵지 않았다. 저 멀리서 선녀와 일행이 팔을 흔드며 나에게 인사를 해오고 있었기 때문이다. 나도 인사를 하며 그쪽으로 걸어갔다."
 Load Character "Character\Heroine\b\normal" -left

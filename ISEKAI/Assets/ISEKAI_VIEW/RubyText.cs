@@ -16,6 +16,8 @@
  * テキストのセンタリング設定をした uGUI の Text のプレハブを作り TextPrefab にセット
  * プレハブのフォントサイズをテキストのフォントサイズの 1/2 ぐらいにする
  */
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,11 +29,19 @@ public class RubyText : MonoBehaviour
     RectTransform rt;
     public GameObject TextPrefab;  // テキストはセンタリングしておくこと
 
+    private Regex rubyRex = new Regex("\\{(.*?):(.*?)\\}");
+
+    List<(int, int)> rubyIndex = new List<(int, int)>();
+    List<string> rubyText = new List<string>();
+
     class RubyPos
     {
         public int start;   // ルビの開始インデックス
         public int end;     // ルビの終了インデックス
         public string ruby; // ルビ
+
+
+
         public RubyPos(int start, int end, string ruby)
         {
             this.start = start;
@@ -39,15 +49,19 @@ public class RubyText : MonoBehaviour
             this.ruby = ruby;
         }
     }
+
     void Awake()
     {
         text = GetComponent<Text>();
         rt = GetComponent<RectTransform>();
 
-        text.text = "ルビが必要な例文章です．";
+        text.text = "이 『  천  계  』와『  지  상  계  』의【  우  니  타  스  ";
         RubyPos[] rubyPos = new RubyPos[] {
-            new RubyPos(3, 4, "ひつよう"),
-            new RubyPos(6, 8, "れいぶんしょう")
+            new RubyPos(5, 5, "Celestial"),
+            new RubyPos(8, 8, "Sphere"),
+            new RubyPos(16, 16, "Terres"),
+            new RubyPos(19, 19, "trial"),
+            new RubyPos(22, 22, "Sphere")
         };
 
         var generator = new TextGenerator();
@@ -66,7 +80,13 @@ public class RubyText : MonoBehaviour
         }
     }
 
-    
+    int[] getRubyIndex(string str)
+    {
+        int[] rubyIndex;
+        rubyIndex = new int[2];
+
+        return rubyIndex;
+    }
 
     // TextPrefab をインスタンス化して配置する
     void PlaceRuby(float x, float y, string text)
@@ -75,7 +95,7 @@ public class RubyText : MonoBehaviour
         o.name = text;
         o.transform.SetParent(this.transform);
         var prt = o.GetComponent<RectTransform>();
-        prt.localPosition = new Vector3(x, y + 20f, 0f);
+        prt.localPosition = new Vector3(x, y + 10f, 0f);
 
         o.GetComponent<Text>().text = text;
     }

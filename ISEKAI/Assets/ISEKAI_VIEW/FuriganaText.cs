@@ -46,6 +46,10 @@ public class FuriganaText : MonoBehaviour
             Vector2 leftPos = textGUIStyle.GetCursorPixelPosition(position, cleanContent, furiCharIndex[i]);
             Vector2 rightPos = textGUIStyle.GetCursorPixelPosition(position, cleanContent,
                                                                    furiCharIndex[i] + furiCharLen[i]);
+            if (rightPos.x <= leftPos.x)
+            {
+                rightPos = new Vector2(position.x + position.width, leftPos.y);
+            }
             Rect r = new Rect(leftPos.x, leftPos.y - yOffset - 20, rightPos.x - leftPos.x, 20);
             GUI.Label(r, furiText[i], furiGUIStyle);
         }

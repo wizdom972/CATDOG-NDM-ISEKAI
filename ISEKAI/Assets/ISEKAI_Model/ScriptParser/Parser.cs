@@ -25,8 +25,8 @@ namespace ISEKAI_Model
              @"^(\d?)\-?\-?(\d?) ?Load Video ""(.*)""$", //14
              @"^(\d?)\-?\-?(\d?) ?Choice$", //15
              @"-- ""(.*)""( \-(\w+) \(([\+\-\*])(\d+)\))*", // 16
-             @"^(\d?)\-?\-?(\d?) ?VFXTransition$", //17
-             @"^(\d?)\-?\-?(\d?) ?VFXPause \-(.*)$"}; //18
+             @"^(\d?)\-?\-?(\d?) ?VFX Transition$", //17
+             @"^(\d?)\-?\-?(\d?) ?VFX Pause \-(.*)$"}; //18
         private static SpriteLocation _ParseSpriteLocation(string location)
         {
             if(location.Equals("left"))
