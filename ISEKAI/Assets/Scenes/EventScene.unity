@@ -809,23 +809,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902959464}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcf27e1f3d1676946890d2b3b68c8b3c, type: 3}
+  m_Script: {fileID: 11500000, guid: e2f1c6fe0d997ed4ebdbeca66a07a4c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: " \uC774 \u300E  [\uCC9C:Celestial]  [\uACC4:Sphere]  \u300F\uC640\u300E  [\uC9C0:Terres]
-    \ [\uC0C1:trial]  [\uACC4:Sphere]  \u300F\uC758\u3010  [\uC6B0:U]  [\uB2C8:ni]
-    \ [\uD0C0:ta]  [\uC2A4:s]  \u3011"
+  TextPrefab: {fileID: 890880472932021909, guid: b17ddb2ea82ecbb4eafce1d7d05aa67f,
+    type: 3}
   position:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 800
-    height: 200
-  skin: {fileID: 11400000, guid: 8589d98b7c31ca8418100276ba4c1b95, type: 2}
-  textStyle: Label
-  furiStyle: Furigana
+    width: 0
+    height: 0
   yOffset: 10
 --- !u!1 &918228352
 GameObject:
@@ -1072,6 +1068,7 @@ GameObject:
   - component: {fileID: 1126384282}
   - component: {fileID: 1126384284}
   - component: {fileID: 1126384283}
+  - component: {fileID: 1126384285}
   m_Layer: 5
   m_Name: TextScript
   m_TagString: Untagged
@@ -1141,6 +1138,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126384281}
   m_CullTransparentMesh: 0
+--- !u!114 &1126384285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126384281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f1c6fe0d997ed4ebdbeca66a07a4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextPrefab: {fileID: 890880472932021909, guid: b17ddb2ea82ecbb4eafce1d7d05aa67f,
+    type: 3}
+  position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  yOffset: 10
 --- !u!1 &1140836743
 GameObject:
   m_ObjectHideFlags: 0

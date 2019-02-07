@@ -118,6 +118,7 @@ public class EventManager : MonoBehaviour
                 if (c.choiceDependency.Item2 != choiceBranch)
                 {
                     ExecuteOneScript();
+                    return;
                 }
             }
         }
@@ -134,6 +135,7 @@ public class EventManager : MonoBehaviour
                 if(choiceHistory[i] != (choiceDependencyNum, choiceBranchDependencyNum))       //if dependency not match, return
                 {
                     ExecuteOneScript();
+                    return;
                 }
                 else
                 {
@@ -312,6 +314,8 @@ public class EventManager : MonoBehaviour
 
         background = Resources.Load<Sprite>(loadBackground.filePath);
         spriteBackground.GetComponent<SpriteRenderer>().sprite = background;
+        spriteBackground.GetComponent<SpriteRenderer>().sortingOrder = 
+            spriteCG.GetComponent<SpriteRenderer>().sortingOrder + 1;
 
         spriteBackground.SetActive(true);
 
@@ -359,7 +363,9 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         //Debug.Log("hi");
-        spriteCG.GetComponent<SpriteRenderer>().sortingLayerName = "background"; 
+        spriteCG.GetComponent<SpriteRenderer>().sortingLayerName = "background";
+        spriteCG.GetComponent<SpriteRenderer>().sortingOrder =
+            spriteBackground.GetComponent<SpriteRenderer>().sortingOrder + 1;
         UI.SetActive(true);
 
         ExecuteOneScript();
