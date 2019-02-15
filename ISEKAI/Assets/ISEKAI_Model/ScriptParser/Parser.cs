@@ -18,7 +18,7 @@ namespace ISEKAI_Model
              @"^(\d?)\-?\-?(\d?) ?Load CG ""(.*)""$", //7
              @"^(\d?)\-?\-?(\d?) ?Unload CG$", //8
              @"^(\d?)\-?\-?(\d?) ?VFX Camerashake$", //9
-             @"^(\d?)\-?\-?(\d?) ?VFX Load Sprite ""(.*)"" \-(.*) \-(.*)$", //10
+             @"^(\d?)\-?\-?(\d?) ?VFX Load Sprite ""(.*)"" \-(.*) \-(.*) ?\-?(.*)?", //10
              @"^(\d?)\-?\-?(\d?) ?VFX Unload Sprite$", //11
              @"^(\d?)\-?\-?(\d?) ?VFX Sound ""(.*)""$", //12
              @"^(\d?)\-?\-?(\d?) ?Load Minigame ""(.*)""$", //13
@@ -172,7 +172,12 @@ namespace ISEKAI_Model
                     string filePath = match.Groups[3].Value;
                     string width = match.Groups[4].Value;
                     string height = match.Groups[5].Value;
-                    var vfxLoadSprite = new VFXLoadSprite(filePath, int.Parse(width), int.Parse(height));
+                    bool isGIF;
+                    if (match.Groups[6].Value == "")
+                        isGIF = false;
+                    else
+                        isGIF = true;
+                    var vfxLoadSprite = new VFXLoadSprite(filePath, int.Parse(width), int.Parse(height), isGIF);
                     _SetChoiceDependency(vfxLoadSprite, match.Groups[1].Value, match.Groups[2].Value);
                     refinedList.Add(vfxLoadSprite);
                 }

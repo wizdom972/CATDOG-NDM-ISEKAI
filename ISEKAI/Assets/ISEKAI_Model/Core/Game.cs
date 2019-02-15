@@ -17,11 +17,14 @@ namespace ISEKAI_Model
         public int remainAP {get; set;} // remaining AP of the game.
         public Town town {get; private set;} // main town of the game. see Town class.
         public Turn turn {get; private set; } // indicating season, turn number, etc. see Turn class.
+
+        public bool isMineUnlocked = false;
         public bool isIronActivated = false;
         public bool isHorseActivated = false;
         public bool isArrowWeaponActivated = false;
         public bool isBowActivated = false;
         public bool isRifleActivated = false;
+
         public Dictionary<string, List<(int, int)>> choiceHistories = new Dictionary<string, List<(int, int)>>(); // <item1>th choice, selected <item2>th branch. (0-based)
         public List<EventCore> allEventsList = new List<EventCore>();
         public List<EventCore> forcedVisibleEventList { get
@@ -49,9 +52,10 @@ namespace ISEKAI_Model
 
         private void _InitEvents() // should add EVERY events when new event plan comes.
         {
-            //allEventsList.Add(new ExampleEvent1(this));
             //allEventsList.Add(new Prolog_1(this));
             //allEventsList.Add(new Prolog_2(this));
+            //allEventsList.Add(new DeadEnd(this));
+            //allEventList.Add(new Ending(this));
             allEventsList.Add(new Farming_1(this));
             allEventsList.Add(new Farming_2(this));
             allEventsList.Add(new Farming_3(this));
@@ -60,6 +64,12 @@ namespace ISEKAI_Model
             allEventsList.Add(new Hunting_2(this));
             allEventsList.Add(new Hunting_3(this));
             allEventsList.Add(new Mine_1(this));
+            allEventsList.Add(new Mine_2(this));
+            allEventsList.Add(new Mine_3(this));
+            allEventsList.Add(new Mine_4(this));
+            allEventsList.Add(new Mine_Repeat(this));
+            allEventsList.Add(new Blesphemy_1(this));
+            allEventsList.Add(new Blesphemy_2(this));
         }
 
         public void Proceed() // if you want to move on (next season, or next turn), just call it.

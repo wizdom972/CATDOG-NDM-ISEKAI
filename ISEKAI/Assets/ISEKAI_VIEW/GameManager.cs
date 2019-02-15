@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         if (l == 0)
             throw new InvalidOperationException("Forced Event can't be located anywhere.");
 
-        if ((int)l <= 5 && l > 0)
+        if ((int)l <= 6 && l > 0)
             return Location.Outskirts;
         else
             return Location.Town;

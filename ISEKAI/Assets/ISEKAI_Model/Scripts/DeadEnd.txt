@@ -1,0 +1,63 @@
+﻿using Microsoft.Analytics.Interfaces;
+using Microsoft.Analytics.Types.Sql;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+
+namespace Assets.ISEKAI_Model.Scripts
+{
+    class DeadEnd
+    {
+    }
+}Load Background "Background\Eyeslitceiling"
+# "어느날 잠을 자다 소리가 들려 깼다."
+# "수년 동안 프랑스의 숲들에서 야영을 하다 보니 밤에 소리가 들리면 바로 깨는 습관을 익히지 않으면 안됬기 때문이다."
+Load Background "Background\Darkroom"
+# "일어나서 머리를 조금 흔들어서 정신을 차라니, 무슨 소란인지 파악을 할수가 있었다."
+# "집 밖에서 잔뜩 화난 사람들의 소리가 들려오고 있었다."
+# "최근에 결정한 여러 선택들 때문에 화가 난 마을 사람들이 뭔가를 또 따지러 왔나보다."
+# "내가 대문을 열며 집 앞으로 나오는 순간 -"
+# "나" "--?!"
+Load CG "CG\Angrycrowd"
+# "문밖에는 성난 마을 사람들이 횃불과 쇠스랑을 들어 모여있었다."
+## "마을 사람들" "양놈 미제 코쟁이 나와라!"
+## "마을 사람들" "네놈의 농사법대로 하더니 결국에는 음식이 없잖아!"
+## "마을 사람들" "우리이제 다 굶어죽게 생겼는데 어떻게 할것이야!"
+## "마을 사람들" "수령동지와 당 칙령을 어길 때부터 알아봤어!"
+## "마을 사람들" "내가 봤는데 미제 잡신들을 섬기더군!"
+Unload CG
+Load Background "Background\TownNight"
+Load Character "Character\Heroine\a\afraid" -left
+Load Character "Character\Townperson\a\angry" -center
+Load Character "Character\Townperson2\a\angry" -right
+## "선녀" "아니 동무들, 그래도 장 동무 때문에 그때 겨울을 살아남지 않았소?" -left
+## "마을 사람들" "닥쳐라 마녀! 너도 저 미제놈이랑 한패지?" -center
+## "마을 사람들" "맞아, 내가 저 년이 미제 양놈이랑 하하호호하면서 수군 거리는걸 봤어!" -right
+# "당장 사람들을 진정시키지 않으면 상황이 위험해 보였다."
+# "게다가 팔숀을 챙기고 나온것이 아니라 잘못하면 죽을 수도 있을것 같아 보였다."
+# "또한 선녀가 나를 변호하다가 피해를 입을 지도 몰랐다."
+# "어서 마을 사람들을 진정시키자."
+## "나" "마을 여러분! 침착하십시오! 감정에 휘말려서 이렇게 중대한 사항을 얘기해서야 되겠소?"
+Load Character "Character\Townperson\a\normal" -center
+Load Character "Character\Townperson2\a\normal" -right
+## "마을 사람들" "으으으음...."
+# "다행이다, 말이 아직 통하는 거 같다."
+## "나" "다들 많이 화나신거 같은데, 차례대로 한번 -"
+VFX Load Sprite "VFX\Sprite\Blood"
+VFX Sound "VFX\Sound\Rockhit"
+VFX Pause -1000
+VFX Transition
+Load Background "Background\Blackbackground"
+# "그때 누군가가 내 머리 뒤를 세게 가격했다."
+# "그대로 난 기절했다.
+VFX Pause -1000
+VFX Transition
+Load Background "Background\Eyeslitmob"
+## "???" " - 에 따라, 인민의 권위로 구성된 본 인민 재판 위원회는 장-피에르 라 로셀 과 리선녀를 반동분자로 화형에 처한다!"
+Load CG "CG\Stake"
+# "정신을 차리자 나와 선녀는 둘다 나무 기둥에 묶여있었다."
+# "마을 사람중 한명이 다가와, 나에게 침을 뱉더니 가지 더미에다 불을 붙혔다."
+# "불길이 점점 솟아 오르자, 나는 다시 정신을 잃고 다시는 생각을 하지 못했다."
+Load CG "CG\DeadEnd"

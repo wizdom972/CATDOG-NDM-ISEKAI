@@ -24,7 +24,8 @@ namespace ISEKAI_Model
         public float totalPleasantAmount {get; set;}
         public float pleasantWeightFactor {get; set;}
         public float suggestedFoodConsumption {get; set;}
-        public float pleasantChange => pleasantWeightFactor * (totalFoodConsumption - suggestedFoodConsumption);
+        public float pleasantChange => pleasantWeightFactor * (totalFoodConsumption - suggestedFoodConsumption) + pleasantChangeAddition;
+        public float pleasantChangeAddition = 0;
         public float totalIronAmount { get; set; }
         public float totalIronProduction {get; set;}
         public float totalHorseAmount {get; set;}

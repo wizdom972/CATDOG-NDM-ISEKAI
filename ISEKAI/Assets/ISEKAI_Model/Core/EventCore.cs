@@ -13,6 +13,7 @@ namespace ISEKAI_Model
     {
         None,
         BackMount,
+        FrontMount,
         Field,
         WayToTown,
         Farm, // Conditional

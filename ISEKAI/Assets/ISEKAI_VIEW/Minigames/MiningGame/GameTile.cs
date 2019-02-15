@@ -13,6 +13,7 @@ public class GameTile : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
             transform.GetChild(i).gameObject.SetActive(false);
+
         transform.GetChild(state).gameObject.SetActive(true);
     }
 }

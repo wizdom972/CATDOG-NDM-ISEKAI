@@ -17,8 +17,6 @@ public class MiningGameManager : MonoBehaviour
     public bool isGamePlayed = true;
 
     public const int height = 9, width = 16;
-    public float movingDelay = 1f;
-    public float ironProducingDelay = 7f;
     public GameTile[,] gameField = new GameTile[width, height]; // 1 if edge, 0 if blank, 2 if item.
     public List<Cart> carts = new List<Cart>();
     private Direction _direction = Direction.East;
@@ -135,7 +133,7 @@ public class MiningGameManager : MonoBehaviour
         while(isGamePlayed)
         {
             _MoveCarts();
-            yield return new WaitForSeconds(movingDelay);
+            yield return new WaitForSeconds(0.66f);
         }
     }
     private IEnumerator _IronProducing()
@@ -143,7 +141,7 @@ public class MiningGameManager : MonoBehaviour
         while(isGamePlayed)
         {
             MakeNewIron();
-            yield return new WaitForSeconds(ironProducingDelay);
+            yield return new WaitForSeconds(5f);
         }
     }
 
