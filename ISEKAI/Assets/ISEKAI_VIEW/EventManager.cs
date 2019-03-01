@@ -11,6 +11,9 @@ using UnityEngine.Video;
 public class EventManager : MonoBehaviour
 {
     public GameObject UI;
+    public GameObject UI_ruby;
+    public GameObject EventItems;
+    public GameObject EventSceneCamera;
     public GameObject containerFullScript;
     public GameObject containerChoice;
     public GameObject containerConversation;
@@ -18,6 +21,7 @@ public class EventManager : MonoBehaviour
     public GameObject[] spritePeople;   // use same location index from SpriteLocation
 
     public GameObject spriteBackground;
+    public GameObject spriteBackgroundTemp;
     public GameObject spriteCG;
     public GameObject spriteVFX;
     public GameObject spriteFade;
@@ -36,11 +40,15 @@ public class EventManager : MonoBehaviour
     public Text textCharacterInfo;
     public Text textScript;
     public Text textFullScript;
+    public Text textFullScriptTest;
+
+    public GameObject fullScriptText;
+    public GameObject scriptText;
 
     public bool isNextButtonActive;
 
     private String _fullScript = "";
-    private int _scriptLength = 4;
+    private int _scriptLength = 4;    
 
     void Start()
     {
@@ -221,7 +229,16 @@ public class EventManager : MonoBehaviour
         containerChoice.SetActive(false);
         containerConversation.SetActive(false);
         containerFullScript.SetActive(true);
+        
         textFullScript.text = _fullScriptHandler(explanation.contents);
+
+        foreach (Transform child in fullScriptText.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+            Debug.Log("웨않되");
+        }
+
+        fullScriptText.GetComponent<RubyText>().isCalled = false;
     }
 
     private String _fullScriptHandler(String s)
@@ -257,29 +274,56 @@ public class EventManager : MonoBehaviour
         textScript.text = conversation.contents;
         if (conversation.brightCharacter != SpriteLocation.None)
             _setBright(conversation.brightCharacter);
+
+        foreach (Transform child in scriptText.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+            Debug.Log("웨않되2");
+        }
+
+        scriptText.GetComponent<RubyText>().isCalled = false;
     }
 
     private void _LoadCharacter(LoadCharacter loadCharacter)
     {
+        containerChoice.SetActive(false);
+        containerConversation.SetActive(false);
+        containerFullScript.SetActive(false);
+
         Debug.Log("LoadCharacter");
-        Sprite character;
 
         if(loadCharacter.location != SpriteLocation.None)
         {
-            character = Resources.Load<Sprite>(loadCharacter.filePath);
-            spritePeople[(int)loadCharacter.location].GetComponent<SpriteRenderer>().sprite = character;
                         
-            StartCoroutine(fadeOut2(loadCharacter));
+            StartCoroutine(fadeCharacter(loadCharacter));
         }
 
-        ExecuteOneScript();
+        // ExecuteOneScript();
     }
 
-    IEnumerator fadeOut2(LoadCharacter loadCharacter)
+    IEnumerator fadeCharacter(LoadCharacter loadCharacter)
     {
-        Color color = spritePeople[(int)loadCharacter.location].GetComponent<SpriteRenderer>().color;
-        color.a = 0.0f;
-        spritePeople[(int)loadCharacter.location].GetComponent<SpriteRenderer>().color = color;
+        var locationGameObject = spritePeople[(int)loadCharacter.location];
+        var spriteRenderer = locationGameObject.GetComponent<SpriteRenderer>();
+
+        Color color = spriteRenderer.color;
+
+        if (spriteRenderer.sprite != null)
+        {
+            while (color.a > 0.2f)
+            {
+                color.a -= 0.1f;
+                spriteRenderer.color = color;
+
+                yield return new WaitForSeconds(0.04f);
+            }
+        }
+
+        color.a = 0.2f;
+        spriteRenderer.color = color;
+
+        Sprite newCharacter = Resources.Load<Sprite>(loadCharacter.filePath);
+        spriteRenderer.sprite = newCharacter;
 
         spritePeople[(int)loadCharacter.location].SetActive(true);
 
@@ -288,10 +332,10 @@ public class EventManager : MonoBehaviour
             color.a += 0.1f;
             spritePeople[(int)loadCharacter.location].GetComponent<SpriteRenderer>().color = color;
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.04f);
         }
 
-        
+        ExecuteOneScript();
     }
 
     private void _UnloadCharacter(UnloadCharacter unloadCharacter)
@@ -300,6 +344,7 @@ public class EventManager : MonoBehaviour
 
         if (unloadCharacter.location != SpriteLocation.None)
         {
+            spritePeople[(int)unloadCharacter.location].GetComponent<SpriteRenderer>().sprite = null;
             spritePeople[(int)unloadCharacter.location].SetActive(false);
         }
 
@@ -310,17 +355,125 @@ public class EventManager : MonoBehaviour
     {
         Debug.Log("LoadBackground");
 
-        Sprite background;
+        Sprite background = Resources.Load<Sprite>(loadBackground.filePath);
 
-        background = Resources.Load<Sprite>(loadBackground.filePath);
-        spriteBackground.GetComponent<SpriteRenderer>().sprite = background;
-        spriteBackground.GetComponent<SpriteRenderer>().sortingOrder = 
-            spriteCG.GetComponent<SpriteRenderer>().sortingOrder + 1;
+        if(background == null)
+        {
+            Debug.Log(loadBackground.filePath + " doesn't exist");
+            return;
+        }
+
+        var mainBackgroundRenderer = spriteBackground.GetComponent<SpriteRenderer>();
+        if (mainBackgroundRenderer == null) return;
+
+        var tmpBackgroundRenderer = spriteBackgroundTemp.GetComponent<SpriteRenderer>();
+        if (tmpBackgroundRenderer == null) return;
+
+
+        if (mainBackgroundRenderer.sprite == null || mainBackgroundRenderer.sprite.Equals(background))
+        {
+            // 그냥 페이드 인
+            spriteBackgroundTemp.SetActive(false);
+            StartCoroutine(FadeBackground(loadBackground, background, mainBackgroundRenderer));
+        }
+        else
+        {
+            // Dissolve
+            spriteBackground.transform.localScale = new Vector3(1, 1, 1);
+
+            var width = mainBackgroundRenderer.sprite.bounds.size.x;
+            var height = mainBackgroundRenderer.sprite.bounds.size.y;
+
+            var worldScreenHeight = Camera.main.orthographicSize * 2.0;
+            var worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
+
+            spriteBackground.transform.localScale = new Vector3((float)worldScreenWidth / width, (float)worldScreenHeight / height, 1);
+
+            spriteBackground.SetActive(true);
+            spriteBackgroundTemp.SetActive(true);
+
+            StartCoroutine(DissolveBackground(loadBackground, background, mainBackgroundRenderer, tmpBackgroundRenderer));
+        }
+    }
+
+
+    IEnumerator FadeBackground(LoadBackground loadBackground, Sprite background, SpriteRenderer spriteRenderer)
+    {
+
+        Color color = spriteRenderer.color;
+        color.a = 0.0f;
+        spriteRenderer.color = color;
+        spriteRenderer.sprite = background;
+
+        spriteBackground.transform.localScale = new Vector3(1, 1, 1);
+
+        var width = spriteRenderer.sprite.bounds.size.x;
+        var height = spriteRenderer.sprite.bounds.size.y;
+
+        var worldScreenHeight = Camera.main.orthographicSize * 2.0;
+        var worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
+
+        spriteBackground.transform.localScale = new Vector3((float)worldScreenWidth / width, (float)worldScreenHeight / height, 1);
 
         spriteBackground.SetActive(true);
 
+        while (color.a < 1.0f)
+        {
+            color.a += 0.1f;
+            spriteRenderer.color = color;
+
+            yield return new WaitForSeconds(0.05f);
+        }
+
         ExecuteOneScript();
     }
+
+
+    IEnumerator DissolveBackground(
+        LoadBackground loadBackground,
+        Sprite background,
+        SpriteRenderer mainBackgroundRenderer,
+        SpriteRenderer tmpBackgroundRenderer
+        )
+    {
+
+        Color mainBackgroundColor = mainBackgroundRenderer.color;
+        mainBackgroundColor.a = 1.0f;
+
+        Color tmpBackgroundColor = tmpBackgroundRenderer.color;
+        tmpBackgroundColor.a = 0.0f;
+
+        tmpBackgroundRenderer.sprite = background;
+
+        spriteBackgroundTemp.transform.localScale = new Vector3(1, 1, 1);
+
+        var tmpWidth = tmpBackgroundRenderer.sprite.bounds.size.x;
+        var tmpHeight = tmpBackgroundRenderer.sprite.bounds.size.y;
+
+        var tmpWorldScreenHeight = Camera.main.orthographicSize * 2.0;
+        var tmpWorldScreenWidth = tmpWorldScreenHeight / Screen.height * Screen.width;
+
+        spriteBackgroundTemp.transform.localScale = new Vector3((float)tmpWorldScreenWidth / tmpWidth, (float)tmpWorldScreenHeight / tmpHeight, 1);
+
+        while (mainBackgroundColor.a > 0.0f)
+        {
+            mainBackgroundColor.a -= 0.1f;
+            tmpBackgroundColor.a += 0.1f;
+
+            mainBackgroundRenderer.color = mainBackgroundColor;
+            tmpBackgroundRenderer.color = tmpBackgroundColor;
+
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        mainBackgroundColor.a = 1.0f;
+
+        mainBackgroundRenderer.sprite = background;
+        mainBackgroundRenderer.color = mainBackgroundColor;
+       
+        ExecuteOneScript();
+    }
+
 
     private void _PlayMusic(PlayMusic playMusic)
     {
@@ -408,6 +561,9 @@ public class EventManager : MonoBehaviour
         spriteVFX.GetComponent<SpriteRenderer>().sprite = vfxSprite;
         spriteVFX.transform.position = new Vector3(vfxLoadSprite.width, vfxLoadSprite.height, 0);
 
+        Animator animator = spriteVFX.GetComponent<Animator>();
+        animator.runtimeAnimatorController = Resources.Load(vfxLoadSprite.filePath + "AnimController") as RuntimeAnimatorController;
+        Debug.Log(vfxLoadSprite.filePath + "AnimController");
         spriteVFX.SetActive(true);
     }
 
@@ -444,6 +600,9 @@ public class EventManager : MonoBehaviour
     private void _LoadMinigame(LoadMinigame loadMinigame)
     {
         Debug.Log("LoadMinigame");
+        SetActiveEventSceneThings(false);
+        SceneManager.LoadScene(loadMinigame.minigameName, LoadSceneMode.Additive);
+        //ExecuteOneScript();
     }
 
     private void _LoadVideo(LoadVideo loadVideo)
@@ -618,7 +777,7 @@ public class EventManager : MonoBehaviour
         {
             color.a += 0.1f;
             spriteFade.GetComponent<Image>().color = color;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 
@@ -634,7 +793,7 @@ public class EventManager : MonoBehaviour
         {
             color.a -= 0.1f;
             spriteFade.GetComponent<Image>().color = color;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
 
         spriteFade.SetActive(false);
@@ -671,5 +830,13 @@ public class EventManager : MonoBehaviour
 
             temp.color = new Color(0.2f, 0.2f, 0.2f, 1f);
         }
+    }
+
+    public void SetActiveEventSceneThings(bool state)
+    {
+        UI.SetActive(state);
+        UI_ruby.SetActive(state);
+        EventItems.SetActive(state);
+        EventSceneCamera.SetActive(state);
     }
 }

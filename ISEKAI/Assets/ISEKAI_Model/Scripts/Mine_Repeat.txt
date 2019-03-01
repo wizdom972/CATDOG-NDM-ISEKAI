@@ -1,4 +1,4 @@
 ﻿Load Background "Background\Mine"
 Load Character "Character\Smith\d\happy"
 ## "기술지도원" "허, 또 이번 몇 달 동안은 철광석을 캐는데 마을의 노동력을 집중하는게 좋다 판단하셨구먼 장 동지. 그럼 바로 캐보세!"
-Load Minigame "Snakeirongamerepeat"
+Load Minigame "MiningGame"

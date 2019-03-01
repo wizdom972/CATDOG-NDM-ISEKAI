@@ -13,7 +13,7 @@ namespace ISEKAI_Model
         public override EventLocation location { get { return EventLocation.Field; } }
         public override int givenMaxTurn { get { return 1; } }
         public override int cost { get { return 2; } }
-        public override Season availableSeason { get { return Season.Summer; } }
+        public override Season availableSeason { get { return Season.Spring; } }
         public override List<Command> script { get { return Parser.ParseScript("Assets/ISEKAI_Model/Scripts/Farming_1.txt"); } } // command list.
 
         protected override bool exclusiveCondition()

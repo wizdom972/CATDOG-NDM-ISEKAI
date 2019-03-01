@@ -63,6 +63,7 @@ public class UITownManager : MonoBehaviour
     public void OnMoveBtnClick()
     {
         GameManager gm = GameManager.instance;
+        Debug.Log(gm.game.visibleEventsList.Count);
         tutorialManager.ProceedTutorial();
         switch (_location)
         {

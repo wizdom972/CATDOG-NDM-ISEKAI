@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace ISEKAI_Model
 {
@@ -13,8 +14,7 @@ namespace ISEKAI_Model
             _InitEvents();
             Proceed();
         }
-        public const int maxAP = 4; // max AP of the game.
-        public int remainAP {get; set;} // remaining AP of the game.
+        public int remainAP => 3 - ((turn.monthNumber + 1) % 3); // remaining AP of the game.
         public Town town {get; private set;} // main town of the game. see Town class.
         public Turn turn {get; private set; } // indicating season, turn number, etc. see Turn class.
 
@@ -24,6 +24,8 @@ namespace ISEKAI_Model
         public bool isArrowWeaponActivated = false;
         public bool isBowActivated = false;
         public bool isRifleActivated = false;
+
+        public int castleHealth = -1; // -1 if castle is not activated.
 
         public Dictionary<string, List<(int, int)>> choiceHistories = new Dictionary<string, List<(int, int)>>(); // <item1>th choice, selected <item2>th branch. (0-based)
         public List<EventCore> allEventsList = new List<EventCore>();
@@ -59,7 +61,7 @@ namespace ISEKAI_Model
             allEventsList.Add(new Farming_1(this));
             allEventsList.Add(new Farming_2(this));
             allEventsList.Add(new Farming_3(this));
-            allEventsList.Add(new NKScout(this));
+            //allEventsList.Add(new NKScout(this));
             allEventsList.Add(new Hunting_1(this));
             allEventsList.Add(new Hunting_2(this));
             allEventsList.Add(new Hunting_3(this));
@@ -84,7 +86,7 @@ namespace ISEKAI_Model
                 case State.InTurn:
                     if (turn.IsFormerSeason())
                     {
-                        turn.MoveToNextSeason();
+                        //turn.MoveToNextSeason();
                         _OccurEvents();
                     }
                     else
@@ -104,9 +106,9 @@ namespace ISEKAI_Model
         private void _DoPreTurnBehavior()
         {
             //Console.WriteLine ("This is PreTurn.");
-            remainAP = maxAP;
+            //remainAP = maxAP;
             town.AddFoodProduction();
-            town.ApplyPleasantChange();
+            town.ApplyResourcesChange();
             _OccurEvents();
             _SetAllEventActivable();
         }
@@ -114,9 +116,9 @@ namespace ISEKAI_Model
         {
             //Console.WriteLine ("This is PostTurn");
             town.ConsumeFood();
-            town.ApplyPleasantChange();
+            town.ApplyResourcesChange();
             turn.MoveToNextState();
-            turn.MoveToNextSeason();
+            //turn.MoveToNextSeason();
             turn.IncreaseTurnNumber();
             _ReduceEveryEventsTurnsLeft();
         }
@@ -207,6 +209,7 @@ namespace ISEKAI_Model
         {
             foreach (EventCore e in allEventsList)
             {
+                Debug.Log(e.eventName + " " + e.status + " " + e.SeasonCheck());
                 if (e.status == EventStatus.Completed)
                     continue;
                 if (e.isForcedEvent && e.IsFirstVisible())

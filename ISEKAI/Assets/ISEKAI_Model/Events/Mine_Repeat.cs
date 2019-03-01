@@ -28,9 +28,8 @@ namespace ISEKAI_Model
 
         public override void Complete()
         {
-            game.remainAP -= cost;
-            if (game.remainAP <= 2 && game.turn.IsFormerSeason())
-                game.Proceed();
+            base.Complete();
+            status = EventStatus.Visible;
         }
     }
 }

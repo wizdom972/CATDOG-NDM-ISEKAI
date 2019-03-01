@@ -8,22 +8,13 @@ using System.Linq;
 
 public class EndingGameManager : MonoBehaviour
 {
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(gameObject);
-    }
+
     public Slider progressBar;
 
     void Start()
     {
-        game = new Game();//GameManager.instance.game;
-        
+        game = GameManager.instance.game;
+        /*
         game.town.remainFoodAmount += 1000;
         game.isIronActivated = true;
         game.isHorseActivated = true;
@@ -32,7 +23,7 @@ public class EndingGameManager : MonoBehaviour
         game.isArrowWeaponActivated = true;
         game.isBowActivated = false;
         game.isRifleActivated = true;
-        
+        */
         InitGameInfo();
         UpdatePanel();
         TurnOnAndOffNextWaveButton();
@@ -44,8 +35,6 @@ public class EndingGameManager : MonoBehaviour
     public bool isInWave = false;
 
     public Transform unitPrefab;
-
-    public static EndingGameManager instance;
     public Game game;
     public Queue<string> productionQueue = new Queue<string>();
     public Queue<GameObject> deployedAllyUnits = new Queue<GameObject>();

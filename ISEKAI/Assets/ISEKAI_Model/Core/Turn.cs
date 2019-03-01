@@ -16,14 +16,40 @@ namespace ISEKAI_Model
         public Turn() // initiallize turn instance.
         {
             turnNumber = 1;
-            season = Season.Summer;
+            totalMonthNumber = 4;
             state = State.PreTurn;
             year = 1994;
         }
-        public Season season {get; private set;}
+        public Season season { get
+            {
+                switch (monthNumber)
+                {
+                    case 2:
+                    case 3:
+                    case 4:
+                        return Season.Spring;
+                    case 5:
+                    case 6:
+                    case 7:
+                        return Season.Summer;
+                    case 8:
+                    case 9:
+                    case 10:
+                        return Season.Autumn;
+                    case 11:
+                    case 0:
+                    case 1:
+                        return Season.Winter;
+                    default:
+                        throw new InvalidOperationException("EERAR");
+                }
+            }
+        }
         public State state {get; private set;}
         public int year {get; private set;}
         public int turnNumber { get; private set; }
+        public int totalMonthNumber;
+        public int monthNumber => totalMonthNumber % 12;
 
         public override string ToString()
         {
@@ -49,13 +75,14 @@ namespace ISEKAI_Model
                 default:
                     throw new InvalidOperationException("season of turn cannot be None.");
             }
-            return (year + "³â " + s);
+            return (year + "³â " + (monthNumber + 1) + "¿ù, " + s);
         }
         public bool IsFormerSeason() // if the current season is winter or summer, it returns true.
         {
             return (season == Season.Winter || season == Season.Summer);
         }
-        public void MoveToNextSeason() // Not recommended to call manually. Only called by Proceed().
+
+        /*public void MoveToNextSeason() // Not recommended to call manually. Only called by Proceed().
         {
             switch (season)
             {
@@ -76,7 +103,7 @@ namespace ISEKAI_Model
                     season = Season.Winter;
                     break;
             }
-        }
+        }*/
         
         public void MoveToNextState() // Not recommended to call manually. Only called by Proceed().
         {

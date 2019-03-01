@@ -3,6 +3,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MiningGameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class MiningGameManager : MonoBehaviour
         North, South, West, East
     }
 
+    public EventManager eventManager;
     public Transform gameTilePrefab;
     public Transform cartPrefab;
     public GameObject gameOverSprite;
@@ -59,6 +61,8 @@ public class MiningGameManager : MonoBehaviour
 
     public void InitGame()
     {
+        SceneManager.SetActiveScene(gameObject.scene);
+        eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++)
             {
@@ -72,12 +76,6 @@ public class MiningGameManager : MonoBehaviour
         MakeCart(1, 4);
         StartCoroutine(_CartMovement());
         StartCoroutine(_IronProducing());
-    }
-
-
-    public void ProceedCarts()
-    {
-
     }
 
     private void _MoveCarts()
@@ -133,7 +131,7 @@ public class MiningGameManager : MonoBehaviour
         while(isGamePlayed)
         {
             _MoveCarts();
-            yield return new WaitForSeconds(0.66f);
+            yield return new WaitForSeconds(0.55f);
         }
     }
     private IEnumerator _IronProducing()
@@ -141,7 +139,7 @@ public class MiningGameManager : MonoBehaviour
         while(isGamePlayed)
         {
             MakeNewIron();
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(4.4f);
         }
     }
 
@@ -162,8 +160,19 @@ public class MiningGameManager : MonoBehaviour
 
     public void GameOver()
     {
+        StartCoroutine(_StartGameCloseProcess());
+    }
+
+    private IEnumerator _StartGameCloseProcess()
+    {
+        eventManager.ExecuteOneScript();
+        GameManager.instance.game.town.totalIronAmount += score;
         isGamePlayed = false;
         gameOverSprite.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        eventManager.SetActiveEventSceneThings(true);
+        SceneManager.SetActiveScene(eventManager.gameObject.scene);
+        SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 
     public void MakeCart(int x, int y)

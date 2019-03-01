@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EventScene.unity
     guid: 3f0ddc485a674a540adf6e288e30ae0d
+  - enabled: 1
+    path: Assets/Scenes/MiningGame.unity
+    guid: 3c6108a67c29dd54caee1aabcbd1027d
   m_configObjects: {}

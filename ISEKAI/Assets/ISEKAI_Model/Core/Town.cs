@@ -52,9 +52,11 @@ namespace ISEKAI_Model
                 throw new InvalidOperationException("You can't consume negative value. Try using AddFoodProduction().");
             remainFoodAmount -= toConsume;
         }
-        public void ApplyPleasantChange() // apply current pleasant change to total pleasant amount.
+        public void ApplyResourcesChange() // apply current pleasant change to total pleasant amount.
         {
             totalPleasantAmount = Math.Max(0, Math.Min(200, totalPleasantAmount + pleasantChange));
+            totalIronAmount += totalIronProduction;
+            totalHorseAmount += totalHorseProduction;
         }
     }
 }

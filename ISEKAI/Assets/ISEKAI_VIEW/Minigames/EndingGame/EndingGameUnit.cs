@@ -6,6 +6,7 @@ using System.Linq;
 
 public abstract class EndingGameUnit : MonoBehaviour
 {
+    public EndingGameManager endingGameManager;
     public abstract int unitNumber { get; }
     public abstract string unitName { get; }
     public int hp;
@@ -104,11 +105,11 @@ public abstract class EndingGameUnit : MonoBehaviour
             if (isAllyUnit)
             {
                 endingGame.deployedEnemyUnits.Dequeue();
-                if (EndingGameManager.instance.isInWave && endingGame.deployedEnemyUnits.Count == 0)
+                if (endingGameManager.isInWave && endingGame.deployedEnemyUnits.Count == 0)
                 {
-                    EndingGameManager.instance.isInWave = false;
-                    EndingGameManager.instance.TurnOnAndOffNextWaveButton();
-                    EndingGameManager.instance.CleanUp();
+                    endingGameManager.isInWave = false;
+                    endingGameManager.TurnOnAndOffNextWaveButton();
+                    endingGameManager.CleanUp();
                 }
                     
             }

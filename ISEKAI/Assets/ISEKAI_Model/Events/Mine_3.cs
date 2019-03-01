@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ISEKAI_Model
 {
-    public class Mine_3 : EventCore, IMinigamePlayable
+    public class Mine_3 : EventCore
     {
         public override int forcedEventPriority { get { return 0; } }
         public override string eventName { get { return "광산 이벤트 3"; } }
@@ -15,13 +15,6 @@ namespace ISEKAI_Model
         public override int cost { get { return 3; } }
         public override Season availableSeason { get { return Season.None; } }
         public override List<Command> script { get { return Parser.ParseScript("Assets/ISEKAI_Model/Scripts/Mine_3.txt"); } } // command list.
-
-        public int playerScore { get; set; }
-
-        public void DoMinigameBehavior()
-        {
-            game.town.totalIronAmount += playerScore;
-        }
 
         protected override bool exclusiveCondition()
         {
@@ -38,7 +31,7 @@ namespace ISEKAI_Model
         {
             game.isIronActivated = true;
             game.isMineUnlocked = true;
-            DoMinigameBehavior();
+            game.town.totalIronProduction += 2;
 
             base.Complete();
         }

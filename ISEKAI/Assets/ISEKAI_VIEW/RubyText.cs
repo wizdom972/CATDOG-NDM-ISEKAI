@@ -15,59 +15,74 @@ public class RubyText : MonoBehaviour
     public Rect position;
     public float yOffset = 10;
 
+    public bool isCalled = false;
+
     private Regex rubyRex = new Regex("\\{(.*?):(.*?)\\}");
 
     string cleanText;    // base text, without any furigana or markup
-    List<int> furiCharIndex = new List<int>();    // char index (in base text) where furigana appears
-    List<int> furiCharLen = new List<int>();    // length of base text the furigana is over
-    List<string> furiText = new List<string>();    // actual text of the furigana
 
     void LateUpdate()
     {
-        text = GetComponent<Text>();
-        rt = GetComponent<RectTransform>();
-
-        cleanText = text.text;
-        while (true)
+        if(isCalled == false)
         {
-            Match match = rubyRex.Match(cleanText);
-            if (!match.Success) break;
-            furiCharIndex.Add(match.Index);            
-            furiText.Add(match.Groups[2].ToString());
-            furiCharLen.Add(match.Groups[1].Length);
-            cleanText = cleanText.Substring(0, match.Index) + match.Groups[1]
-                    + cleanText.Substring(match.Index + match.Length);
-        }
+            isCalled = true;
 
-        text.text = cleanText;
+            List<int> furiCharIndex = new List<int>();    // char index (in base text) where furigana appears
+            List<int> furiCharLen = new List<int>();    // length of base text the furigana is over
+            List<string> furiText = new List<string>();    // actual text of the furigana
 
-        var generator = new TextGenerator();
-        generator.Populate(text.text, text.GetGenerationSettings(rt.sizeDelta));
-        
-        var cleanCharArray = generator.GetCharactersArray();
-        Debug.Log(cleanCharArray == null);
+            text = GetComponent<Text>();
+            rt = GetComponent<RectTransform>();
 
-        for (int i = 0; i < furiCharIndex.Count; i++)
-        {
-            Debug.Log("furiCharIndex: " + furiCharIndex[i]);
-            Debug.Log("cleanCharArray Length: " + cleanCharArray.Length);
+            cleanText = text.text;
 
-            Vector2 leftPos = cleanCharArray[furiCharIndex[i]].cursorPos;                       
-            Vector2 rightPos = cleanCharArray[furiCharIndex[i] + furiCharLen[i]].cursorPos;
+            Debug.Log("???");
 
-            if (rightPos.x <= leftPos.x)
+            for (; ; )
             {
-                rightPos = new Vector2(position.x + position.width, leftPos.y);
+                Match match = rubyRex.Match(cleanText);
+                if (!match.Success) break;
+                furiCharIndex.Add(match.Index);
+                furiText.Add(match.Groups[2].ToString());
+                furiCharLen.Add(match.Groups[1].Length);
+                cleanText = cleanText.Substring(0, match.Index) + match.Groups[1]
+                        + cleanText.Substring(match.Index + match.Length);
+
+                Debug.Log("몇번나오나");
             }
-            var o = GameObject.Instantiate(TextPrefab, GetComponent<Transform>());
-            
-            var prt = o.GetComponent<RectTransform>();
-            
 
-            prt.localPosition = new Vector3((leftPos.x + rightPos.x) / 2, leftPos.y + yOffset, 0);
+            text.text = cleanText;
 
-            o.GetComponent<Text>().text = furiText[i];
+            var generator = new TextGenerator();
+            generator.Populate(text.text, text.GetGenerationSettings(rt.sizeDelta));
+
+            var cleanCharArray = generator.GetCharactersArray();
+            Debug.Log(cleanCharArray == null);
+
+            for (int i = 0; i < (furiCharIndex.Count); i++)
+            {
+                Debug.Log("furiCharIndex.Count: " + furiCharIndex.Count);
+                Debug.Log("cleanCharArray Length: " + cleanCharArray.Length);
+
+                Vector2 leftPos = cleanCharArray[furiCharIndex[i]].cursorPos;
+                Vector2 rightPos = cleanCharArray[furiCharIndex[i] + furiCharLen[i]].cursorPos;
+
+                if (rightPos.x <= leftPos.x)
+                {
+                    //rightPos = new Vector2(position.x + position.width, leftPos.y);
+                }
+                var o = GameObject.Instantiate(TextPrefab, GetComponent<Transform>());
+
+                var prt = o.GetComponent<RectTransform>();
+
+
+                prt.localPosition = new Vector3((leftPos.x + rightPos.x) / 2, leftPos.y + yOffset, 0);
+
+                o.GetComponent<Text>().text = furiText[i];
+            }
+
+            generator.Invalidate();
         }
-           
+       
     }
 }

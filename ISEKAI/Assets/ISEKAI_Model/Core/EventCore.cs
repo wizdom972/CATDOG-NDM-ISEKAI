@@ -88,10 +88,23 @@ namespace ISEKAI_Model
 
         public virtual void Complete()
         {
+            Season beforeSeason = game.turn.season;
             status = EventStatus.Completed;
-            game.remainAP -= cost;
-            if (game.remainAP <= 2 && game.turn.IsFormerSeason())
+            game.turn.totalMonthNumber += cost;
+            /*
+            if (beforeSeason != game.turn.season)
                 game.Proceed();
+                */
+            for (int i = 0; i < HowManySeasonsHavePassed(beforeSeason, game.turn.season); i++)
+                game.Proceed();
+        }
+
+        private int HowManySeasonsHavePassed(Season before, Season after)
+        {
+            if (after >= before)
+                return after - before;
+            else
+                return after - before + 4;
         }
     }
 }

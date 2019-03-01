@@ -47,10 +47,7 @@ namespace ISEKAI_Model
             game.town.totalFoodProduction += 20;
             game.town.totalPleasantAmount += 5;
             game.town.remainFoodAmount += 5;
-            status = EventStatus.Completed;
-            game.remainAP -= cost;
-            if (game.remainAP <= 2 && game.turn.IsFormerSeason())
-                game.Proceed();
+            base.Complete();
         }
     }
 }
