@@ -33,8 +33,22 @@ public abstract class EndingGameUnit : MonoBehaviour
     public EndingGameUnit attackTarget { get
         {
             GameObject potentialTarget; //= endingGame.deployedEnemyUnits.FirstOrDefault();
-            if (isAllyUnit) potentialTarget = endingGame.deployedEnemyUnits.FirstOrDefault();
-            else potentialTarget = endingGame.deployedAllyUnits.FirstOrDefault();
+            if (isAllyUnit)
+                potentialTarget = 
+                    endingGame.deployedEnemyUnits.FirstOrDefault();
+            else
+            {
+                if (endingGame.isCastleExists)
+                {
+                    var maybeFirstUnit = endingGame.deployedAllyUnits.FirstOrDefault();
+                    if (maybeFirstUnit != null && maybeFirstUnit.transform.position.x > -10)
+                        potentialTarget = maybeFirstUnit;
+                    else
+                        potentialTarget = endingGame.castle;
+                }
+                else
+                    potentialTarget = endingGame.deployedAllyUnits.FirstOrDefault();
+            }
 
             if (potentialTarget == null)
                 return null;
@@ -47,49 +61,58 @@ public abstract class EndingGameUnit : MonoBehaviour
 
     public virtual void Update()
     {
-        if (attackTarget != null && !isInBattleState)
+        if (endingGame.isInWave)
         {
-            InvokeRepeating("Attack", 0.5f, attackSpeed);
-            isInBattleState = true;
-        }
-
-        if (attackTarget == null)
-        {
-            isInBattleState = false;
-            CancelInvoke("Attack");
-        }
-
-        int moveSpeed;
-
-        if (!isTooCloseFrontUnit)
-        {
-            if (isAllyUnit)
+            if (attackTarget != null && !isInBattleState)
             {
-                moveSpeed = speed;
-                if (endingGame.deployedEnemyUnits.FirstOrDefault() != null)
+                InvokeRepeating("Attack", 0.5f, attackSpeed);
+                isInBattleState = true;
+            }
+
+            if (attackTarget == null)
+            {
+                isInBattleState = false;
+                CancelInvoke("Attack");
+            }
+
+            int moveSpeed;
+
+            if (!isTooCloseFrontUnit)
+            {
+                if (isAllyUnit)
                 {
-                    if (endingGame.deployedEnemyUnits.First().transform.position.x - transform.position.x
-                        >= (unitSize + endingGame.deployedEnemyUnits.First().GetComponent<EndingGameUnit>().unitSize) / 2)
+                    moveSpeed = speed;
+                    if (endingGame.deployedEnemyUnits.FirstOrDefault() != null)
+                    {
+                        if (endingGame.deployedEnemyUnits.First().transform.position.x - transform.position.x
+                            >= (unitSize + endingGame.deployedEnemyUnits.First().GetComponent<EndingGameUnit>().unitSize) / 2)
+                            transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
+                    }
+                    else
                         transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
+
                 }
                 else
-                    transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
-
-            }
-            else
-            {
-                moveSpeed = -speed;
-                if (endingGame.deployedAllyUnits.FirstOrDefault() != null)
                 {
-                    if (-endingGame.deployedAllyUnits.First().transform.position.x + transform.position.x
-                        >= unitSize + endingGame.deployedAllyUnits.First().GetComponent<EndingGameUnit>().unitSize)
-                        transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
+                    moveSpeed = -speed;
+                    var maybeFirstUnit = endingGame.deployedAllyUnits.FirstOrDefault();
+                    if (endingGame.isCastleExists)
+                    {
+                        if (transform.position.x > -5)
+                            transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
+
+                    }
+                    else if (endingGame.deployedAllyUnits.FirstOrDefault() != null)
+                        {
+                            if (-endingGame.deployedAllyUnits.First().transform.position.x + transform.position.x
+                                >= unitSize + endingGame.deployedAllyUnits.First().GetComponent<EndingGameUnit>().unitSize)
+                                transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
+                        }
+                        else
+                            transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
                 }
-                else
-                    transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
             }
         }
-        
     }
 
     public void Attack()
@@ -105,16 +128,24 @@ public abstract class EndingGameUnit : MonoBehaviour
             if (isAllyUnit)
             {
                 endingGame.deployedEnemyUnits.Dequeue();
-                if (endingGameManager.isInWave && endingGame.deployedEnemyUnits.Count == 0)
+                if (endingGame.isInWave && endingGame.deployedEnemyUnits.Count == 0)
                 {
-                    endingGameManager.isInWave = false;
-                    endingGameManager.TurnOnAndOffNextWaveButton();
-                    endingGameManager.CleanUp();
+                    endingGame.isInWave = false;
+                    endingGame.TurnOnAndOffNextWaveButton();
+                    endingGame.CleanUp();
                 }
-                    
+
             }
             else
+            {
+                if(attackTarget.unitName == "성벽")
+                {
+                    Destroy(attackTarget);
+                    endingGame.isCastleExists = false;
+                }
+                else
                 endingGame.deployedAllyUnits.Dequeue();
+            }
         }
     }
 

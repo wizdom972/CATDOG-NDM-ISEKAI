@@ -5,10 +5,11 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
     float lastFall = 0;
-
+    public TetrisGameManager tetrisGameManager;
     // Start is called before the first frame update
     void Start()
     {
+        tetrisGameManager = FindObjectOfType<TetrisGameManager>();
         if (!isValidGridPos())
         {
             Debug.Log("GAME OVER");
@@ -85,7 +86,7 @@ public class Block : MonoBehaviour
                 Grid.deleteFullRows();
 
                 // Spawn next Group
-                FindObjectOfType<TetrisGameManager>().makeNextBlock();
+                tetrisGameManager.makeNextBlock();
 
                 // Disable script
                 enabled = false;
@@ -129,6 +130,7 @@ public class Block : MonoBehaviour
             Grid.grid[(int)v.x, (int)v.y] = child;
         }
     }
+
 
 
 }

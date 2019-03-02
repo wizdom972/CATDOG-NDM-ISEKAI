@@ -97,6 +97,8 @@ namespace ISEKAI_Model
                 */
             for (int i = 0; i < HowManySeasonsHavePassed(beforeSeason, game.turn.season); i++)
                 game.Proceed();
+
+            game.OccurEvents();
         }
 
         private int HowManySeasonsHavePassed(Season before, Season after)

@@ -15,6 +15,7 @@ public class EndingGameManager : MonoBehaviour
     {
         game = GameManager.instance.game;
         /*
+        game = new Game();
         game.town.remainFoodAmount += 1000;
         game.isIronActivated = true;
         game.isHorseActivated = true;
@@ -23,6 +24,7 @@ public class EndingGameManager : MonoBehaviour
         game.isArrowWeaponActivated = true;
         game.isBowActivated = false;
         game.isRifleActivated = true;
+        game.castleHP = 300;
         */
         InitGameInfo();
         UpdatePanel();
@@ -33,6 +35,10 @@ public class EndingGameManager : MonoBehaviour
     private Coroutine _bar;
 
     public bool isInWave = false;
+
+    public bool isCastleExists = false;
+    public GameObject castle;
+    public Transform castlePrefab;
 
     public Transform unitPrefab;
     public Game game;
@@ -108,6 +114,25 @@ public class EndingGameManager : MonoBehaviour
         if (!game.isIronActivated || !game.isHorseActivated)
             knightButton.gameObject.SetActive(false);
 
+        if (game.castleHP > 0)
+        {
+            castle = Instantiate(castlePrefab, new Vector2(-10, 0), Quaternion.identity).gameObject;
+            castle.GetComponent<EndingGameUnit>().endingGame = this;
+            castle.GetComponent<EndingGameUnit>().endingGameManager = this;
+            Debug.Log(castle.name);
+            castle.GetComponent<EndingGameUnit>().hp = game.castleHP;
+            switch (archerUnit)
+            {
+                case "궁병": castle.GetComponent<EndingGameUnit>().attackPower = 6; break;
+                case "석궁병": castle.GetComponent<EndingGameUnit>().attackPower = 10; break;
+                case "석궁병(철)": castle.GetComponent<EndingGameUnit>().attackPower = 20; break;
+                default: castle.GetComponent<EndingGameUnit>().attackPower = 0; break;
+            }
+            isCastleExists = true;
+        }
+
+
+
         _InitWaves();
     }
 
@@ -138,6 +163,7 @@ public class EndingGameManager : MonoBehaviour
     {
         var unitObject = Instantiate(unitPrefab.GetChild(_GetUnitNumber(unitName)), new Vector3(AllyStartPosition, -4f, 0), Quaternion.identity);
         unitObject.GetComponent<EndingGameUnit>().endingGame = this;
+        unitObject.GetComponent<EndingGameUnit>().endingGameManager = this;
         unitObject.GetComponent<EndingGameUnit>().frontUnit = _justMadeAllyUnit;
         unitObject.gameObject.SetActive(true);
         unitObject.GetChild(0).GetComponent<TextMesh>().text = "HP: " + unitObject.GetComponent<EndingGameUnit>().hp;

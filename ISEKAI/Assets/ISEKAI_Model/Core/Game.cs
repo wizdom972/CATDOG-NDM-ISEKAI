@@ -12,6 +12,7 @@ namespace ISEKAI_Model
             turn = new Turn();
             town = new Town();
             _InitEvents();
+            OccurEvents();
             Proceed();
         }
         public int remainAP => 3 - ((turn.monthNumber + 1) % 3); // remaining AP of the game.
@@ -24,8 +25,8 @@ namespace ISEKAI_Model
         public bool isArrowWeaponActivated = false;
         public bool isBowActivated = false;
         public bool isRifleActivated = false;
-
-        public int castleHealth = -1; // -1 if castle is not activated.
+        
+        public int castleHP = 0;
 
         public Dictionary<string, List<(int, int)>> choiceHistories = new Dictionary<string, List<(int, int)>>(); // <item1>th choice, selected <item2>th branch. (0-based)
         public List<EventCore> allEventsList = new List<EventCore>();
@@ -87,7 +88,7 @@ namespace ISEKAI_Model
                     if (turn.IsFormerSeason())
                     {
                         //turn.MoveToNextSeason();
-                        _OccurEvents();
+                        //OccurEvents();
                     }
                     else
                     {
@@ -109,7 +110,7 @@ namespace ISEKAI_Model
             //remainAP = maxAP;
             town.AddFoodProduction();
             town.ApplyResourcesChange();
-            _OccurEvents();
+            //OccurEvents();
             _SetAllEventActivable();
         }
         private void _DoPostTurnBehavior()
@@ -205,7 +206,7 @@ namespace ISEKAI_Model
                 e.isRemovedLastTurn = false;
         }
 
-        private void _OccurEvents() // Not recommended to call manually. Only called by Proceed().
+        public void OccurEvents()
         {
             foreach (EventCore e in allEventsList)
             {

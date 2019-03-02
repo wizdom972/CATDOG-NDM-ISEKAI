@@ -29,7 +29,13 @@ public class NKSoldier : EndingGameUnit
         if (!isTooCloseFrontUnit)
         {
             moveSpeed = -speed;
-            if (endingGame.deployedAllyUnits.FirstOrDefault() != null)
+            if (endingGame.isCastleExists)
+            {
+                if (transform.position.x > -5)
+                    transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
+
+            }
+            else if (endingGame.deployedAllyUnits.FirstOrDefault() != null)
             {
                 if (-endingGame.deployedAllyUnits.First().transform.position.x + transform.position.x
                     >= unitSize + endingGame.deployedAllyUnits.First().GetComponent<EndingGameUnit>().unitSize)
