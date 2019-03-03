@@ -13,19 +13,27 @@ namespace ISEKAI_Model
             town = new Town();
             _InitEvents();
             OccurEvents();
-            Proceed();
+            Proceed(turn.season);
         }
         public int remainAP => 3 - ((turn.monthNumber + 1) % 3); // remaining AP of the game.
         public Town town {get; private set;} // main town of the game. see Town class.
         public Turn turn {get; private set; } // indicating season, turn number, etc. see Turn class.
 
         public bool isMineUnlocked = false;
+        public bool isFarmUnlocked = false;
+
         public bool isIronActivated = false;
         public bool isHorseActivated = false;
         public bool isArrowWeaponActivated = false;
         public bool isBowActivated = false;
         public bool isRifleActivated = false;
-        
+        public bool isKnightActivated = false;
+
+        public bool bomRifleManHPModifier = false;
+        public bool bomRifleManAtkModifier = false;
+        public bool horseRaisingKnightModifier = false;
+
+        public int rifleAmount = 0;
         public int castleHP = 0;
 
         public Dictionary<string, List<(int, int)>> choiceHistories = new Dictionary<string, List<(int, int)>>(); // <item1>th choice, selected <item2>th branch. (0-based)
@@ -57,26 +65,91 @@ namespace ISEKAI_Model
         {
             //allEventsList.Add(new Prolog_1(this));
             //allEventsList.Add(new Prolog_2(this));
-            //allEventsList.Add(new DeadEnd(this));
-            //allEventList.Add(new Ending(this));
+            allEventsList.Add(new ReturnWarning(this));
+
+            allEventsList.Add(new DeadEnd(this));
+
+            allEventsList.Add(new Ending(this));
+
             allEventsList.Add(new Farming_1(this));
             allEventsList.Add(new Farming_2(this));
             allEventsList.Add(new Farming_3(this));
-            //allEventsList.Add(new NKScout(this));
+
+            allEventsList.Add(new NKScout(this));
+
+            allEventsList.Add(new NKAgent_1(this));
+            allEventsList.Add(new NKAgent_2(this));
+            allEventsList.Add(new NKAgent_3(this));
+            allEventsList.Add(new NKAgent_4(this));
+            allEventsList.Add(new NKAgentInterlude_1(this));
+            allEventsList.Add(new NKAgentInterlude_2(this));
+
+            allEventsList.Add(new HorseRaising_1(this));
+            allEventsList.Add(new HorseRaising_2(this));
+            allEventsList.Add(new HorseRaising_3(this));
+            allEventsList.Add(new HorseRaising_4(this));
+
             allEventsList.Add(new Hunting_1(this));
             allEventsList.Add(new Hunting_2(this));
             allEventsList.Add(new Hunting_3(this));
+
             allEventsList.Add(new Mine_1(this));
             allEventsList.Add(new Mine_2(this));
             allEventsList.Add(new Mine_3(this));
             allEventsList.Add(new Mine_4(this));
             allEventsList.Add(new Mine_Repeat(this));
-            allEventsList.Add(new Blesphemy_1(this));
-            allEventsList.Add(new Blesphemy_2(this));
+
+            allEventsList.Add(new Blasphemy_1(this));
+            allEventsList.Add(new Blasphemy_2(this));
+
+            allEventsList.Add(new CastleBuilding_1(this));
+            allEventsList.Add(new CastleBuilding_2(this));
         }
 
-        public void Proceed() // if you want to move on (next season, or next turn), just call it.
+        private int _HowManySeasonsHavePassed(Season before, Season after)
         {
+            if (after >= before)
+                return after - before;
+            else
+                return after - before + 4;
+        }
+
+        public void Proceed(Season startSeason) // from startSeason to current season, it Proceeds.
+        {
+            Season _startSeason = startSeason;
+
+            for (int i = 0; i < _HowManySeasonsHavePassed(_startSeason, turn.season); i++)
+            {
+                switch (turn.state)
+                {
+                    case State.PreTurn:
+                        _DoPreTurnBehavior();
+                        turn.MoveToNextState();
+                        break;
+                    case State.InTurn:
+                        if (_startSeason == Season.Winter || _startSeason == Season.Summer)
+                        {
+                            _startSeason = _MoveToNextSeason(_startSeason);
+                            break;
+                        }
+                        else
+                        {
+                            turn.MoveToNextState();
+                            --i;
+                            break;
+                        }
+                    case State.PostTurn:
+                        _DoPostTurnBehavior();
+                        _startSeason = _MoveToNextSeason(_startSeason);
+                        --i;
+                        break;
+                }
+            }
+
+
+
+            /*
+            Debug.Log(turn.state + " " + turn.season);
             switch (turn.state)
             {
                 case State.PreTurn:
@@ -102,24 +175,37 @@ namespace ISEKAI_Model
                     Proceed();
                     break;
             }
+            */
+        }
+
+        private Season _MoveToNextSeason(Season season)
+        {
+            switch (season)
+            {
+                case Season.Winter:
+                    return Season.Spring;
+
+                case Season.Spring:
+                    return Season.Summer;
+
+                case Season.Summer:
+                    return Season.Autumn;
+
+                case Season.Autumn:
+                    return Season.Winter;
+                default:
+                    throw new InvalidOperationException("asdfadf");
+            }
         }
 
         private void _DoPreTurnBehavior()
         {
-            //Console.WriteLine ("This is PreTurn.");
-            //remainAP = maxAP;
-            town.AddFoodProduction();
-            town.ApplyResourcesChange();
-            //OccurEvents();
+            town.ApplyPreTurnChange();
             _SetAllEventActivable();
         }
         private void _DoPostTurnBehavior()
         {
-            //Console.WriteLine ("This is PostTurn");
-            town.ConsumeFood();
-            town.ApplyResourcesChange();
-            turn.MoveToNextState();
-            //turn.MoveToNextSeason();
+            town.ApplyPostTurnChange();
             turn.IncreaseTurnNumber();
             _ReduceEveryEventsTurnsLeft();
         }
@@ -210,7 +296,6 @@ namespace ISEKAI_Model
         {
             foreach (EventCore e in allEventsList)
             {
-                Debug.Log(e.eventName + " " + e.status + " " + e.SeasonCheck());
                 if (e.status == EventStatus.Completed)
                     continue;
                 if (e.isForcedEvent && e.IsFirstVisible())

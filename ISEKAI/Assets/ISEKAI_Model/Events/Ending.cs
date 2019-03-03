@@ -11,7 +11,7 @@ namespace ISEKAI_Model
         public override int givenMaxTurn { get { return 10; } }
         public override int cost { get { return 0; } }
         public override Season availableSeason { get { return Season.None; } }
-        public override List<Command> script { get { return Parser.ParseScript("Assets/ISEKAI_Model/Scripts/Prolog_1.txt"); } } // command list.
+        public override List<Command> script { get { return Parser.ParseScript("Assets/ISEKAI_Model/Scripts/Ending.txt"); } } // command list.
 
         protected override bool exclusiveCondition()
         {

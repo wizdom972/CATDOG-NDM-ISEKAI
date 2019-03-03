@@ -51,7 +51,7 @@ public class EndingGameManager : MonoBehaviour
     public Button nextWave;
     public Text currentProductionText;
 
-    public int riflemanCount = 3;
+    public int riflemanCount = 0;
     public int currentWaveNumber = 0;
 
     public const int AllyStartPosition = -25;
@@ -111,7 +111,7 @@ public class EndingGameManager : MonoBehaviour
         else
             rifleUnit = "소총병";
 
-        if (!game.isIronActivated || !game.isHorseActivated)
+        if (!game.isKnightActivated)
             knightButton.gameObject.SetActive(false);
 
         if (game.castleHP > 0)
@@ -131,7 +131,7 @@ public class EndingGameManager : MonoBehaviour
             isCastleExists = true;
         }
 
-
+        riflemanCount = game.rifleAmount;
 
         _InitWaves();
     }

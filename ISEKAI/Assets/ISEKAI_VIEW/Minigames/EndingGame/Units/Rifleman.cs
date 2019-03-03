@@ -10,5 +10,14 @@ public class Rifleman : EndingGameUnit
     public override int attackSpeed { get { return 3; } }
     public override int attackRange { get { return 20; } }
     public override bool isAllyUnit => true;
-    
+
+    void Start()
+    {
+        if (GameManager.instance.game.bomRifleManAtkModifier)
+            attackPower = (int)(attackPower * 1.2f);
+
+        if (GameManager.instance.game.bomRifleManHPModifier)
+            hp = (int)(hp * 1.2f);
+
+    }
 }

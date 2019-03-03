@@ -12,7 +12,7 @@ namespace ISEKAI_Model
         public override string eventName { get { return "사냥 이벤트 1"; } }
         public override EventLocation location { get { return EventLocation.BackMount; } }
         public override int givenMaxTurn { get { return 3; } }
-        public override int cost { get { return 1; } }
+        public override int cost { get { return 2; } }
         public override Season availableSeason { get { return Season.None; } }
         public override List<Command> script { get { return Parser.ParseScript("Assets/ISEKAI_Model/Scripts/Hunting_1.txt"); } } // command list.
 
@@ -38,7 +38,7 @@ namespace ISEKAI_Model
 
         public Hunting_1(Game game): base(game)
         {
-
+            characterName = "마을 사람";
         }
 
         public override void Complete()

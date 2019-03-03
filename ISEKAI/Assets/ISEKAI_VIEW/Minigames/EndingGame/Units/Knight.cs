@@ -12,4 +12,12 @@ public class Knight : EndingGameUnit
     public override bool isAllyUnit => true;
     public override float unitSize => 6;
 
+    private void Start()
+    {
+        if (GameManager.instance.game.horseRaisingKnightModifier)
+        {
+            hp = (int)(hp * 1.5f);
+            attackPower = (int)(attackPower * 1.5f);
+        }
+    }
 }

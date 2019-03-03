@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace ISEKAI_Model
 {
@@ -18,7 +19,6 @@ namespace ISEKAI_Model
             turnNumber = 1;
             totalMonthNumber = 4;
             state = State.PreTurn;
-            year = 1994;
         }
         public Season season { get
             {
@@ -46,7 +46,7 @@ namespace ISEKAI_Model
             }
         }
         public State state {get; private set;}
-        public int year {get; private set;}
+        public int year => 1994 + ((turnNumber - 1) / 2);
         public int turnNumber { get; private set; }
         public int totalMonthNumber;
         public int monthNumber => totalMonthNumber % 12;
@@ -82,28 +82,7 @@ namespace ISEKAI_Model
             return (season == Season.Winter || season == Season.Summer);
         }
 
-        /*public void MoveToNextSeason() // Not recommended to call manually. Only called by Proceed().
-        {
-            switch (season)
-            {
-                case Season.Winter:
-                    season = Season.Spring;
-                    year++;
-                    break;
-
-                case Season.Spring:
-                    season = Season.Summer;
-                    break;
-
-                case Season.Summer:
-                    season = Season.Autumn;
-                    break;
-
-                case Season.Autumn:
-                    season = Season.Winter;
-                    break;
-            }
-        }*/
+        
         
         public void MoveToNextState() // Not recommended to call manually. Only called by Proceed().
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace ISEKAI_Model
 {
@@ -40,6 +41,8 @@ namespace ISEKAI_Model
         public abstract Season availableSeason {get;} // when this event is available.
         public abstract EventLocation location { get; }
         public abstract List<Command> script { get; }
+
+        public string characterName = null; //null if forced event or no character.
 
         public Game game {get; private set;}
         private Season _seasonMadeIn = Season.None;
@@ -91,22 +94,23 @@ namespace ISEKAI_Model
             Season beforeSeason = game.turn.season;
             status = EventStatus.Completed;
             game.turn.totalMonthNumber += cost;
+
+            game.Proceed(beforeSeason);
+            game.OccurEvents();
             /*
             if (beforeSeason != game.turn.season)
                 game.Proceed();
-                */
+                
             for (int i = 0; i < HowManySeasonsHavePassed(beforeSeason, game.turn.season); i++)
-                game.Proceed();
+            {
+                //game.Proceed();
+                Debug.Log(game.turn.state + "asdf");
+            }
 
             game.OccurEvents();
+            */
         }
 
-        private int HowManySeasonsHavePassed(Season before, Season after)
-        {
-            if (after >= before)
-                return after - before;
-            else
-                return after - before + 4;
-        }
+        
     }
 }

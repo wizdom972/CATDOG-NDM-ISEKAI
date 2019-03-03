@@ -9,6 +9,8 @@ public class TetrisGameManager : MonoBehaviour
     public GameObject gameOverScreen;
     public EventManager eventManager;
     public static int score = 0;
+    public static int scoreModifier = 1;
+
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,7 @@ public class TetrisGameManager : MonoBehaviour
 
     private IEnumerator _StartGameClosingProcess()
     {
+        scoreModifier = 2;
         eventManager.ExecuteOneScript();
         gameOverScreen.SetActive(true);
         yield return new WaitForSeconds(3f);

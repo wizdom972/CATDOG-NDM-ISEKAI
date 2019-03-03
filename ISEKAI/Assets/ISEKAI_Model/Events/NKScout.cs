@@ -15,7 +15,7 @@ namespace ISEKAI_Model
 
         protected override bool exclusiveCondition()
         {
-            return game.turn.turnNumber == 12;
+            return game.turn.year == 1999;
         }
 
         public NKScout(Game game) : base(game)

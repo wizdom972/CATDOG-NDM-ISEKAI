@@ -38,7 +38,7 @@ namespace ISEKAI_Model
 
         public Mine_1(Game game): base(game)
         {
-
+            characterName = "작업반장";
         }
     }
 }

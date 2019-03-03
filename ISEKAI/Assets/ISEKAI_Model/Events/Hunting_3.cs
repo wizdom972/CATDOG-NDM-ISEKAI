@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace ISEKAI_Model
 {
@@ -12,7 +9,7 @@ namespace ISEKAI_Model
         public override string eventName { get { return "사냥 이벤트 3"; } }
         public override EventLocation location { get { return EventLocation.BackMount; } }
         public override int givenMaxTurn { get { return 3; } }
-        public override int cost { get { return 1; } }
+        public override int cost { get { return 2; } }
         public override Season availableSeason { get { return Season.None; } }
         public override List<Command> script { get { return Parser.ParseScript("Assets/ISEKAI_Model/Scripts/Hunting_3.txt"); } } // command list.
 
@@ -39,7 +36,7 @@ namespace ISEKAI_Model
 
         public Hunting_3(Game game): base(game)
         {
-
+            characterName = "선녀짱";
         }
 
         public override void Complete()

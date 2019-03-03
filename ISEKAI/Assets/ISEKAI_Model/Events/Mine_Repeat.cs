@@ -12,7 +12,7 @@ namespace ISEKAI_Model
         public override string eventName { get { return "철광석 캐기 이벤트"; } }
         public override EventLocation location { get { return EventLocation.Mine; } }
         public override int givenMaxTurn { get { return -1; } }
-        public override int cost { get { return 0; } }
+        public override int cost { get { return 3; } }
         public override Season availableSeason { get { return Season.None; } }
         public override List<Command> script { get { return Parser.ParseScript("Assets/ISEKAI_Model/Scripts/Mine_Repeat.txt"); } } // command list.
 
@@ -23,7 +23,7 @@ namespace ISEKAI_Model
 
         public Mine_Repeat(Game game): base(game)
         {
-
+            characterName = "기술지도원";
         }
 
         public override void Complete()

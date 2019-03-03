@@ -12,7 +12,7 @@ namespace ISEKAI_Model
         public override string eventName { get { return "광산 이벤트 3"; } }
         public override EventLocation location { get { return EventLocation.FrontMount; } }
         public override int givenMaxTurn { get { return -1; } }
-        public override int cost { get { return 3; } }
+        public override int cost { get { return 5; } }
         public override Season availableSeason { get { return Season.None; } }
         public override List<Command> script { get { return Parser.ParseScript("Assets/ISEKAI_Model/Scripts/Mine_3.txt"); } } // command list.
 
@@ -21,11 +21,9 @@ namespace ISEKAI_Model
             return game.allEventsList.Find(e => e.eventName.Equals("광산 이벤트 2")).status == EventStatus.Completed;
         }
 
-        private bool _isFirstOccur = true;
-
         public Mine_3(Game game): base(game)
         {
-
+            characterName = "선녀짱";
         }
         public override void Complete()
         {

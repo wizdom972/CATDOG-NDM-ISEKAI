@@ -41,9 +41,11 @@ public class Grid : MonoBehaviour
         {
             Destroy(grid[x, y].gameObject);
             grid[x, y] = null;
-            GameManager.instance.game.castleHP += 10;
-            GameObject.Find("Score").GetComponent<Text>().text = "Score: " + TetrisGameManager.score;
+            GameManager.instance.game.castleHP += 10 * TetrisGameManager.scoreModifier;
         }
+
+        TetrisGameManager.score++;
+        GameObject.Find("Score").GetComponent<Text>().text = "Score: " + TetrisGameManager.score;
     }
 
     public static void decreaseRow(int y)

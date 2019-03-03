@@ -28,7 +28,7 @@ Load CG "CG\WildBoarBoss"
 # "그 커다란 산도티는 운명의 장난 처럼 선녀를 노려보고 있었다."
 # "그날 밤의 상황과 거의 유사했지만, 그 때와 비해 이 산도티는 훨씬 더 성나고 커보였다."
 ## "나" "헉. 구해주러 갈게!!"
-Load Minigame "WildBoarBossfight"
+Load Minigame "RaidingGame"
 # "드디어 대장 산도티가 죽은 것을 확인하자, 나는 넘어져있던 선녀를 안아 일으키며 숨을 골랐다."
 Load Character "Character\Heroine\d\relieved" -center
 ## "나" "헉.. 힘들다.."

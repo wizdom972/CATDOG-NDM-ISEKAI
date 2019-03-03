@@ -12,7 +12,7 @@ namespace ISEKAI_Model
         public override string eventName { get { return "사냥 이벤트 2"; } }
         public override EventLocation location { get { return EventLocation.CarpenterHouse; } }
         public override int givenMaxTurn { get { return 3; } }
-        public override int cost { get { return 1; } }
+        public override int cost { get { return 5; } }
         public override Season availableSeason { get { return Season.None; } }
         public override List<Command> script { get { return Parser.ParseScript("Assets/ISEKAI_Model/Scripts/Hunting_2.txt"); } } // command list.
 
@@ -39,7 +39,19 @@ namespace ISEKAI_Model
 
         public Hunting_2(Game game): base(game)
         {
+            characterName = "목수";
+        }
 
+        public override void Complete()
+        {
+            game.isArrowWeaponActivated = true;
+            int bowOrCrossBow = game.TryGetChoiceHistory("사냥 이벤트 2", 0);
+            if (bowOrCrossBow == 0)
+                game.isBowActivated = true;
+            else
+                game.isBowActivated = false;
+            
+            base.Complete();
         }
     }
 }

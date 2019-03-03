@@ -31,8 +31,6 @@ public class UITownManager : MonoBehaviour
     public Sprite townSprite;
     public Sprite outskirtsSprite;
 
-    public GameObject nextTurn;
-
     private Button _moveBtnLocation;
     private Text _moveTxtlocation;
     private SpriteRenderer _background;
@@ -63,7 +61,7 @@ public class UITownManager : MonoBehaviour
     public void OnMoveBtnClick()
     {
         GameManager gm = GameManager.instance;
-        Debug.Log(gm.game.visibleEventsList.Count);
+        Debug.Log(gm.game.turn.turnNumber);
         tutorialManager.ProceedTutorial();
         switch (_location)
         {
@@ -92,7 +90,7 @@ public class UITownManager : MonoBehaviour
         }
         GameManager.instance.TryUpdateEventSDs();
     }
-
+    /*
     public void OnClickNextTurnButton()
     {
         Game _game = GameManager.instance.game;
@@ -104,7 +102,7 @@ public class UITownManager : MonoBehaviour
         foreach (EventCore e in GameManager.instance.game.visibleEventsList)
             Debug.Log(e.eventName);
     }
-
+    */
     public void UpdatePanel()
     {
         Game _game = GameManager.instance.game;
@@ -112,10 +110,6 @@ public class UITownManager : MonoBehaviour
         textPleasant.text = _game.town.totalPleasantAmount + "/" + 200;
         textTurn.text = _game.turn.ToString();
         textAP.text ="AP: " + _game.remainAP + "/" + 4;
-        if (_game.turn.IsFormerSeason())
-            nextTurn.SetActive(false);
-        else
-            nextTurn.SetActive(true);
         GameManager.instance.TryInstantiateEventSDs();
         GameManager.instance.TryUpdateEventSDs();
         SetParentsOfEvents();
