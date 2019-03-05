@@ -15,20 +15,19 @@ namespace ISEKAI_Model
 
         protected override bool exclusiveCondition()
         {
-            bool turnCondition = game.turn.turnNumber >= 3 && game.turn.turnNumber <= 10;
             int chance = (new Random()).Next() / 10;
             bool chanceCondition = chance <= 2;
             bool prevCondition = game.allEventsList.Find(e => e.eventName == "말 기르기 이벤트 3").status == EventStatus.Completed;
-            if (_isFirstOccur && turnCondition && prevCondition)
+            if (_isFirstOccur &&  prevCondition)
             {
                 _isFirstOccur = false;
-                return turnCondition && prevCondition;
+                return  prevCondition;
             }
             else
             {
                 if (_isFirstOccur)
                     return false;
-                return prevCondition && turnCondition && chanceCondition;
+                return prevCondition &&  chanceCondition;
             }
         }
 

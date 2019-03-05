@@ -6,7 +6,7 @@ namespace ISEKAI_Model
     public class ReturnWarning : EventCore
     {
         public override int forcedEventPriority { get { return 1000; } }
-        public override string eventName { get { return "당의 귀환 경고 이벤트"; } }
+        public override string eventName { get { return "당의 귀환 경고"; } }
         public override EventLocation location { get { return EventLocation.None; } }
         public override int givenMaxTurn { get { return 10; } }
         public override int cost { get { return 0; } }

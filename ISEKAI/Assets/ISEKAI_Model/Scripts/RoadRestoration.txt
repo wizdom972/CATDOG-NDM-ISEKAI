@@ -1,0 +1,39 @@
+﻿Load Background "Background\Town"
+Load Character "Character\Heroine\b\normal" -center
+## "선녀" "요즘 장동무가 오기 전보다 훨신 발전해서 먹을것도 많이 남고 좋은거 같아요." -center
+## "나" "(요즘도 그렇게 많이 나은건 아닌거같은데..)"
+## "나" "그러게. 엄청 많이 발전했지."
+## "선녀" "요즘 먹을거도 많은데 빨리 길들이 복구 됐으면 좋겠어요." -center
+## "나" "왜?"
+## "선녀" "그냥 마을 안에만 갇혀있으니 새로운거도 없고 해서요." -center
+## "나" "그렇군. 그럼 우리가 복구 하는게 어떨까?"
+## "선녀" "그래도 될까요?" -center
+## "나" "되겠지. 다른 사람들도 길을 복구하길 바랄거야."
+## "선녀" "그럼 좋아요!" -center
+VFX Transition
+Unload Character -center
+Load Character "Character\Father\a\normal" -center
+## "나" "이장님. 길을 복구할까 하는데 마을 사람들을 모아주십시오."
+## "이장" " "길을 복구한다고?" -center
+## "나" "그냥 다들 갇혀있는거같아서 답답한가봐요."
+## "이장" " "알겠네." -center
+VFX Transition
+Unload Character -center
+Load Character "Character\Farmer\a\normal" -center
+# "잠시후"
+## "인부들" "무슨일입니까." -center
+## "나" "막힌 길을 뚫읍시다."
+## "인부들" "마을일을 안해도 괜찮습니까?" -center
+## "나" "괜찮네. 지금 먹을건 넘치거든."
+## "인부들" "넵 알겠습니다. 최대한 빠르게 해보겠습니다." -center
+## "나" "고맙네."
+VFX Transition
+Unload Character -center
+Load Character "Character\Farmer\a\normal" -center
+#(몇달뒤)
+## "인부1" "길을 어느정도 뚫었습니다." -center
+## "인부1" "완전히 다 복구하는건 저희 힘으로 불가능 할거같고." -center
+## "인부1" "길을 막고있는것들은 저희 장비로 다 치웠습니다." -center
+## "인부1" "그래도 좀 지저분 하지만 이동하는대 문제는 없을겁니다." -center
+## "나" "고맙습니다."
+## "나" "이제 다시 본 업무로 돌아가죠."

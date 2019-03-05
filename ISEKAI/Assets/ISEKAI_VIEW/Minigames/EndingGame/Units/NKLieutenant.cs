@@ -11,8 +11,9 @@ public class NKLieutenant : EndingGameUnit
     public override int attackRange { get { return 10; } }
     public override bool isAllyUnit => false;
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         foreach(GameObject unit in endingGame.deployedEnemyUnits)
         {
             if (unit.GetComponent<EndingGameUnit>().unitNumber == 10)

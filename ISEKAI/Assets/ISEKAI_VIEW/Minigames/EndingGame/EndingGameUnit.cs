@@ -59,6 +59,12 @@ public abstract class EndingGameUnit : MonoBehaviour
         }
     }
 
+    public virtual void Start()
+    {
+        if (endingGame.game.expansion1Modifier)
+            attackPower = (int)(attackPower * 1.3);
+    }
+
     public virtual void Update()
     {
         if (endingGame.isInWave)

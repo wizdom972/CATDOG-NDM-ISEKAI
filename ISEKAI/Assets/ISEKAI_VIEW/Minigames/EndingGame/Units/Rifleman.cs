@@ -11,8 +11,10 @@ public class Rifleman : EndingGameUnit
     public override int attackRange { get { return 20; } }
     public override bool isAllyUnit => true;
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
+
         if (GameManager.instance.game.bomRifleManAtkModifier)
             attackPower = (int)(attackPower * 1.2f);
 

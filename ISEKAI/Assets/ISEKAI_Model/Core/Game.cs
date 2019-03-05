@@ -32,6 +32,8 @@ namespace ISEKAI_Model
         public bool bomRifleManHPModifier = false;
         public bool bomRifleManAtkModifier = false;
         public bool horseRaisingKnightModifier = false;
+        public bool expansion1Modifier = false;
+        public bool expansion2Modifier = false;
 
         public int rifleAmount = 0;
         public int castleHP = 0;
@@ -104,6 +106,12 @@ namespace ISEKAI_Model
 
             allEventsList.Add(new CastleBuilding_1(this));
             allEventsList.Add(new CastleBuilding_2(this));
+
+            allEventsList.Add(new RoadRestoration(this));
+            allEventsList.Add(new Expansion_1(this));
+            allEventsList.Add(new Expansion_2(this));
+            allEventsList.Add(new Expansion_3_1(this));
+            allEventsList.Add(new Expansion_3_2(this));
         }
 
         private int _HowManySeasonsHavePassed(Season before, Season after)

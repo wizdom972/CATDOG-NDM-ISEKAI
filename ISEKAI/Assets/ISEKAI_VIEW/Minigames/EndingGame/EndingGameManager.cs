@@ -202,52 +202,62 @@ public class EndingGameManager : MonoBehaviour
 
     private bool _IsUnitProducible(string unitName)
     {
+        float mod;
+        if (game.expansion2Modifier)
+            mod = 0.7f;
+        else
+            mod = 1;
         switch (unitName)
         {
             case "농민":
-                return game.town.remainFoodAmount >= 20;
+                return game.town.remainFoodAmount >= 20 * mod;
             case "창병":
-                return game.town.remainFoodAmount >= 20 && game.town.totalIronAmount >= 1;
+                return game.town.remainFoodAmount >= 20 * mod && game.town.totalIronAmount >= 1 * mod;
             case "파이크병":
-                return game.town.remainFoodAmount >= 50 && game.town.totalIronAmount >= 1;
+                return game.town.remainFoodAmount >= 50 * mod && game.town.totalIronAmount >= 1 * mod;
             case "궁병":
-                return game.town.remainFoodAmount >= 30;
+                return game.town.remainFoodAmount >= 30 * mod;
             case "석궁병":
-                return game.town.remainFoodAmount >= 20;
+                return game.town.remainFoodAmount >= 20 * mod;
             case "석궁병(철)":
-                return game.town.remainFoodAmount >= 20 && game.town.totalIronAmount >= 2;
+                return game.town.remainFoodAmount >= 20 * mod && game.town.totalIronAmount >= 2 * mod;
             case "소총병":
-                return game.town.remainFoodAmount >= 35 && riflemanCount > 0;
+                return game.town.remainFoodAmount >= 35 * mod && riflemanCount > 0 * mod;
             case "소총병(철)":
-                return game.town.remainFoodAmount >= 35 && game.town.totalIronAmount >= 2 && riflemanCount > 0;
+                return game.town.remainFoodAmount >= 35 * mod && game.town.totalIronAmount >= 2 * mod && riflemanCount > 0;
             case "기사":
-                return game.town.remainFoodAmount >= 40 && game.town.totalIronAmount >= 10 && game.town.totalHorseAmount >= 1;
+                return game.town.remainFoodAmount >= 40 * mod && game.town.totalIronAmount >= 10 * mod && game.town.totalHorseAmount >= 1;
             default:
                 throw new InvalidOperationException("Unit " + unitName + " has not implemented.");
         }
     }
     private int _GetProductionTime(string unitName)
     {
-        switch(unitName)
+        float mod;
+        if (game.expansion2Modifier)
+            mod = 0.7f;
+        else
+            mod = 1;
+        switch (unitName)
         {
             case "농민":
-                return 1;
+                return (int)(1 * mod);
             case "창병":
-                return 2;
+                return (int)(2 * mod);
             case "파이크병":
-                return 3;
+                return (int)(3 * mod);
             case "궁병":
-                return 5;
+                return (int)(5 * mod);
             case "석궁병":
-                return 3;
+                return (int)(3 * mod);
             case "석궁병(철)":
-                return 4;
+                return (int)(4 * mod);
             case "소총병":
-                return 5;
+                return (int)(5 * mod);
             case "소총병(철)":
-                return 6;
+                return (int)(6 * mod);
             case "기사":
-                return 5;
+                return (int)(5 * mod);
             default:
                 throw new InvalidOperationException("Unit " + unitName + " has not implemented.");
         }
@@ -288,41 +298,46 @@ public class EndingGameManager : MonoBehaviour
 
     private void _ConsumeResource(string unitName)
     {
+        float mod;
+        if (game.expansion2Modifier)
+            mod = 0.7f;
+        else
+            mod = 1;
         switch (unitName)
         {
             case "농민":
-                game.town.remainFoodAmount -= 20;
+                game.town.remainFoodAmount -= 20 * mod;
                 break;
             case "창병":
-                game.town.remainFoodAmount -= 20;
-                game.town.totalIronAmount -= 1;
+                game.town.remainFoodAmount -= 20 * mod;
+                game.town.totalIronAmount -= 1 * mod;
                 break;
             case "파이크병":
-                game.town.remainFoodAmount -= 50;
-                game.town.totalIronAmount -= 1;
+                game.town.remainFoodAmount -= 50 * mod;
+                game.town.totalIronAmount -= 1 * mod;
                 break;
             case "궁병":
-                game.town.remainFoodAmount -= 30;
+                game.town.remainFoodAmount -= 30 * mod;
                 break;
             case "석궁병":
-                game.town.remainFoodAmount -= 20;
+                game.town.remainFoodAmount -= 20 * mod;
                 break;
             case "석궁병(철)":
-                game.town.remainFoodAmount -= 20;
-                game.town.totalIronAmount -= 2;
+                game.town.remainFoodAmount -= 20 * mod;
+                game.town.totalIronAmount -= 2 * mod;
                 break;
             case "소총병":
-                game.town.remainFoodAmount -= 35;
+                game.town.remainFoodAmount -= 35 * mod;
                 --riflemanCount;
                 break;
             case "소총병(철)":
-                game.town.remainFoodAmount -= 35;
-                game.town.totalIronAmount -= 2;
+                game.town.remainFoodAmount -= 35 * mod;
+                game.town.totalIronAmount -= 2 * mod;
                 --riflemanCount;
                 break;
             case "기사":
-                game.town.remainFoodAmount -= 40;
-                game.town.totalIronAmount -= 10;
+                game.town.remainFoodAmount -= 40 * mod;
+                game.town.totalIronAmount -= 10 * mod;
                 game.town.totalHorseAmount -= 1;
                 break;
         }
