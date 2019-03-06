@@ -45,7 +45,7 @@ Load Character "Character\Professor\a\normal" -center
 ## "교수" "「다행이 반세기 전 『{  주  :An}{  님  :no}의 {  해  :Domini}』1277 에 우리 파리의 대주교 【{  에  :É}{  티  :ti}{  엔  :en}{  느  :ne}∙{  딴  :Tem}{  삐  :pi}{  에  :er}】성하 께서 『{  신  :DEUS}』의『{  다  :Mul}{  른  :ti} {  세 
  :Mun}{  계  :di}』를 만들 능력을 부정하는 것을 『{  이  :Diab}{  단  :olos}』으로 규정하였지。 」" -center
 # "갑자기 수업의 이 부분만 떠오르는 이유는 무엇, 라던지의 생각을 하며 나는 현 상황에 더 도움이 될만한 기억을 찾아 본다 던지, 를 해본다。"
-Unload -center
+Unload Character -center
 VFX Transition
 Load Background "Background\MedievalStreet"
 VFX Sound "VFX\Sound\Breath"
