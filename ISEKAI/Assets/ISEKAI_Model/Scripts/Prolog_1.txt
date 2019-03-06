@@ -1,8 +1,8 @@
-Load Background "Background\Blackbackground"
+﻿Load Background "Background\Blackbackground"
 # "「 ━━ 」"
 # "익숙하지 않은 천장이다。"
-## "나" "「 후아━━ 」"
 VFX Sound "VFX\Sound\Breath"
+## "나" "「 후아━━ 」"
 # "쑤시는 온몸에서 느껴지는 이 『감각』을 참으며, 나는 목이 굉장히 마르네, 이라던가, 이 어두운 곳은 어디지, 따위의 이런저런 생각을 하며, 일단 상체를 일으켜 세우기로 했던 것이다。"
 ## "나" "「 여긴, 어디━━? 」"
 # "점차 눈이 어둠에 적응을 하자 나는 내 주변을 둘러보기로 했었다。"
@@ -45,10 +45,11 @@ Load Character "Character\Professor\a\normal" -center
 ## "교수" "「다행이 반세기 전 『{  주  :An}{  님  :no}의 {  해  :Domini}』1277 에 우리 파리의 대주교 【{  에  :É}{  티  :ti}{  엔  :en}{  느  :ne}∙{  딴  :Tem}{  삐  :pi}{  에  :er}】성하 께서 『{  신  :DEUS}』의『{  다  :Mul}{  른  :ti} {  세 
  :Mun}{  계  :di}』를 만들 능력을 부정하는 것을 『{  이  :Diab}{  단  :olos}』으로 규정하였지。 」" -center
 # "갑자기 수업의 이 부분만 떠오르는 이유는 무엇, 라던지의 생각을 하며 나는 현 상황에 더 도움이 될만한 기억을 찾아 본다 던지, 를 해본다。"
+Unload -center
 VFX Transition
 Load Background "Background\MedievalStreet"
-## "나" "「 ━━후, 하, 후, 하 」"
 VFX Sound "VFX\Sound\Breath"
+## "나" "「 ━━후, 하, 후, 하 」"
 # "분명 나는 천체자연학 강의를 마치고 나서 『{  대지  :농}{  자연  :업}학 실습』수업에 늦지 않기 위해 『{  점  :토}{  심  :스}{ 
  빵  :트}』을 입에 물고 달려가고 있었다。"
 # "━━그랬어야 할 터인데, 어째서━━?!"
@@ -63,9 +64,9 @@ Load Background "Background\Blackbackground"
 # "그랬다, 나는 지나가던 마차에 치였던 것이다。"
 # "하지만 분명 지금의 나는 살아있다。확실히 이곳은 지옥이나 천국은 아니기 때문이다。"
 # "어째서━━?"
-Load CG "CG\Outside1"
-VFX Sound "VFX\Sound\thunder"
+VFX Load Sprite "VFX\Sprite\Lightning" -0 -0
 VFX Camerashake
+VFX Sound "VFX\Sound\thunder"
 Play Music "BGM\Rainfall" -r
 # "『 ━━━━콰쾅 』"
 # "『 ━━━━?! 』"
@@ -91,6 +92,7 @@ Load CG "CG\Firstmeeting"
 # "여자가 위험에 처해진 모습에 난 황급히 내 【{  팔  :Fau}{  숀  :chon}】∙『호신용 검』을 꺼내어 멧돼지의 뒤쪽으로 달려들 수 밖에 없었다。"
 # "나는 어릴 적 뒷산에서 아버지와 같이 사냥하던 때를 회상하며, 급소로 날을 집어 넣었다。"
 VFX Transition
+Unload CG
 Load Background "Background\Blackbackground"
 VFX Load Sprite "VFX\Sprite\Swordstrike"
 VFX Sound "VFX\Sound\Swordstrike"
@@ -101,7 +103,7 @@ Load Background "Background\Darkforest"
 ## "멧돼지" "「 꾸에에에에에에에에에에에엑━━━━━━!!! 」"
 # "갑작스런 상황변화를 받아들이지 못하고, 멧돼지는 그 분노를 격렬한 몸부림을 통해 배출한다。하지만 이미 이 성난 괴수의 운명은 정해져 있었다。"
 # "나는 멧돼지의 등을 온 힘 다해 잡으며 검을 더 깊숙이 심장을 향해 찔러 넣는다。"
-VFX Load Sprite "VFX\Sprite\Blood"
+VFX Load Sprite "VFX\Sprite\Blood" -0 -0
 VFX Pause -1000
 # "몇 분 동안의 의미 없는 몸부림과 괴성을 지르던 야수는, 결국 체액이 빠지며 힘을 잃어가다 결국에는 쓰러진다。"
 Load Character "Character\Heroine\a\normal" -center
@@ -122,6 +124,7 @@ Load Character "Character\Heroine\a\embarassed" -center
 # "그녀는 내 검을 가리키며 무엇이라 부를지 고민하는 듯 하였다。"
 ## "나" "「 흠━━ 」"
 ## "나" "「 이것 말인가? 아아━━ 이것은 【{  팔  :Fau}{  숀  :chon}】∙『호신용 검』라는 것이다。내가 있던 곳에서 다들 하나씩 들고 다니던 것이지。」"
+Unload -center
 VFX Transition
 Load Background "Background\Timechange2"
 VFX Transition
