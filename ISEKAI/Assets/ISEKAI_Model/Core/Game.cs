@@ -65,7 +65,7 @@ namespace ISEKAI_Model
 
         private void _InitEvents() // should add EVERY events when new event plan comes.
         {
-            // allEventsList.Add(new Prolog_1(this));
+            allEventsList.Add(new Prolog_1(this));
             allEventsList.Add(new Prolog_2(this));
             allEventsList.Add(new ReturnWarning(this));
 

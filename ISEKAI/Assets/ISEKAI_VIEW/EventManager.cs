@@ -245,6 +245,7 @@ public class EventManager : MonoBehaviour
     private void _Explanation(Explanation explanation)
     {
         Debug.Log("explanation");
+        UIScript.SetActive(true);
 
         StartCoroutine(WaitUntilCharacterLoaded());
 
@@ -288,6 +289,7 @@ public class EventManager : MonoBehaviour
     private void _Conversation(Conversation conversation)
     {
         Debug.Log("conversation");
+        UIScript.SetActive(true);
 
         StartCoroutine(WaitUntilCharacterLoaded());
 
@@ -843,11 +845,11 @@ public class EventManager : MonoBehaviour
 
     IEnumerator transtionVFXPlay()
     {
-
+        UIScript.SetActive(true);
         yield return StartCoroutine(fadeOut());
 
         //UIButton.SetActive(false);
-        //UIScript.SetActive(false);
+        
 
         ExecuteOneScript();
 
