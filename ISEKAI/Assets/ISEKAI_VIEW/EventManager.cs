@@ -845,7 +845,7 @@ public class EventManager : MonoBehaviour
 
     IEnumerator transtionVFXPlay()
     {
-        UIScript.SetActive(true);
+        UIScript.SetActive(false);
         yield return StartCoroutine(fadeOut());
 
         //UIButton.SetActive(false);
