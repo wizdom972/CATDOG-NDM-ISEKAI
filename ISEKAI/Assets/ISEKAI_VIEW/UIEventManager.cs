@@ -117,6 +117,8 @@ public class UIEventManager : MonoBehaviour
             buttonAuto.gameObject.
                 GetComponentInChildren<Text>().text = "Auto\nOn";
 
+            buttonNext.interactable = false;
+
             StartCoroutine(autoPlay());
         }
         else if(isAuto == false)
@@ -124,8 +126,8 @@ public class UIEventManager : MonoBehaviour
             buttonAuto.gameObject.
                 GetComponentInChildren<Text>().text = "Auto\nOff";
 
-            Debug.Log("????");
-
+            buttonNext.interactable = true;
+            
             StopCoroutine(autoPlay());
         }
     }

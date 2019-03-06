@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
-    public GameObject clickDetector;
+    /*public GameObject clickDetector;
     public GameObject entireTutorial;
     public GameObject[] tutorials;
     public GameObject eventSDs;
@@ -107,5 +107,5 @@ public class TutorialManager : MonoBehaviour
         foreach (GameObject go in tutorials)
             go.SetActive(false);
         tutorials[idx].SetActive(true);
-    }
+    }*/
 }

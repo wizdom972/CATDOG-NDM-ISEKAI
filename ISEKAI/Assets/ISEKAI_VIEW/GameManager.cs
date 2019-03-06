@@ -81,9 +81,34 @@ public class GameManager : MonoBehaviour
                 sd.name = e.eventName;
                 if (e.givenMaxTurn < 0)
                     sd.GetChild(2).gameObject.SetActive(false);
+                //else
+                    //sd.GetChild(2).GetComponent<SpriteRenderer>().sprite = turnsLeftSprites[e.givenMaxTurn - 1]; // sprite array index is 0-based, but starts with sprite of 1, so -1 is needed.
                 else
-                    sd.GetChild(2).GetComponent<SpriteRenderer>().sprite = turnsLeftSprites[e.givenMaxTurn - 1]; // sprite array index is 0-based, but starts with sprite of 1, so -1 is needed.
-                sd.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().sprite = numberSprites[e.cost];
+                {
+                    int monthOffset;
+                    if (game.turn.monthNumber >= 0 && game.turn.monthNumber < 6)
+                        monthOffset = 5 - game.turn.monthNumber;
+                    else
+                        monthOffset = 11 - game.turn.monthNumber;
+
+                    int totalMonthLeft = 6 * (e.turnsLeft - 1) + monthOffset;
+
+                    int year = totalMonthLeft / 12;
+                    int month = totalMonthLeft % 12 + 1;
+
+                    string apText;
+                    if (year == 0)
+                        apText = "   " + month + "개월 남음";
+                    else
+                        apText = year + "년 " + month + "개월 남음";
+
+                    sd.GetChild(2).GetComponent<TextMesh>().text = apText;
+                }
+                //sd.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().sprite = numberSprites[e.cost];
+                sd.GetChild(1).GetComponent<TextMesh>().text = e.cost + "달";
+
+
+
                 if (e.availableSeason == Season.None)
                     sd.GetChild(4).gameObject.SetActive(false);
                 else
@@ -106,11 +131,33 @@ public class GameManager : MonoBehaviour
                 sd.gameObject.SetActive(false);
 
             if (e.givenMaxTurn < 0)
-                return;
+                continue;
 
             if (e.turnsLeft >= 1)
-                sd.GetChild(2).GetComponent<SpriteRenderer>().sprite = turnsLeftSprites[e.turnsLeft - 1]; // sprite array index is 0-based, but starts with sprite of 1, so -1 is needed.
-            sd.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().sprite = numberSprites[e.cost];
+            {
+                //sd.GetChild(2).GetComponent<SpriteRenderer>().sprite = turnsLeftSprites[e.turnsLeft - 1]; // sprite array index is 0-based, but starts with sprite of 1, so -1 is needed.
+                int monthOffset;
+                if (game.turn.monthNumber >= 0 && game.turn.monthNumber < 6)
+                    monthOffset = 5 - game.turn.monthNumber;
+                else
+                    monthOffset = 11 - game.turn.monthNumber;
+
+                int totalMonthLeft = 6 * (e.turnsLeft - 1) + monthOffset;
+
+                int year = totalMonthLeft / 12;
+                int month = totalMonthLeft % 12 + 1;
+
+                string apText;
+                if (year == 0)
+                    apText = "   " + month + "개월 남음";
+                else
+                    apText = year + "년 " + month + "개월 남음";
+
+                sd.GetChild(2).GetComponent<TextMesh>().text = apText;
+            }
+
+            //sd.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().sprite = numberSprites[e.cost];
+
             if (e.availableSeason == Season.None)
                 sd.GetChild(4).gameObject.SetActive(false);
             else

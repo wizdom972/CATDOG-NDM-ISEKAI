@@ -384,12 +384,12 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1003,6 +1003,9 @@ MonoBehaviour:
     width: 0
     height: 0
   yOffset: 60
+  canvasHeight: 1080
+  canvasWidth: 1920
+  canvasMatch: 1
   isCalled: 0
 --- !u!1 &918228352
 GameObject:
@@ -1229,7 +1232,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Skip
 
-    On'
+    Off'
 --- !u!222 &1008472587
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1340,6 +1343,9 @@ MonoBehaviour:
     width: 0
     height: 0
   yOffset: 60
+  canvasHeight: 1080
+  canvasWidth: 1920
+  canvasMatch: 1
   isCalled: 0
 --- !u!1 &1140836743
 GameObject:
@@ -2127,9 +2133,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -859.99994, y: -324.7}
-  m_SizeDelta: {x: -1720, y: -749.6}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 100.00006, y: 187.29999}
+  m_SizeDelta: {x: 200, y: 274.40002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1692013383
 GameObject:
@@ -2398,7 +2404,10 @@ MonoBehaviour:
   textFullScriptTest: {fileID: 0}
   fullScriptText: {fileID: 902959464}
   scriptText: {fileID: 1126384281}
-  isNextButtonActive: 0
+  NextButton: {fileID: 165578307}
+  isNextButtonActive: 1
+  UIButton: {fileID: 1973724594}
+  UIScript: {fileID: 204476203}
 --- !u!4 &1800731944
 Transform:
   m_ObjectHideFlags: 0
@@ -2521,7 +2530,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.61, y: -153}
+  m_AnchoredPosition: {x: 2.61, y: -153.00006}
   m_SizeDelta: {x: 5994.8, y: 1494}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1817215397

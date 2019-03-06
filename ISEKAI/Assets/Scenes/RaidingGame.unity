@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 66325923}
   - component: {fileID: 66325922}
   m_Layer: 5
-  m_Name: Text
+  m_Name: BoarBehaviourDiscription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 133932593}
   - component: {fileID: 133932592}
   m_Layer: 5
-  m_Name: Text
+  m_Name: PlayerHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,8 +250,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: a2b48e19229b9be49bb40a19b20769c3, type: 3}
+    m_FontSize: 27
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -262,7 +262,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'YOUR HP: '
+  m_Text: 'your hp: 100'
 --- !u!222 &133932593
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 339778853}
   - component: {fileID: 339778852}
   m_Layer: 5
-  m_Name: Text
+  m_Name: BossHP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -547,7 +547,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 705746397}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1364237541}
+        m_MethodName: Proceed
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &705746397
@@ -998,8 +1009,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1364237540}
+  - component: {fileID: 1364237541}
   m_Layer: 0
-  m_Name: RadingGameManager
+  m_Name: RaidingGameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1019,6 +1031,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1364237541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364237539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 573e2fb33ff83814287632e1e1b842dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHPText: {fileID: 133932592}
+  boarHPText: {fileID: 339778852}
+  boarHPBar: {fileID: 1705396612}
+  skillDiscription: {fileID: 1717790717}
+  boarBehaviourDiscription: {fileID: 66325922}
+  playerHP: 100
+  boarHP: 150
+  playerAtkPower: 20
+  boarAtkPower: 15
+  playerBlock: 0
+  isReadyToEvade: 0
+  isBoarCharging: 0
+  turnsLeft: 15
+  boarHealCount: 3
+  boarEmpowerCount: 1
+  boarChargeCount: 1
+  whatBoarGonnaDo: 0
+  currentSpecialSkill: 0
 --- !u!1 &1384557115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,7 +1139,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1384557118}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1364237541}
+        m_MethodName: Proceed
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1384557118
@@ -1301,7 +1354,7 @@ GameObject:
   - component: {fileID: 1705396611}
   - component: {fileID: 1705396612}
   m_Layer: 5
-  m_Name: ProgressBar
+  m_Name: BossHPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1535,7 +1588,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1842648782}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1364237541}
+        m_MethodName: Proceed
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1842648782
@@ -1609,8 +1673,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -278.32, y: 111.18}
-  m_SizeDelta: {x: 231.37, y: 197.84}
+  m_AnchoredPosition: {x: -278.32, y: 108.49}
+  m_SizeDelta: {x: 231.37, y: 281.27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1849747401
 MonoBehaviour:

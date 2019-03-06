@@ -20,6 +20,7 @@ public class UITownManager : MonoBehaviour
     public Transform test;
 
     public GameObject moveBtnLocation;
+    public GameObject ButtonGoOutskirt;
     public GameObject background;
 
     public Text textPleasant;
@@ -32,7 +33,11 @@ public class UITownManager : MonoBehaviour
     public Sprite outskirtsSprite;
 
     private Button _moveBtnLocation;
+    private Button _buttonGoOutskirt;
+
     private Text _moveTxtlocation;
+    private Text _buttonGoOutskirtText;
+
     private SpriteRenderer _background;
     private Location _location;
     private GameObject _eventList;
@@ -46,13 +51,19 @@ public class UITownManager : MonoBehaviour
         _location = Location.Outskirts;
         _background = background.GetComponent<SpriteRenderer>();
         _moveBtnLocation = moveBtnLocation.GetComponent<Button>();
+        _buttonGoOutskirt = ButtonGoOutskirt.GetComponent<Button>();
+
         _moveTxtlocation = moveBtnLocation.GetComponentInChildren<Text>();
+        _buttonGoOutskirtText = ButtonGoOutskirt.GetComponentInChildren<Text>();
+        
         _moveBtnLocation.onClick.AddListener(OnMoveBtnClick);
+        _buttonGoOutskirt.onClick.AddListener(OnButtonGoOutskirtClicked);
+
         UpdatePanel();
         if (!GameManager.instance.isTutorialPlayed)
         {
-            tutorialManager.InitTexts();
-            tutorialManager.ProceedTutorial();
+            //tutorialManager.InitTexts();
+            //tutorialManager.ProceedTutorial();
         }
         SetParentsOfEvents();
     }
@@ -62,7 +73,7 @@ public class UITownManager : MonoBehaviour
     {
         GameManager gm = GameManager.instance;
         Debug.Log(gm.game.turn.turnNumber);
-        tutorialManager.ProceedTutorial();
+        //tutorialManager.ProceedTutorial();
         switch (_location)
         {
             case Location.Outskirts:
@@ -71,17 +82,10 @@ public class UITownManager : MonoBehaviour
                 outskirts.gameObject.SetActive(false);
                 town.gameObject.SetActive(true);
                 textLocation.text = "마을";
-                _moveTxtlocation.text = "마을 외곽으로";
 
-                break;
+                moveBtnLocation.SetActive(false);
+                ButtonGoOutskirt.SetActive(true);
 
-            case Location.Town:
-                _background.sprite = outskirtsSprite;
-                _location = Location.Outskirts;
-                outskirts.gameObject.SetActive(true);
-                town.gameObject.SetActive(false);
-                textLocation.text = "마을 외곽";
-                _moveTxtlocation.text = "마을로";
 
                 break;
 
@@ -90,6 +94,34 @@ public class UITownManager : MonoBehaviour
         }
         GameManager.instance.TryUpdateEventSDs();
     }
+
+    //If button clicked, change location, and replace ui depend on location
+    public void OnButtonGoOutskirtClicked()
+    {
+        GameManager gm = GameManager.instance;
+        Debug.Log(gm.game.turn.turnNumber);
+        //tutorialManager.ProceedTutorial();
+        switch (_location)
+        {
+
+            case Location.Town:
+                _background.sprite = outskirtsSprite;
+                _location = Location.Outskirts;
+                outskirts.gameObject.SetActive(true);
+                town.gameObject.SetActive(false);
+                textLocation.text = "마을 외곽";
+
+                moveBtnLocation.SetActive(true);
+                ButtonGoOutskirt.SetActive(false);
+
+                break;
+
+            default:
+                throw new InvalidOperationException("Location should be town or outskirts");
+        }
+        GameManager.instance.TryUpdateEventSDs();
+    }
+
     /*
     public void OnClickNextTurnButton()
     {

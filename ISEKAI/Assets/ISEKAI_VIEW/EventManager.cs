@@ -45,10 +45,16 @@ public class EventManager : MonoBehaviour
     public GameObject fullScriptText;
     public GameObject scriptText;
 
-    public bool isNextButtonActive;
+    public Button NextButton;
+    public bool isNextButtonActive = true;
+
+    public GameObject UIButton;
+    public GameObject UIScript;
 
     private String _fullScript = "";
-    private int _scriptLength = 4;    
+    private int _scriptLength = 4;
+
+    private int _loadingCharacterCount = 0; 
 
     void Start()
     {
@@ -63,9 +69,12 @@ public class EventManager : MonoBehaviour
             Debug.Log("stop");
             StopCoroutine("loadVideo");
             videoVFX.Stop();
-            UI.SetActive(true);
+            UIButton.SetActive(true);
+            UIScript.SetActive(true);
             ExecuteOneScript();
         }
+
+        NextButton.interactable = isNextButtonActive;
     }
 
     public void SetUpEventManager() // when playing new event, this instance should be made.
@@ -99,6 +108,8 @@ public class EventManager : MonoBehaviour
 
     private void _ExecuteCommand(Command c)
     {
+        NextButton.interactable = true;
+
         int choiceDependencyNum;
         choiceDependencyNum = c.choiceDependency.Item1;
 
@@ -222,9 +233,20 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    IEnumerator WaitUntilCharacterLoaded()
+    {
+        if (_loadingCharacterCount != 0)
+        {
+            Debug.Log("Wait Until Character Loaded");
+        }
+        yield return new WaitUntil(() => _loadingCharacterCount == 0);
+    }
+
     private void _Explanation(Explanation explanation)
     {
         Debug.Log("explanation");
+
+        StartCoroutine(WaitUntilCharacterLoaded());
 
         containerChoice.SetActive(false);
         containerConversation.SetActive(false);
@@ -262,9 +284,12 @@ public class EventManager : MonoBehaviour
         return _fullScript + "<<";
     }
 
+
     private void _Conversation(Conversation conversation)
     {
         Debug.Log("conversation");
+
+        StartCoroutine(WaitUntilCharacterLoaded());
 
         containerChoice.SetActive(false);
         containerConversation.SetActive(true);
@@ -284,6 +309,8 @@ public class EventManager : MonoBehaviour
         scriptText.GetComponent<RubyText>().isCalled = false;
     }
 
+
+
     private void _LoadCharacter(LoadCharacter loadCharacter)
     {
         containerChoice.SetActive(false);
@@ -294,15 +321,20 @@ public class EventManager : MonoBehaviour
 
         if(loadCharacter.location != SpriteLocation.None)
         {
-                        
+            isNextButtonActive = false;    
             StartCoroutine(fadeCharacter(loadCharacter));
+
         }
 
-        // ExecuteOneScript();
+
     }
 
     IEnumerator fadeCharacter(LoadCharacter loadCharacter)
     {
+        _loadingCharacterCount++;
+
+        ExecuteOneScript();
+
         var locationGameObject = spritePeople[(int)loadCharacter.location];
         var spriteRenderer = locationGameObject.GetComponent<SpriteRenderer>();
 
@@ -335,7 +367,9 @@ public class EventManager : MonoBehaviour
             yield return new WaitForSeconds(0.04f);
         }
 
-        ExecuteOneScript();
+        // ExecuteOneScript();
+        _loadingCharacterCount--;
+        isNextButtonActive = true;
     }
 
     private void _UnloadCharacter(UnloadCharacter unloadCharacter)
@@ -374,6 +408,7 @@ public class EventManager : MonoBehaviour
         {
             // 그냥 페이드 인
             spriteBackgroundTemp.SetActive(false);
+            isNextButtonActive = false;
             StartCoroutine(FadeBackground(loadBackground, background, mainBackgroundRenderer));
         }
         else
@@ -392,6 +427,7 @@ public class EventManager : MonoBehaviour
             spriteBackground.SetActive(true);
             spriteBackgroundTemp.SetActive(true);
 
+            isNextButtonActive = false;
             StartCoroutine(DissolveBackground(loadBackground, background, mainBackgroundRenderer, tmpBackgroundRenderer));
         }
     }
@@ -425,6 +461,7 @@ public class EventManager : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
+        isNextButtonActive = true;
         ExecuteOneScript();
     }
 
@@ -470,7 +507,8 @@ public class EventManager : MonoBehaviour
 
         mainBackgroundRenderer.sprite = background;
         mainBackgroundRenderer.color = mainBackgroundColor;
-       
+
+        isNextButtonActive = true;
         ExecuteOneScript();
     }
 
@@ -503,7 +541,11 @@ public class EventManager : MonoBehaviour
 
         Sprite cg;
         cg = Resources.Load<Sprite>(loadCG.filePath);
-        spriteCG.GetComponent<SpriteRenderer>().sprite = cg;        
+        spriteCG.GetComponent<SpriteRenderer>().sprite = cg;
+
+        isNextButtonActive = false;
+        UIButton.SetActive(false);
+        UIScript.SetActive(false);
 
         StartCoroutine("showCG");
     }
@@ -511,15 +553,16 @@ public class EventManager : MonoBehaviour
     IEnumerator showCG()
     {
         spriteCG.SetActive(true);
-        UI.SetActive(false);
-
         yield return new WaitForSeconds(1f);
 
         //Debug.Log("hi");
         spriteCG.GetComponent<SpriteRenderer>().sortingLayerName = "background";
         spriteCG.GetComponent<SpriteRenderer>().sortingOrder =
             spriteBackground.GetComponent<SpriteRenderer>().sortingOrder + 1;
-        UI.SetActive(true);
+
+        isNextButtonActive = true;
+        UIButton.SetActive(true);
+        UIScript.SetActive(true);
 
         ExecuteOneScript();
     }
@@ -537,6 +580,7 @@ public class EventManager : MonoBehaviour
     {
         Debug.Log("VFXCamerashake");
 
+        isNextButtonActive = false;
         StartCoroutine(cameraShake());
     }
 
@@ -548,8 +592,28 @@ public class EventManager : MonoBehaviour
 
         yield return new WaitForSeconds(aniLength);
 
+        isNextButtonActive = true;
         ExecuteOneScript();
     }
+
+    //private bool _IsAnimatorPlaying(Animator animator)
+    //{
+    //    return animator.GetCurrentAnimatorStateInfo(0).length >
+    //           animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+    //}
+
+    private float _GetAnimLength(Animator animator)
+    {
+        float length = 0.0f;
+
+        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+        {
+            length += clip.length;
+        }
+
+        return length;
+    }
+
 
     private void _VFXLoadSprite(VFXLoadSprite vfxLoadSprite)
     {
@@ -565,6 +629,22 @@ public class EventManager : MonoBehaviour
         animator.runtimeAnimatorController = Resources.Load(vfxLoadSprite.filePath + "AnimController") as RuntimeAnimatorController;
         Debug.Log(vfxLoadSprite.filePath + "AnimController");
         spriteVFX.SetActive(true);
+
+        UIButton.SetActive(false);
+        UIScript.SetActive(false);
+
+        StartCoroutine(WaitUnilAnimFinish(animator));
+
+    }
+
+    IEnumerator WaitUnilAnimFinish(Animator animator)
+    {
+        yield return new WaitForSeconds(_GetAnimLength(animator));
+
+        UIButton.SetActive(true);
+        UIScript.SetActive(true);
+
+        ExecuteOneScript();
     }
 
     private void _VFXUnloadSprite(VFXUnloadSprite vfxUnloadSprite)
@@ -572,6 +652,8 @@ public class EventManager : MonoBehaviour
         Debug.Log("VFXUnloadSprite");
 
         spriteVFX.SetActive(false);
+
+        ExecuteOneScript();
     }
 
     private void _VFXSound(VFXSound vfxSound)
@@ -614,6 +696,9 @@ public class EventManager : MonoBehaviour
 
         videoVFX.clip = videoClip;
 
+        UIButton.SetActive(false);
+        UIScript.SetActive(false);
+
         StartCoroutine(loadVideoandPlay());
     }
 
@@ -623,11 +708,11 @@ public class EventManager : MonoBehaviour
         videoLength = (float) videoVFX.clip.length;
 
         videoVFX.Play();
-        UI.SetActive(false);
 
         yield return new WaitForSeconds(videoLength);
 
-        UI.SetActive(true);
+        UIButton.SetActive(true);
+        UIScript.SetActive(true);
 
         ExecuteOneScript();
     }
@@ -758,11 +843,15 @@ public class EventManager : MonoBehaviour
 
     IEnumerator transtionVFXPlay()
     {
+
         yield return StartCoroutine(fadeOut());
 
-        ExecuteOneScript();
-        yield return StartCoroutine(fadeIn());
+        //UIButton.SetActive(false);
+        //UIScript.SetActive(false);
 
+        ExecuteOneScript();
+
+        yield return StartCoroutine(fadeIn());
     }
 
     IEnumerator fadeOut()
@@ -803,12 +892,15 @@ public class EventManager : MonoBehaviour
     {
         Debug.Log("VFXPause");
 
+        isNextButtonActive = false;
         StartCoroutine(pauseVFXPlay(vfxPause.second / 1000));       //millisecond to second
     }
 
     IEnumerator pauseVFXPlay(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+
+        isNextButtonActive = true;
 
         ExecuteOneScript();
     }

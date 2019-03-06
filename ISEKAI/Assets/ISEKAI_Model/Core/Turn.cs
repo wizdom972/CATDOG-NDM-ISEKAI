@@ -16,7 +16,7 @@ namespace ISEKAI_Model
     {
         public Turn() // initiallize turn instance.
         {
-            turnNumber = 1;
+            turnNumber = 0;
             totalMonthNumber = 4;
             state = State.PreTurn;
         }

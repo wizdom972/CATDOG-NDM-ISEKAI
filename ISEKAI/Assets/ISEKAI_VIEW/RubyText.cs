@@ -15,6 +15,17 @@ public class RubyText : MonoBehaviour
     public Rect position;
     public float yOffset = 10;
 
+    /*
+     * 
+     * 유동크기 다시 돌릴떄
+     * 1. EventScene 2번째 캔버스 constant pixel size 로 바꾸기
+     * 2. 밑에거 주석 풀기
+     * 3. 밑에거 없애기
+     */
+    public float canvasHeight = 1080;
+    public float canvasWidth = 1920;
+    public float canvasMatch = 1f;
+
     public bool isCalled = false;
 
     private Regex rubyRex = new Regex("\\{(.*?):(.*?)\\}");
@@ -76,7 +87,11 @@ public class RubyText : MonoBehaviour
                 var prt = o.GetComponent<RectTransform>();
 
 
-                prt.localPosition = new Vector3((leftPos.x + rightPos.x) / 2, leftPos.y + yOffset, 0);
+                float screenScale = (canvasWidth / Screen.width) * (1.0f - canvasMatch) + (canvasHeight / Screen.height) * canvasMatch;
+                //2. 밑에거 주석 풀기
+                //prt.localPosition = new Vector3((leftPos.x + rightPos.x) / 2 , leftPos.y + yOffset, 0);
+                //3.밑에거 없애기
+                prt.localPosition = new Vector3(((leftPos.x + rightPos.x) / 2) * screenScale, (leftPos.y ) * screenScale + yOffset, 0);
 
                 o.GetComponent<Text>().text = furiText[i];
             }
