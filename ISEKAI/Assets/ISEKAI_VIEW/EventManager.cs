@@ -52,9 +52,9 @@ public class EventManager : MonoBehaviour
     public GameObject UIScript;
 
     private String _fullScript = "";
-    private int _scriptLength = 4;
+    private int _scriptLength = 6;
 
-    private int _loadingCharacterCount = 0; 
+    private int _loadingCharacterCount = 0;
 
     void Start()
     {
@@ -117,9 +117,9 @@ public class EventManager : MonoBehaviour
         choiceBranchDependencyNum = c.choiceDependency.Item2;
 
 
-        if(choiceDependencyNum == -1)
+        if (choiceDependencyNum == -1)
         {
-            if(choiceBranchDependencyNum == -1)         //(-1, -1)
+            if (choiceBranchDependencyNum == -1)         //(-1, -1)
             {
                 //do nothing
             }
@@ -151,7 +151,7 @@ public class EventManager : MonoBehaviour
 
             for (int i = 0; i < choiceHistory.Count; i++)
             {
-                if(choiceHistory[i] != (choiceDependencyNum, choiceBranchDependencyNum))       //if dependency not match, return
+                if (choiceHistory[i] != (choiceDependencyNum, choiceBranchDependencyNum))       //if dependency not match, return
                 {
                     ExecuteOneScript();
                     return;
@@ -162,9 +162,9 @@ public class EventManager : MonoBehaviour
                 }
             }
         }
-                
+
         //for full script
-        if(c.commandNumber != 0) //if not explanation
+        if (c.commandNumber != 0) //if not explanation
         {
             _fullScript = "";
             _scriptLength = 4;
@@ -255,7 +255,7 @@ public class EventManager : MonoBehaviour
         containerChoice.SetActive(false);
         containerConversation.SetActive(false);
         containerFullScript.SetActive(true);
-        
+
         textFullScript.text = _fullScriptHandler(explanation.contents);
 
         foreach (Transform child in fullScriptText.transform)
@@ -269,7 +269,7 @@ public class EventManager : MonoBehaviour
 
     private String _fullScriptHandler(String s)
     {
-        if(_scriptLength > 0)
+        if (_scriptLength > 0)
         {
             if (_fullScript.Equals(""))
                 _fullScript = s;
@@ -284,7 +284,7 @@ public class EventManager : MonoBehaviour
             _fullScript += s;
             _scriptLength = 4;
         }
-        
+
         return _fullScript + "<<";
     }
 
@@ -324,9 +324,9 @@ public class EventManager : MonoBehaviour
 
         Debug.Log("LoadCharacter");
 
-        if(loadCharacter.location != SpriteLocation.None)
+        if (loadCharacter.location != SpriteLocation.None)
         {
-            isNextButtonActive = false;    
+            isNextButtonActive = false;
             StartCoroutine(fadeCharacter(loadCharacter));
 
         }
@@ -396,7 +396,7 @@ public class EventManager : MonoBehaviour
 
         Sprite background = Resources.Load<Sprite>(loadBackground.filePath);
 
-        if(background == null)
+        if (background == null)
         {
             Debug.Log(loadBackground.filePath + " doesn't exist");
             return;
@@ -551,14 +551,27 @@ public class EventManager : MonoBehaviour
         isNextButtonActive = false;
         UIButton.SetActive(false);
         UIScript.SetActive(false);
+        SpriteRenderer cgRenderer = spriteCG.GetComponent<SpriteRenderer>();
 
-        StartCoroutine("showCG");
+        StartCoroutine(showCG(cgRenderer));
     }
 
-    IEnumerator showCG()
+    IEnumerator showCG(SpriteRenderer cgRenderer)
     {
+
+        Color cgColor = cgRenderer.color;
+        cgColor.a = 0.0f;
         spriteCG.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        while (cgColor.a < 1.0f)
+        {
+            cgColor.a += 0.05f;
+
+            cgRenderer.color = cgColor;
+
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        yield return new WaitForSeconds(3f);
 
         //Debug.Log("hi");
         spriteCG.GetComponent<SpriteRenderer>().sortingLayerName = "background";
@@ -575,10 +588,29 @@ public class EventManager : MonoBehaviour
     private void _UnloadCG(UnloadCG unloadCG)
     {
         Debug.Log("UnloadCG");
-
+        SpriteRenderer cgRenderer = spriteCG.GetComponent<SpriteRenderer>();
         spriteCG.SetActive(false);
 
         ExecuteOneScript();
+
+        StartCoroutine(dissolveCG(cgRenderer));
+    }
+
+    IEnumerator dissolveCG(SpriteRenderer cgRenderer)
+    {
+
+        Color cgColor = cgRenderer.color;
+        while (cgColor.a > 0.0f)
+        {
+            cgColor.a -= 0.05f;
+
+            cgRenderer.color = cgColor;
+
+            yield return new WaitForSeconds(0.05f);
+        }
+        spriteCG.SetActive(false);
+        cgColor.a = 1f;
+        cgRenderer.color = cgColor;
     }
 
     private void _VFXCamerashake(VFXCameraShake vfxCameraShake)
@@ -629,46 +661,105 @@ public class EventManager : MonoBehaviour
 
         spriteVFX.GetComponent<SpriteRenderer>().sprite = vfxSprite;
         spriteVFX.transform.position = new Vector3(vfxLoadSprite.width, vfxLoadSprite.height, 0);
+        
+        bool tmp = vfxLoadSprite.isGIF;
+        Debug.Log("ISGIF: " + tmp.ToString());
+        
+        if (tmp)
+        {
+            
+            Animator animator = spriteVFX.GetComponent<Animator>();
+            animator.runtimeAnimatorController = Resources.Load(vfxLoadSprite.filePath + "AnimController") as RuntimeAnimatorController;
+            Debug.Log(vfxLoadSprite.filePath + "AnimController");
+            spriteVFX.SetActive(true);
+            UIScript.SetActive(false);
+            isNextButtonActive = false;
+            StartCoroutine(WaitUnilAnimFinish(animator));
+        }
+        else
+        {
+            Animator animator = spriteVFX.GetComponent<Animator>();
+            animator.runtimeAnimatorController = null;
 
-        Animator animator = spriteVFX.GetComponent<Animator>();
-        animator.runtimeAnimatorController = Resources.Load(vfxLoadSprite.filePath + "AnimController") as RuntimeAnimatorController;
-        Debug.Log(vfxLoadSprite.filePath + "AnimController");
-        spriteVFX.SetActive(true);
+            SpriteRenderer spriteRenderer = spriteVFX.GetComponent<SpriteRenderer>();
 
-        UIButton.SetActive(false);
-        UIScript.SetActive(false);
-
-        StartCoroutine(WaitUnilAnimFinish(animator));
+            spriteVFX.SetActive(true);
+            UIScript.SetActive(false);
+            isNextButtonActive = false;
+            StartCoroutine(fadeinvfxsprite(spriteRenderer));
+        }
 
     }
+
 
     IEnumerator WaitUnilAnimFinish(Animator animator)
     {
         yield return new WaitForSeconds(_GetAnimLength(animator));
 
-        UIButton.SetActive(true);
+        //UIButton.SetActive(true);
         UIScript.SetActive(true);
+        isNextButtonActive = true;
+        ExecuteOneScript();
+    }
 
+    IEnumerator fadeinvfxsprite(SpriteRenderer spriteRenderer)
+    {
+        Color spriteColor = spriteRenderer.color;
+        spriteColor.a = 0.0f;
+        while (spriteColor.a < 1.0f)
+        {
+            spriteColor.a += 0.05f;
+
+            spriteRenderer.color = spriteColor;
+
+            yield return new WaitForSeconds(0.025f);
+        }
+        UIScript.SetActive(true);
+        isNextButtonActive = true;
         ExecuteOneScript();
     }
 
     private void _VFXUnloadSprite(VFXUnloadSprite vfxUnloadSprite)
     {
         Debug.Log("VFXUnloadSprite");
-
-        spriteVFX.SetActive(false);
-
+        SpriteRenderer spriteRenderer = spriteVFX.GetComponent<SpriteRenderer>();
+        StartCoroutine(dissolveSprite(spriteRenderer));
         ExecuteOneScript();
+    }
+
+    IEnumerator dissolveSprite(SpriteRenderer spriteRenderer)
+    {
+        Color spriteColor = spriteRenderer.color;
+        spriteColor.a = 1.0f;
+        while (spriteColor.a > 0.0f)
+        {
+            spriteColor.a -= 0.1f;
+
+            spriteRenderer.color = spriteColor;
+
+            yield return new WaitForSeconds(0.025f);
+        }
+        spriteVFX.SetActive(false);
+        spriteColor.a = 1.0f;
+        spriteRenderer.color = spriteColor;
     }
 
     private void _VFXSound(VFXSound vfxSound)
     {
         Debug.Log("VFXSoun");
+        AudioClip vfx;
+        vfx = Resources.Load<AudioClip>(vfxSound.filePath);
+        audioVFX.clip = vfx;
 
-        StartCoroutine(soundVFXPlay(vfxSound));
+        float soundLength;
+        soundLength = (float)audioVFX.clip.length;
+
+        audioVFX.Play();
+        ExecuteOneScript();
+        //StartCoroutine(soundVFXPlay(vfxSound));
     }
 
-    IEnumerator soundVFXPlay(VFXSound vfxSound)
+    /*IEnumerator soundVFXPlay(VFXSound vfxSound)
     {
         AudioClip vfx;
         vfx = Resources.Load<AudioClip>(vfxSound.filePath);
@@ -682,7 +773,7 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(soundLength);
 
         ExecuteOneScript();
-    }
+    }*/
 
     private void _LoadMinigame(LoadMinigame loadMinigame)
     {
@@ -842,19 +933,24 @@ public class EventManager : MonoBehaviour
     private void _VFXTransition(VFXTransition vfxTransition)
     {
         Debug.Log("VFXTransition");
-
+        
         StartCoroutine(transtionVFXPlay());
     }
 
     IEnumerator transtionVFXPlay()
     {
         UIScript.SetActive(false);
+        isNextButtonActive = false;
         yield return StartCoroutine(fadeOut());
 
         //UIButton.SetActive(false);
+
         
 
+        yield return new WaitForSeconds(0.25f);
+        isNextButtonActive = true;
         ExecuteOneScript();
+        yield return new WaitForSeconds(0.25f);
 
         yield return StartCoroutine(fadeIn());
     }

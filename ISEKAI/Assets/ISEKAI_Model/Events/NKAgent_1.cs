@@ -10,7 +10,7 @@ namespace ISEKAI_Model
     {
         public override int forcedEventPriority { get { return 0; } }
         public override string eventName { get { return "봄이 루트 이벤트 1"; } }
-        public override EventLocation location { get { return EventLocation.BackMount; } }
+        public override EventLocation location { get { return EventLocation.FrontMount; } }
         public override int givenMaxTurn { get { return 2; } }
         public override int cost { get { return 0; } }
         public override Season availableSeason { get { return Season.None; } }

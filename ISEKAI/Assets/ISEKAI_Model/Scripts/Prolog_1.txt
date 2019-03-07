@@ -1,8 +1,8 @@
 Load Background "Background\Blackbackground"
 # "「 ━━ 」"
 # "익숙하지 않은 천장이다。"
-VFX Sound "VFX\Sound\Breath"
 ## "나" "「 후아━━ 」"
+VFX Sound "VFX\Sound\Breath"
 # "쑤시는 온몸에서 느껴지는 이 『감각』을 참으며, 나는 목이 굉장히 마르네, 이라던가, 이 어두운 곳은 어디지, 따위의 이런저런 생각을 하며, 일단 상체를 일으켜 세우기로 했던 것이다。"
 ## "나" "「 여긴, 어디━━? 」"
 # "점차 눈이 어둠에 적응을 하자 나는 내 주변을 둘러보기로 했었다。"
@@ -11,7 +11,7 @@ Load Background "Background\Mine"
 # "눈을 비비고 다시 한번 바라보니, 아아, 확실했다。나는 『동굴』안에 누워있었다。"
 # "하지만, 뭔가가, 확실히 이상했었다。이 곳이 동굴 이라면 종유석과 석순들이 보여야 한다。하지만 아무리 보아도 그러한 모양들은 보이지가 않는, 그런 상황이란 것이다。"
 # "의아해 하며 나는 고개를 돌려, 동굴 안을 아주 희미하게 비추고 있는 빛의 근원을 찾는다던가, 내가 정확히 어디 있는 건가, 라 하기로 했던 것이다。"
-VFX Load Sprite "VFX\Sprite\Light" -0 -0 
+VFX Load Sprite "VFX\Sprite\Light" -0 -0
 ## "나" "「 ━━! 」"
 VFX Unload Sprite
 # "저 멀리 이 어둠 속에서 갑자기 밝은 섬광이 번쩍였다。"
@@ -35,23 +35,21 @@ Load Character "Character\Professor\a\normal" -center
 # "내 이름은【쟝∙피에르∙라∙로셸】이다。"
 # "파리 대학의 교수 밑에서 지혜의『{  도  : Truth}』 를 배우는 평범한 18살의 대학생이다。"
 # "제일 먼저 떠오르는 기억은 바로 한 교수의 천체자연철학 강의였다。그렇다, 분명 몇 시간 전만 해도 나는 파리대학 천체학의 으뜸인 분에게 직접 강의를 듣고 있었을 터━━"
-## "나" "「 네,【{  데  :De}∙{  까  :Ca}{  엘  :e}{  로  :lo}】∙『천체에 대하여』라는【아{  리  :철}스{  토  :학}텔{  레  :자}스】의 저서에서, 이 『{  천  :Celestial}{  계  :Sphere}』와『{  지  :Terres}{  상  :trial}{  계  :Sphere}』의【{  우  :U}{  니  :ni}{  타 
+## "나" "「 네,【{데:De}∙{까엘로:Caelo}】∙『천체에 대하여』라는【아{리:철}스{토:학}텔{레:자}스】의 저서에서, 이 『{  천  :Celestial}{  계  :Sphere}』와『{  지  :Terres}{  상  :trial}{  계  :Sphere}』의【{  우  :U}{  니  :ni}{  타 
  :ta}{  스  :s}】∙『하나됨』을 증명하는 내용입니다。여기서 『철학자』는━━ 」"
-## "교수" "「 그 정도면 충분하니 자리에 다시 앉게나。위대한【아{  리  :철}스{  토  :학}텔{  레  :자}스】는 안타깝게도 『{  이  :거}교{ 
+## "교수" "「 그 정도면 충분하니 자리에 다시 앉게나。위대한【아{리:철}스{토:학}텔{레:자}스】는 안타깝게도 『{  이  :거}교{ 
  도  :짓}』 였기 때문에, 이러한 문제들에 한해서 전지전능한 『{  신  :DEUS}』의 능력을 자주 망각하여 이러한 오류들을 범하지。」" -center
-## "교수" "「【아{  리  :철}스{  토  :학}텔{  레  :자}스】에 의하면 우리가 살고 있는 이 세계는 오직 하나 밖에 없으며 다수의 세계가 있는 것은 논리적으로 허용되지 않는다네。」」" -center
-## "나" "「 질문이 있습니다。그렇다면, 이 난제에 대해선 【아{  리  :철}스{  토  :학}텔{  레  :자}스】가 거짓을 말했다는 것인가요? 」"
+## "교수" "「【아{리:철}스{토:학}텔{레:자}스】에 의하면 우리가 살고 있는 이 세계는 오직 하나 밖에 없으며 다수의 세계가 있는 것은 논리적으로 허용되지 않는다네。」」" -center
+## "나" "「 질문이 있습니다。그렇다면, 이 난제에 대해선 【아{리:철}스{토:학}텔{레:자}스】가 거짓을 말했다는 것인가요? 」"
 ## "교수" "「 『거짓』을 말했다는 건 너무 심한 말이지。그저 『원죄』를 지닌 인간이기에 실수를 범할 뿐이라네。」" -center
-## "교수" "「다행이 반세기 전 『{  주  :An}{  님  :no}의 {  해  :Domini}』1277 에 우리 파리의 대주교 【{  에  :É}{  티  :ti}{  엔  :en}{  느  :ne}∙{  딴  :Tem}{  삐  :pi}{  에  :er}】성하 께서 『{  신  :DEUS}』의『{  다  :Mul}{  른  :ti} {  세 
- :Mun}{  계  :di}』를 만들 능력을 부정하는 것을 『{  이  :Diab}{  단  :olos}』으로 규정하였지。 」" -center
+## "교수" "「다행이 반세기 전 『{주님:Anno}의 {해:Domini}』1277 에 우리 파리의 대주교 【{에티엔느:Étienne}∙{딴삐에:Tempier}】성하 께서 『{  신  :DEUS}』의『{다른:Multi} {세계:Mundi}』를 만들 능력을 부정하는 것을 『{이단:Diabolos}』으로 규정하였지。 」" -center
 # "갑자기 수업의 이 부분만 떠오르는 이유는 무엇, 라던지의 생각을 하며 나는 현 상황에 더 도움이 될만한 기억을 찾아 본다 던지, 를 해본다。"
-Unload -center
+Unload Character -center
 VFX Transition
 Load Background "Background\MedievalStreet"
-VFX Sound "VFX\Sound\Breath"
 ## "나" "「 ━━후, 하, 후, 하 」"
-# "분명 나는 천체자연학 강의를 마치고 나서 『{  대지  :농}{  자연  :업}학 실습』수업에 늦지 않기 위해 『{  점  :토}{  심  :스}{ 
- 빵  :트}』을 입에 물고 달려가고 있었다。"
+VFX Sound "VFX\Sound\Breath"
+# "분명 나는 천체자연학 강의를 마치고 나서 『{대지자연:농  업}학 실습』수업에 늦지 않기 위해 『{점심빵:토스트}』을 입에 물고 달려가고 있었다。"
 # "━━그랬어야 할 터인데, 어째서━━?!"
 ## "???" "「 앗 학생━━!! 」"
 VFX Transition
@@ -64,11 +62,12 @@ Load Background "Background\Blackbackground"
 # "그랬다, 나는 지나가던 마차에 치였던 것이다。"
 # "하지만 분명 지금의 나는 살아있다。확실히 이곳은 지옥이나 천국은 아니기 때문이다。"
 # "어째서━━?"
-VFX Load Sprite "VFX\Sprite\Lightning" -0 -0
+VFX Load Sprite "VFX\Sprite\Lightning" -0 -0 -play
 VFX Camerashake
 VFX Sound "VFX\Sound\thunder"
 Play Music "BGM\Rainfall" -r
 # "『 ━━━━콰쾅 』"
+VFX Unload Sprite
 # "『 ━━━━?! 』"
 # "이러한 나의 고민은 갑작스런 섬광과 선명하게 들리는 굉음으로 인해 끊겼다。주변을 둘러보니 내가 기억을 더듬으며 걸어가는 동안 이미 나는 갱도에서 나와있었던 것이다。"
 # "광산의 밖에선 엄청난 폭우가 쏟아지고 있었다。"
@@ -79,22 +78,20 @@ Load Background "Background\Blackbackground"
 # "그 순간, 더 이상 생각을 할 여유도 없이 저 멀리서 비명 소리와 돼지의 울음이 들렸다。"
 # "사람이 위험에 처해 있다니, 나는 본능적으로 이를 두고 볼 수는 없었다。"
 # "━━하지만 도대체, 어디에? 먹구름으로 별과 달이 가려진 이 밤엔 아무것도 보이지 않았기에, 나는 그저 소리가 난 방향을 찾으며 두리번 거릴 수 밖에 없었다。"
-VFX Load Sprite "VFX\Sprite\Light" --300 -0
+VFX Load Sprite "VFX\Sprite\Light" -2 -0 -play
 # "━━그때, 보였다。자칫하면 놓칠 수 있는, 이 심야에서 있던 작은 『{  불  :신의 }{  빛  :인도}』을。"
 VFX Unload Sprite
-VFX Transition
-VFX Load Sprite "VFX\Sprite\Lightning" -0 -0
 VFX Pause -1000
+VFX Load Sprite "VFX\Sprite\Lightning" -0 -0 -play
 VFX Unload Sprite
 Load CG "CG\Firstmeeting"
 # "그 순간과 동시에 번개가 치며 어둠의 장막을 들쳐냈고, 그 아래 상황이 적나라하게 그 실태를 들어냈다。"
 # "한 여성이 진흙에 넘어져, 다리에선 붉은 혈흔이 보이고, 그 반대편엔 한 성난 멧돼지가 위협적으로 노려보고 있었던 것이다。"
-# "여자가 위험에 처해진 모습에 난 황급히 내 【{  팔  :Fau}{  숀  :chon}】∙『호신용 검』을 꺼내어 멧돼지의 뒤쪽으로 달려들 수 밖에 없었다。"
+# "여자가 위험에 처해진 모습에 난 황급히 내 【{팔숀:Fauchon}】∙『호신용 검』을 꺼내어 멧돼지의 뒤쪽으로 달려들 수 밖에 없었다。"
 # "나는 어릴 적 뒷산에서 아버지와 같이 사냥하던 때를 회상하며, 급소로 날을 집어 넣었다。"
-VFX Transition
 Unload CG
 Load Background "Background\Blackbackground"
-VFX Load Sprite "VFX\Sprite\Swordstrike"
+VFX Load Sprite "VFX\Sprite\Swordstrike" -0 -0 -play
 VFX Sound "VFX\Sound\Swordstrike"
 VFX Pause -1000
 VFX Unload Sprite
@@ -105,6 +102,7 @@ Load Background "Background\Darkforest"
 # "나는 멧돼지의 등을 온 힘 다해 잡으며 검을 더 깊숙이 심장을 향해 찔러 넣는다。"
 VFX Load Sprite "VFX\Sprite\Blood" -0 -0
 VFX Pause -1000
+VFX Unload Sprite
 # "몇 분 동안의 의미 없는 몸부림과 괴성을 지르던 야수는, 결국 체액이 빠지며 힘을 잃어가다 결국에는 쓰러진다。"
 Load Character "Character\Heroine\a\normal" -center
 ## "???" "「 저, 저기━━ 」" -center
@@ -113,7 +111,7 @@ Load Character "Character\Heroine\a\normal" -center
 # "그녀의 오른쪽을 바라보니 내가 처음에 봤었던 그 작은 불빛의 정체가 보였다。참으로 희한하게 생긴 램프였다。"
 # "그녀를 바라보며 나는 대답했다。"
 ## "나" "「 어디 다치진 않았나? 이런 험난 날씨의 야밤에 산속을 돌아다니다니, 겁이 없구먼。」"
-Load Character "Character\Heroine\a\blush" -center
+Load Character "Character\Heroine\a\flushed" -center
 # "그 말에 여자의 얼굴에 붉은 기운이 도는 것이 희미하게 보였다。"
 ## "???" "「 아니, 그, 그게━━ 」" -center
 Load Character "Character\Heroine\a\embarassed" -center
@@ -123,10 +121,8 @@ Load Character "Character\Heroine\a\embarassed" -center
 ## "???" "「 그, 동무는 정말, 그, 그걸 아주, 자, 잘 다루는 거만 기래! 」" -center
 # "그녀는 내 검을 가리키며 무엇이라 부를지 고민하는 듯 하였다。"
 ## "나" "「 흠━━ 」"
-## "나" "「 이것 말인가? 아아━━ 이것은 【{  팔  :Fau}{  숀  :chon}】∙『호신용 검』라는 것이다。내가 있던 곳에서 다들 하나씩 들고 다니던 것이지。」"
-Unload -center
-VFX Transition
-Load Background "Background\Timechange2"
+## "나" "「 이것 말인가? 아아━━ 이것은 【{팔숀:Fauchon}】∙『호신용 검』라는 것이다。내가 있던 곳에서 다들 하나씩 들고 다니던 것이지。」"
+Unload Character -center
 VFX Transition
 Load Background "Background\Darkforest"
 # "다친 여자를 등 뒤에 없고, 그 해괴한 램프를 들어 산 길을 헤매 나갔다。"
@@ -160,7 +156,7 @@ Stop Music
 # "나는 멈춰서 잠시 여자를 땅바닥에 앉혀준다。그리고 숨을 고르며 침착해지려 노력하지만 실패한다。"
 Load Character "Character\Heroine\a\surprised" -center
 # "가까스로 안정을 되찾자, 나는 갈라지는 목소리로 여자를 바라보며 물어보지만 높아지는 언성을 주제하지 못한다。"
-## "나" "「 이보게 그게 무슨 말인가? 여기가 【{  도  :Dom}{  맹  :aine}∙{  로  :Ro}{  얄  :yal}】∙『왕국령』이 아니라면 어느 곳, 무슨 나라란 말인가━━? 」"
+## "나" "「 이보게 그게 무슨 말인가? 여기가 【{도맹:Domaine}∙{로얄:Royale}】∙『왕국령』이 아니라면 어느 곳, 무슨 나라란 말인가━━? 」"
 # "여자는 도통 뭔지 모르겠다는, 의아해하는 표정으로 나를 바라보며 대답한다。"
 Load Character "Character\Heroine\a\confused" -center
 ## "???" "「 나라가 어디긴 어디야━━ 」" -center
