@@ -18,7 +18,7 @@ namespace ISEKAI_Model
 
         protected override bool exclusiveCondition()
         {
-            bool turnCondition = game.turn.totalMonthNumber >= 13 && game.turn.turnNumber <= 9;
+            bool turnCondition = game.turn.totalMonthNumber >= 13 && game.turn.totalMonthNumber <= 36;
             int chance = (new Random()).Next() / 10;
             bool chanceCondition = chance <= 1;
             if (_isFirstOccur && turnCondition)
