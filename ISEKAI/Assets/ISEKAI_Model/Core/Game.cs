@@ -35,6 +35,8 @@ namespace ISEKAI_Model
         public bool expansion1Modifier = false;
         public bool expansion2Modifier = false;
 
+        public int endingGameOverStatus = -1; // -1 if not yet played, 0 if won, 1 if lost.
+
         public int rifleAmount = 0;
         public int castleHP = 0;
 
@@ -70,6 +72,8 @@ namespace ISEKAI_Model
             allEventsList.Add(new ReturnWarning(this));
 
             allEventsList.Add(new DeadEnd(this));
+            allEventsList.Add(new BadEnd(this));
+            allEventsList.Add(new GoodEnd(this));
 
             allEventsList.Add(new Ending(this));
 
