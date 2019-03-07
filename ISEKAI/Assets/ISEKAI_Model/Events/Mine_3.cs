@@ -18,7 +18,7 @@ namespace ISEKAI_Model
 
         protected override bool exclusiveCondition()
         {
-            return game.allEventsList.Find(e => e.eventName.Equals("광산 이벤트 2")).status == EventStatus.Completed;
+            return true;//game.allEventsList.Find(e => e.eventName.Equals("광산 이벤트 2")).status == EventStatus.Completed;
         }
 
         public Mine_3(Game game): base(game)

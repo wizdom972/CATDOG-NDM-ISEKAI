@@ -15,7 +15,6 @@ namespace ISEKAI_Model
             OccurEvents();
             Proceed(turn.season);
         }
-        public int remainAP => 3 - ((turn.monthNumber + 1) % 3); // remaining AP of the game.
         public Town town {get; private set;} // main town of the game. see Town class.
         public Turn turn {get; private set; } // indicating season, turn number, etc. see Turn class.
 
@@ -34,6 +33,10 @@ namespace ISEKAI_Model
         public bool horseRaisingKnightModifier = false;
         public bool expansion1Modifier = false;
         public bool expansion2Modifier = false;
+
+
+        public int additionalEndingOption = -1; // -1 if nothing. 0 if NKAgent_3 cleared. 1 if NKAgent_5 cleared.
+        public int endingGameOverStatus = -1; // -1 if not yet played, 0 if won, 1 if lost.
 
         public int rifleAmount = 0;
         public int castleHP = 0;
@@ -65,11 +68,17 @@ namespace ISEKAI_Model
 
         private void _InitEvents() // should add EVERY events when new event plan comes.
         {
-            allEventsList.Add(new Prolog_1(this));
-            allEventsList.Add(new Prolog_2(this));
+            //allEventsList.Add(new Prolog_1(this));
+            //allEventsList.Add(new Prolog_2(this));
+
             allEventsList.Add(new ReturnWarning(this));
 
             allEventsList.Add(new DeadEnd(this));
+            allEventsList.Add(new BadEnd(this));
+            allEventsList.Add(new GoodEnd(this));
+            allEventsList.Add(new TruckEnd(this));
+            allEventsList.Add(new TrueEnd(this));
+            allEventsList.Add(new MysteryEnd(this));
 
             allEventsList.Add(new Ending(this));
 

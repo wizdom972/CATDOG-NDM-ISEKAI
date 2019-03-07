@@ -1,4 +1,4 @@
-﻿Load Background "Background\fields"
+Load Background "Background\fields"
 # "다시 봄이 되자, 겨울 작물을 수확하고 새로 씨앗을 뿌릴 때가 되었다."
 # "이번 겨울은 힘들었지만, 아직 까지는 마을의 비상용으로 저장한 식량으로 버틸 수 있었다."
 # "하지만 올해 부터 농사를 제대로 하지 않는다면 정말 다 굶어 죽을 위기에 처할것이다."

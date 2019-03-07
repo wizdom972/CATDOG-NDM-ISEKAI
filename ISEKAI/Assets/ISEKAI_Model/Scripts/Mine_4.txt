@@ -18,7 +18,7 @@ Unload CG
 # "작업반장 동무는 뭔가를 알고 있을까라 생각해 한번 불러보았다."
 Unload Character -center
 Load Character "Character\Crowd\normal" -left
-Load Character "Character\Father\b\normal" -right
+Load Character "Character\Father\d\normal" -right
 ## "나" "작업반장....혹시 이것이 뭔지 정확히 아시오?" 
 ## "작업반장" "아....아아 이것은 오랬만에 보는 구먼." -right
 ## "작업반장" "이거는 소총이라는 것인데, 내가 어렸을떄 사용했던 기억이 나는기래." -right
@@ -30,7 +30,7 @@ Load Background "Background\firing range"
 VFX Sound "VFX\Sound\gunshot"
 # "탕! 탕!"
 # "우뢰와 같은 소리가 나면서 멀리 있던 나무들이 쓰러지기 시작하였다."
-Load Character "Character\Father\b\normal" -center
+Load Character "Character\Father\d\normal" -center
 ## "마을 사람들" 와! 작업반장 동무는 정말 대단하다니까!
 ## "선녀 아바이" "무서운 물건이요. 다시 상자 안에 넣어놓읍시다." -center
 # "선녀 아바이는 저 마도구를 어떻게 알고있는거지?"

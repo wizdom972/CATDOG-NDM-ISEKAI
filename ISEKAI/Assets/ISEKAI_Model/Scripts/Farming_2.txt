@@ -1,4 +1,4 @@
-﻿Load Background "Background\fields"
+Load Background "Background\fields"
 Load Character "Character\farmer\a\normal" -center
 ## "마을 사람" "아이고~ 우린 이제 망했다~" -center
 # "수확할 시기가 되자 내 우려는 현실이 됬다."

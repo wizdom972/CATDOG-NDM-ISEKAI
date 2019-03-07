@@ -165,12 +165,13 @@ public class MiningGameManager : MonoBehaviour
 
     private IEnumerator _StartGameCloseProcess()
     {
-        eventManager.ExecuteOneScript();
+
         GameManager.instance.game.town.totalIronAmount += score;
         isGamePlayed = false;
         gameOverSprite.SetActive(true);
         yield return new WaitForSeconds(3f);
         eventManager.SetActiveEventSceneThings(true);
+        eventManager.ExecuteOneScript();
         SceneManager.SetActiveScene(eventManager.gameObject.scene);
         SceneManager.UnloadSceneAsync(gameObject.scene);
     }

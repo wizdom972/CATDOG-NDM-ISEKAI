@@ -20,8 +20,7 @@ namespace ISEKAI_Model
         {
             return game.allEventsList.Find(e => e.eventName.Equals("광산 이벤트 1")).status == EventStatus.Completed;
         }
-
-        private bool _isFirstOccur = true;
+        
 
         public Mine_2(Game game): base(game)
         {

@@ -1,0 +1,156 @@
+﻿Load Background "Background\fields"
+Load Character "Character\Soldier\a\angry" -center
+## "군인" "아니아니,, 이놈들 엄청 강하잖아." -center
+## "군인" "두고보자.. 네놈들을 『당』이 가만둘줄 아느냐!!" -center
+# "말이 끝나기 무섭게 『(내 말 이름)』은 달려갔고 『렌스』는 저 군인의 몸에 박혀있었다."
+Load Character "Character\Soldier\a\bleeding" -center
+VFX Sound "VFX\Sound\Lancestrike"
+## "군인" "으..으윽.."
+Unload Character -center
+VFX Transition
+Load Background "Background\Townsquare"
+Load Character "Character\Townperson1\a\normal" -left
+Load Character "Character\Townperson2\a\normal" -right
+## "마을사람1" "어.. 우.. 우리가 이긴건가?" -left
+## "마을사람2" "그렇듯 하네. 우리가 막아낸거야!!" -right
+## "마을사람1" "오이오이,, 대단하다고..!" -left
+## "마을사람1" "우린 장을 믿고있었다고!!" -left
+## "마을사람2" "우리 마을의 자랑 장!!" -right
+VFX Sound "VFX\Sound\Cheer"
+Unload Character -left
+Unload Character -right
+VFX Transition
+Load Background "Background\Timeskip3"
+VFX Pause -1000
+VFX Transition
+Load Character "Character\Crowd\b\normal" -center
+## "나" "우리가 승리했습니다!"
+# "말이 끝나기 무섭게 모두가 내쪽으로 환호를 지르며 다가왔다."
+## "마을사람들" "와아아!!" -center
+VFX Sound "VFX\Sound\Cheer"
+Unload Character -center
+Load Character "Character\Father\d\normal" -center
+## "이장" "오늘같이 좋은날은 축제라도 해야되지 않겠나." -center
+## "이장" "마을 창고를 풀어서 축제를 하세." -center
+## "이장" "소도 잡고 말이야." -center
+Unload Character -center
+VFX Transition
+Load Background "Background\festival"
+# "그렇게 우리는 풍족하게 먹기 시작했다."
+# "뭔가 모자르다는 느낌을 받을때쯤 누군가소리질렀다."
+Load Character "Character\Townperson1\a\normal" -left
+Load Character "Character\Townperson2\a\normal" -right
+## "마을사람1"  "우리 축제인데 이럴때 술을 먹어야 하지 않겠나?"
+## "마을사람2" "아니 술이 어딨나?"
+## "마을사람1" "어딨긴 어딨어. 다들 숨겨둔거 있잖나."
+## "마을사람2" "에..? 난 없는데? 빨리 다들 꺼내오게."
+## "마을사람1" "술도 없다니 다들 집에가서 술을 꺼내오세!!"
+Unload Character -left
+Unload Character -right
+VFX Transition
+Load Character "Character\Townperson1\a\alchohol" -left
+Load Character "Character\Townperson2\a\alchohol" -right
+# "그렇게 갑자기 많은 사람들이 자기집에 가서 숨겨두었던 술들을 꺼내왔다."
+# "이세계의 조주법은 매우 놀라웠다. 이렇게 발전해있을수 있다니."
+# "대체 이런 기술을 두고도 먹을게 없었다니.."
+## "마을사람1" "축제다!!!!!!" -left
+## "마을사람2" "축제!!" -right
+Unload Character -left
+Unload Character -right
+VFX Transition
+Load Background "Background\festivalnight"
+# "그렇게 밤새 광란의 축제가 이어지고 있었다."
+# "축제의 분위기에서 잠시 밖으로 나왔더니 술에 좀 취한듯 해 보이는 선녀가 다가왔다."
+Load Character "Character\Heroine\d\happy" -center
+## "선녀" "저희 그래도 이겨서 다행이에요." -center
+## "나" "그러게. 다행이지."
+Load Character "Character\Heroine\d\crying" -center
+# "선녀가 갑자기 울기 시작했다."
+## "선녀" "저는 다시는 못볼줄 알았어요..." -center
+## "나" "에이 왜 못봐. 이렇게 돌아왔잖아." 
+## "선녀" "그래도 가시는동안 결심했어요. 하고싶은 말은 하려고요." -center
+## "나" "뭔데..?"
+Load Character "Character\Heroine\d\embarassed" -center
+## "선녀" "저 사실.. 좋아해요." -center
+## "나" "응?"
+Load Character "Character\Heroine\d\shoutingembarassed" -center
+## "선녀" "장 동무. 좋아한다고요!!" -center
+# "아아."
+# "그랬던 것인가"
+Load Character "Character\Heroine\d\embarassed" -center
+# "술기운 때문인지 오늘따라 원래도 이뻤던 선녀는 더욱 이뻐보였다."
+# "아니 분명 훨신 이뻤다."
+# "축제때문인지 꾸민 모습이 평소 모습과 다른사람처럼 보였다."
+## "나" "나도 너 좋아."
+## "선녀" "에.. 진짜요?" -center
+## "선녀" "근데 왜 아무말도 안했어요?" -center
+## "나" "어떻게 말하니.. 너가 나 좋아하는지도 모르고..."
+## "선녀" "그렇네요.. 그..그래도..." -center
+# "나는 선녀 입에 입을 가져갔다."
+## "???" "잠깐만!!"
+VFX Camerashake
+Unload Character -center
+Load Character "Character\Heroine\d\flusteredconfused" -left
+Load Character "Character\Agent\d\flusteredangry" -right
+# "갑자기 어디선가 봄이가 나타나 선녀를 바로 막아섰다."
+Load Character "Character\Heroine\d\flusteredangry" -left
+## "선녀" "뭐하는거야!!" -left
+## "봄이" "이 절벽, 어디서 장 동지를 가로챌려고!!" -right
+## "선녀" "--읏.. 절벽?! 넌 커서 좋겠다! 젖소!" -left
+## "봄이" "뭐!!!!!" -right
+## "나" "그만 싸워.."
+## "선녀" "나야 봄이야!! 선택해!" -left
+## "봄이" "나지? 나일거야." -right
+## "나" "야레야레... 이런 싸움은 모 야메룽다."
+VFX Camerashake
+VFX Sound "VFX\Sound\Gettinghit"
+## "봄이" "헛소리 말고 선택 하시죠ㅡㅡ" -right
+## "나" "나..난 둘다 좋은데..."
+VFX Camerashake
+VFX Sound "VFX\Sound\Gettinghit"
+## "선녀" "쟤가 뭐가좋다고 그러는거야! 당연히 나지!" -left
+VFX Camerashake
+VFX Sound "VFX\Sound\Gettinghit"
+VFX Transition
+Load Background "Background\Darkroom"
+# "나는 결국 선녀와 봄이 둘중 한명을 선택하지 못했다."
+# "그러나 더 좋은 결과를 나았다."
+# "셋이 같이 살기로 한것이다!!!!"
+# "둘은 상호 보완적 존재!!"
+# "둘이 같이 있으면 완벽하다!!"
+Load Character "Character\Heroine\e\apron" -left
+## "선녀" "장~동~무~ ♡♡♡♡♡♡♡♡♡"
+Load Character "Character\Agent\e\apron" -right
+## "봄이" "장~동~무~~~~ ♥♥♥♥♥♥♥♥♥♥♥♥"
+## "나" "헤헤..."
+## "나" "행복하다..."
+# "엇 실수로 말로 해버렸다."
+# "헤헤... 둘을 안고있으니 눈앞이 흐려지며 졸음이 몰려왔다."
+# "헤헤.."
+VFX Transition
+Load Background "Background\Blackbackground"
+# "헤.."
+# "ㅎ..."
+# ""
+Unload Character -left
+Unload Character -right
+VFX Sound "VFX\Sound\Thump"
+Load Background "Background\MedievalRoomEyeslit"
+# "나" "어???"
+Load Background "Background\MedievalRoom"
+# "여긴....???"
+# "나" "선녀야!! 봄이야!! 어디갔어!!"
+# "여긴 파리에서 내가 묵는 여관의 숙소이다."
+## "나" "어어..?"
+## "나" "꿈인가..."
+## "나" "분명 생생했는데"
+## "나" "이런 망할 개꿈....."
+# "기분이 매우 더러웠다."
+## "나" "흑흑.....나의 하렘이...."
+VFX Transition
+Load Background "하늘"
+Load Character "하나님" -center
+## "{신:DEUS}" "잘좀하지... 쯧쯧....양다리를 걸치다니 한심한놈."
+VFX Transition
+Load CG "CG\MysteryEND"
+GAME END

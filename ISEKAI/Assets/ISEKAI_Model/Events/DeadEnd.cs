@@ -7,7 +7,7 @@ namespace ISEKAI_Model
     class DeadEnd : EventCore
     {
         public override int forcedEventPriority { get { return 1500; } }
-        public override string eventName { get { return "Dead End"; } }
+        public override string eventName { get { return "DEAD END"; } }
         public override EventLocation location { get { return EventLocation.None; } }
         public override int givenMaxTurn { get { return 10; } }
         public override int cost { get { return 0; } }

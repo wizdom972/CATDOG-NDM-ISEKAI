@@ -1,0 +1,191 @@
+﻿Load Background "Background\fields"
+Load Character "Character\Soldier\a\angry" -center
+## "군인" "아니아니,, 이놈들 엄청 강하잖아." -center
+## "군인" "두고보자.. 네놈들을 『당』이 가만둘줄 아느냐!!" -center
+# "말이 끝나기 무섭게 『(내 말 이름)』은 달려갔고 『렌스』는 저 군인의 몸에 박혀있었다."
+Load Character "Character\Soldier\a\bleeding" -center
+VFX Sound "VFX\Sound\Lancestrike"
+## "군인" "으..으윽.."
+Unload Character -center
+VFX Transition
+Load Background "Background\Townsquare"
+Load Character "Character\Townperson1\a\normal" -left
+Load Character "Character\Townperson2\a\normal" -right
+## "마을사람1" "어.. 우.. 우리가 이긴건가?" -left
+## "마을사람2" "그렇듯 하네. 우리가 막아낸거야!!" -right
+## "마을사람1" "오이오이,, 대단하다고..!" -left
+## "마을사람1" "우린 장을 믿고있었다고!!" -left
+## "마을사람2" "우리 마을의 자랑 장!!" -right
+VFX Sound "VFX\Sound\Cheer"
+Unload Character -left
+Unload Character -right
+VFX Transition
+Load Background "Background\Timeskip3"
+VFX Pause -1000
+VFX Transition
+Load Character "Character\Crowd\b\normal" -center
+## "나" "우리가 승리했습니다!"
+# "말이 끝나기 무섭게 모두가 내쪽으로 환호를 지르며 다가왔다."
+## "마을사람들" "와아아!!" -center
+VFX Sound "VFX\Sound\Cheer"
+Unload Character -center
+Load Character "Character\Father\d\normal" -center
+## "이장" "오늘같이 좋은날은 축제라도 해야되지 않겠나." -center
+## "이장" "마을 창고를 풀어서 축제를 하세." -center
+## "이장" "소도 잡고 말이야." -center
+Unload Character -center
+VFX Transition
+Load Background "Background\festival"
+# "그렇게 우리는 풍족하게 먹기 시작했다."
+# "뭔가 모자르다는 느낌을 받을때쯤 누군가소리질렀다."
+Load Character "Character\Townperson1\a\normal" -left
+Load Character "Character\Townperson2\a\normal" -right
+## "마을사람1"  "우리 축제인데 이럴때 술을 먹어야 하지 않겠나?"
+## "마을사람2" "아니 술이 어딨나?"
+## "마을사람1" "어딨긴 어딨어. 다들 숨겨둔거 있잖나."
+## "마을사람2" "에..? 난 없는데? 빨리 다들 꺼내오게."
+## "마을사람1" "술도 없다니 다들 집에가서 술을 꺼내오세!!"
+Unload Character -left
+Unload Character -right
+VFX Transition
+Load Character "Character\Townperson1\a\alchohol" -left
+Load Character "Character\Townperson2\a\alchohol" -right
+# "그렇게 갑자기 많은 사람들이 자기집에 가서 숨겨두었던 술들을 꺼내왔다."
+# "이세계의 조주법은 매우 놀라웠다. 이렇게 발전해있을수 있다니."
+# "대체 이런 기술을 두고도 먹을게 없었다니.."
+## "마을사람1" "축제다!!!!!!" -left
+## "마을사람2" "축제!!" -right
+Unload Character -left
+Unload Character -right
+VFX Transition
+Load Background "Background\festivalnight"
+# "그렇게 밤새 광란의 축제가 이어지고 있었다."
+# "축제의 분위기에서 잠시 밖으로 나왔더니 술에 좀 취한듯 해 보이는 선녀가 다가왔다."
+Load Character "Character\Heroine\d\happy" -center
+## "선녀" "저희 그래도 이겨서 다행이에요." -center
+## "나" "그러게. 다행이지."
+Load Character "Character\Heroine\d\crying" -center
+# "선녀가 갑자기 울기 시작했다."
+## "선녀" "저는 다시는 못볼줄 알았어요..." -center
+## "나" "에이 왜 못봐. 이렇게 돌아왔잖아." 
+## "선녀" "그래도 가시는동안 결심했어요. 하고싶은 말은 하려고요." -center
+## "나" "뭔데..?"
+Load Character "Character\Heroine\d\embarassed" -center
+## "선녀" "저 사실.. 좋아해요." -center
+## "나" "응?"
+Load Character "Character\Heroine\d\shoutingembarassed" -center
+## "선녀" "장 동무. 좋아한다고요!!" -center
+# "아아."
+# "그랬던 것인가"
+# "술기운 때문인지 오늘따라 원래도 이뻤던 선녀는 더욱 이뻐보였다."
+# "아니 분명 훨신 이뻤다." 
+# "축제때문인지 꾸민 모습이 평소 모습과 다른사람처럼 보였다."
+# "하지만...."
+## "나" "아하.. 그렇구나."
+## "선녀" "에.. 그게 뭐에요!!" -center
+## "나" "그냥.... 미안, 난 널 그런 눈으로 바라본적이 없어."
+## "선녀" "아... " -center
+## "나" "게다가....아, 아니다."
+# "봄이 이야기는 차마 하기 어려웠다."
+## "나" "나중에 좀 더 마을이 안전해지면 이야기 하자."
+## "나" "요즘 그래도 안전한 건 아니잖아."
+Load Character "Character\Heroine\d\sad" -center
+## "선녀" "네.. 죄송해요." -center
+## "나" "아니야 괜찮아."
+## "나" "이리 와바."
+Load CG "CG\EndingHug"
+# "나는 선녀를 꼭 안아주었다."
+# "잠시뒤 떨어지려 했지만 선녀가 잡고있어서 계속 안고있었고, 선녀는 흐느끼며 울기 시작했다."
+# "그렇게 꽤 오랜시간동안 우리는 안고있었다."
+VFX Transition
+Load Background "Background\MorningRoom"
+# "그렇게 축제가 끝나고 다음 날이 되었다." 
+# "어제 마신 술 때문인지 머리가 아팠다." 
+# "분명 오늘 뭔가 있는거 같은데 같은 생각이 들었다." 
+VFX Transition
+Load Background "Background\Heroine2note"
+VFX Transition
+# "아"
+# "오늘은 그 날이었다." 
+Stop Music
+# "봄이가 자기 찾으로 오라했던 그날.." 
+# "분명 중요한 할 말이 있던거처럼 보였다." 
+# "지금 시계를 보니 지금 당장 출발해야 도착 가능한 시간이었다."
+## "나" "젠장...술을 너무 많이 마셨네 내가 이렇게 늦게 일어나다니...."
+# "서둘러 옷을 챙겨 입기 시작했다."
+# "가슴이 두근 거리기 시작했다."
+# "어제 선녀가 나에게 고백했을 때야 나는 깨달은 것이다."
+# "나는 봄이에게 반해 있었다."
+VFX Transition
+Load Background "Background\forest" 
+# "일어나보니 생각보다 몸이 힘들진 않았다." 
+# "빠르게 출발했고 시간에 딱 맞춰 도착할 수 있었다." 
+# "도착하니 정말로 봄이가 있었다." 
+Load Character "Character\Agent\d\normal" -center
+## "나" "...봄이야." 
+## "봄이" "훗....정말 말대로 왔네.." -center
+# "봄이는 복장부터가 처음보는 이상한 복장이었다."
+# "게다가 말투까지 무언가가 바뀌어있었다."
+## "나" "왜? 기억은 찾은거야?" 
+## "봄이" "응."  -center
+## "나" "할말이 먼데?" 
+Load CG "CG\TrueEndKiss"
+# "봄이는 대답하지 않고 나를 안고 입술을 들이 밀었다." 
+# "나는 알 수 없는 이끌림에 거부할 수 없었다." 
+Unload CG
+Load Character "Character\Agent\d\flushed" -center
+## "나" "봄이야...."
+## "나" "사랑해."
+## "봄이" "풋, 나도 알아." -center
+## "봄이" "그리고 나도 널 사랑해." -center
+## "봄이" "장.피에르.라.로셸." -center
+## "봄이" "그게 너의 본명이었지?" -center
+## "봄이" "Mousier La Rochelle" -center
+# "아아, 나를 누군가가 '장 동지'가 아닌 풀네임으로 부른지 너무 오래되, 처음에는 나도 헷갈릴 수준이었다."
+# "하지만 맨 마지막에 그건...?"
+# "이 이세계에 와서 나는 한번도 말 이세계인들과의 대화가 이해안된적은 없었다."
+# "하지만....어느때부터 직감으로 알고 있었던것 같다. 이곳의 말은 내가 아는 라틴어나 프랑스어도 아닌, 정말 이세계의 언어라고."
+# "분명 여기로 나를 보낸 신의 은총으로, 말 또한 통할 수 있게 했으리라 생각했는데..."
+# "방금 봄이가 말한 그 문장....이 또한 본능적으로 알수 있었다."
+# "그것은 '프랑스어' 였다"
+## "나" "하지만....어떻게....?"
+## "봄이" "사실 나는 『남쪽』에서 왔어." -center
+## "나" "『남쪽』??"
+## "봄이" "맞아, 장 피에르."
+## "봄이" "네가 떨어진 이곳, 당이 다스리는 조선인민민주주의 공화국의『남쪽』에는 그들은 '미제앞잡이'라 부르는 나라가 있다 알꺼야."
+# "확실히...그랬던거 같다."
+## "봄이" "나는 그곳에서, 북파 공작원으로 이곳에 첩보 임무를 왔지."
+## "나" "북파? 첩보?"
+## "나" "즉....스파이였단 말이야?"
+## "봄이" "응. 코드네임, 적금성. 대한민국 국군정보사령부 김미소 중위지."
+## "나" "너의 진짜 이름은 그렇다면....미소 인것이네."
+Load Character "Character\Agent\d\smile" -center
+## "미소" "맞아"
+Load Character "Character\Agent\d\normal" -center
+## "미소" "그리고 돌아가려던 도중, 나를 제외한 팀원이 다 『남쪽』으로 내려가고 나만 가면 될때에"
+## "미소" "지금 나는 『워프』라 부를 수 있는 일이 있어났어."
+## "나" "『워프』?"
+## "미소" "맞아. 네가 너의 고향인 프랑스에서 이곳 부락으로 떨어진 후, 아마 내 계산상 며칠도 안되서 였을꺼야."
+## "미소" "나는 『남쪽』으로 탈출하려 했지만 강한 빛으로 막혀있어 탈출할 수 없었고, 그렇게 정신을 잃었지."
+## "미소" "정신을 차리고 보니, 강한 빛으로 막혀있던 곳은 원래 알던 『남한』이 아닌 완전 다른 세계가 펼쳐져.."
+## "미소" "아무튼 나는 계속해 내 주 임무인 첩보를 위해 수색을 하던 도중, 사람들을 만났고. 이곳은 14세기 프랑스라는걸 알게 되었어."
+## "미소" "그렇게 북한 전역 을 돌아다니며 어떻게든 돌아갈 방법을 찾다가, 운이 드럽게 없어서 무언가에 넘어져 산에서 굴렸었나봐."
+## "미소" "그리고 그때 어딘가에 머리를 밖에 기억을 잃은거지."
+## "미소" "그때 나를 발견하지 않았다면 지금쯤은 멧돼지 밥이 되어있겠지."
+# "....??"
+# "무언가 잘못 들은것 같다."
+# "지금 이곳이 프랑스라고?"
+## "나" "잠시만 봄ㅇ....미소야. 지금 이곳이 프랑스라고?"
+## "미소" "맞아!"
+## "미소" "내가 다시 기억을 되찾으며,『{당:평양}』의 상태에 대해 더 알아보고 있었는데."
+## "미소" "이미 전국 많은 마을에서 반란이 일어났고, 김씨 정권은 붕괴 일보 직전이야."
+## "미소" "그래서 네가 맞서싸운 군세도 그게 다였던거지."
+## "미소" "이미 함경도 끝자락 쪽의 많은 마을들이 프랑스와 영국의 실효 지배를 받고 있어."
+## "미소" "그렇게 생각하면 너는 유럽을 벗어난 적이 며칠밖에 없고, 그 동안 쭉 고향인 라 로셸 로부터 일주일 거리도 안되는 근처에서 이 마을을 키웠던거지."
+## "나" "어..어엉?? 그렇다면 지금 나는 유럽의 끝짜락에 작은 국가를 만들었다는 거야???"
+## "미소" "맞아!"
+## "미소" "내 생각에 한 1년만 더 버티면, 아마 평양의『{당:북한 정부}』는 완벽히 무너지고, 이곳에서 유럽인들이 들어오기 시작할것 같은데?"
+## "나" "으어어.."
+Load CG "CG\Trueendwtf"
+Load CG "CG\TrueEND"
+GAME END

@@ -17,4 +17,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MiningGame.unity
     guid: 3c6108a67c29dd54caee1aabcbd1027d
+  - enabled: 1
+    path: Assets/Scenes/MainScene.unity
+    guid: b85ae4e89e273104f8024fd15b6093a1
+  - enabled: 1
+    path: Assets/Scenes/TetrisGame.unity
+    guid: 3a45daf9cfe291c458de9085222aafcf
+  - enabled: 1
+    path: Assets/Scenes/RaidingGame.unity
+    guid: a21c54d2e2446414ab931e72cf26f45b
+  - enabled: 1
+    path: Assets/Scenes/EndingGame.unity
+    guid: b087f5c5be194f54eaf4332c6c88d42f
   m_configObjects: {}

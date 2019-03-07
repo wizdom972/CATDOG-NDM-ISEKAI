@@ -141,7 +141,6 @@ public class UITownManager : MonoBehaviour
         textFood.text = _game.town.remainFoodAmount.ToString();
         textPleasant.text = _game.town.totalPleasantAmount + "/" + 200;
         textTurn.text = _game.turn.ToString();
-        textAP.text ="AP: " + _game.remainAP + "/" + 4;
         GameManager.instance.TryInstantiateEventSDs();
         GameManager.instance.TryUpdateEventSDs();
         SetParentsOfEvents();

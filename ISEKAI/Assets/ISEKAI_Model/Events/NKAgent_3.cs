@@ -26,6 +26,7 @@ namespace ISEKAI_Model
         {
             base.Complete();
             game.town.remainFoodAmount -= 20;
+            game.additionalEndingOption = 0;
         }
 
         public NKAgent_3(Game game): base(game)
