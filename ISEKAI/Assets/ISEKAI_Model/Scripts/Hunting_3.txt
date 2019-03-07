@@ -5,43 +5,44 @@
 # "통계원 동지의 도움으로 사냥 전술 계획을 세운뒤, 나는 마을 사람들을 여러 조로 나누어 각 조마다의 역할을 잘 숙지 시켰다."
 # "그 이후 출발에 앞서 짧은 연설을 하기로 했다."
 Load Character "Character\Crowd\normal" -center
-## "나" "우리가 피땀 흘려 갈군 밭을 파헤쳐 버린 이 멧돼지들을 우리는 두고 볼수 있는가?"
-## "나" "오늘, 우리는 되찾으리라. 우리의 고향과, 우리의 유산을!"
-## "나" "우리의 마지막 항전은 눈부시게 타오를 것이니, 전 세계가 우릴 영원히 기억하리라!"
-## "마을 사람들" "와아아아~~!!!" -center
+## "나" "「우리가 피땀 흘려 갈군 밭을 파헤쳐 버린 이 멧돼지들을 우리는 두고 볼수 있는가?」"
+## "나" "「오늘, 우리는 되찾으리라. 우리의 고향과, 우리의 유산을!」"
+## "나" "「우리의 마지막 항전은 눈부시게 타오를 것이니, 전 세계가 우릴 영원히 기억하리라!」"
+## "마을 사람들" "「와아아아~~!!!」" -center
 Unload Character -center
 Load Character "Character\Heroine\c\embarrassed" -left
 Load Character "Character\Crowd\normal" -right
-## "선녀" "ㅈ...쟝 동지! 저도 갈래요! 와아아!!" -left
-## "나" "엥 너도?"
+## "선녀" "「ㅈ...쟝 동지! 저도 갈래요! 와아아!!」" -left
+## "나" "「엥 너도?」"
 Unload Character -left
 Load Character "Character\Heroine\c\pout" -left
-## "나" "저도 잘 할수 있어요!!" -left
-## "나" "아.. 그래, 방해는 되지 말아라."
-## "마을 사람들" "와아아앙~~!!!" -center
-Load Minigame "WildBoarHuntMinigame"
-## "나" "하.. 힘들었다. 다 잡은건가..."
+## "나" "「저도 잘 할수 있어요!!」" -left
+## "나" "「아.. 그래, 방해는 되지 말아라.」"
+## "마을 사람들" "「와아아앙~~!!!」" -center
+VFX Transition
+Unload -center
+## "나" "「하.. 힘들었다. 다 잡은건가...」"
 # "포위망을 좁혀 다 잡았는가 싶을 때 쯤, 포위망을 바깥에서 다가오는 한마리를 포착했다."
 Load CG "CG\WildBoarBoss"
-## "나" "아.. 아니.. 저크기는.. 『보스』인가.."
-## "선녀" "꺅! 살려줘요!"
+## "나" "「아.. 아니.. 저크기는.. 『보스』인가..」"
+## "선녀" "「꺅! 살려줘요!」"
 # "그 커다란 산도티는 운명의 장난 처럼 선녀를 노려보고 있었다."
 # "그날 밤의 상황과 거의 유사했지만, 그 때와 비해 이 산도티는 훨씬 더 성나고 커보였다."
-## "나" "헉. 구해주러 갈게!!"
+## "나" "「헉. 구해주러 갈게!!」"
 Load Minigame "RaidingGame"
 # "드디어 대장 산도티가 죽은 것을 확인하자, 나는 넘어져있던 선녀를 안아 일으키며 숨을 골랐다."
-Load Character "Character\Heroine\d\relieved" -center
-## "나" "헉.. 힘들다.."
-## "나" "괜찮아? 조심해야지.."
+Load Character "Character\Heroine\c\relieved" -center
+## "나" "「헉.. 힘들다..」"
+## "나" "「괜찮아? 조심해야지..」"
 VFX Pause -1000
 Unload Character -center
-Load Character "Character\Heroine\d\embarassed" -center
+Load Character "Character\Heroine\c\embarassed" -center
 VFX Pause -1000
-## "선녀" "헤에,, 참,, 부끄럽게.. 벌서부터 그런말을,, 하지만 결혼은 너무 일르지 않나?"
-## "나" "뭔 소리야."
+## "선녀" "「헤에,, 참,, 부끄럽게.. 벌서부터 그런말을,, 하지만 결혼은 너무 일르지 않나?」"
+## "나" "「뭔 소리야.」"
 Unload Character -center
-Load Character "Character\Heroine\d\disappointed" -center
-## "선녀" "아..쳇,, 아니었군."
-## "나" "뭐라고??"
-## "선녀" "아.. 아니에요.."
+Load Character "Character\Heroine\c\disappointed" -center
+## "선녀" "「아..쳇,, 아니었군.」"
+## "나" "「뭐라고??」"
+## "선녀" "「아.. 아니에요..」"
 # "그렇게 우리들은 멧돼지 무리를 퇴치하는데 성공했다."

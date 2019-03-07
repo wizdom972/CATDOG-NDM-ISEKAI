@@ -1,1 +1,27 @@
-﻿# "Placeholder"
+﻿Load Background "Background\fields"
+# "통계원 동지가 보호해 숨겨놓던 말 커플을 찾아서 마을에 있던 목장을 다시 부활 시킨 이후, 어느 정도 시간이 흘렀다."
+# "말들의 새끼들도 이제 적당히 커서, 승마를 가르칠수 있는 정도는 된것 같다."
+# "따라서 오늘은 마을 사람들을 모아 말 타는 법을 가르키기로 했다."
+Load Character "Character\Crowd\c\normal" -center
+## "마을 사람들" "「오오....장 동지! 말을 안장 없이 타다니, 그런게 가능한 것이었소?!」" -center
+## "마을 사람들" "「(수군수군)」" -center
+## "마을 사람들" "「우리도 장 동지 처럼 말을 그렇게 잘 탈수 있게 된다는 것이오?」" -center
+## "나" "「오랬동안 연습하면 분명 가능하겠지만, 안장 없이 말을 타는 것은 매우 어렵습네다.」"
+## "나" "「그래서 수업에 앞서 목수 동무에게 안장을 만드는 법을 가르켜 몇개를 제작하게 했습니다.」"
+## "마을 사람들" "「오오....역시 장 동지!」" -center
+Unload Character -center
+Load Character "Character\Crowd\c\normal" -left
+Load Character "Character\Rancher\c\normal" -right
+## "나" "「자, 그러면 통계원 동지 부터, 한번 해보시쥬!」"
+## "통계원" "「나, 나 부터 말인가?」" -right
+## "나" "「그렇습니다, 일단 어느정도 경험 있으신 부터 타는 것을 보여줘야지 않겠습니까?」"
+## "통계원" "「아, 알겠네.」" -right
+Load Minigame "HorseGame"
+Load Background "Background\fields"
+Load Character "Character\Crowd\c\normal" -left
+Load Character "Character\Rancher\c\normal" -right
+## "마을 사람들" "「오이오이, 자광철 동무!」" -left
+## "마을 사람들" "「이렇게 말을 잘 타는줄 몰랐다구?」" -left
+## "마을 사람들" "「역시 이 마을의 통계원, 믿고 있었다고?!」" -left
+## "통계원" "「허허, 과한 칭찬들이오, 다들 곧있으면 이렇게 탈수 있게 될것이오!」" -right
+# "그렇게 마을 사람들 모두 말을 능숙하게 다룰수 있게 되었다."
