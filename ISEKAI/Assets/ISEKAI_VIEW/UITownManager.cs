@@ -22,6 +22,8 @@ public class UITownManager : MonoBehaviour
     public GameObject moveBtnLocation;
     public GameObject ButtonGoOutskirt;
     public GameObject background;
+    public GameObject Townlocationlabels;
+    public GameObject Townoutskirtslocationlabels;
 
     public Text textPleasant;
     public Text textFood;
@@ -85,7 +87,8 @@ public class UITownManager : MonoBehaviour
 
                 moveBtnLocation.SetActive(false);
                 ButtonGoOutskirt.SetActive(true);
-
+                Townoutskirtslocationlabels.SetActive(false);
+                Townlocationlabels.SetActive(true);
 
                 break;
 
@@ -113,6 +116,8 @@ public class UITownManager : MonoBehaviour
 
                 moveBtnLocation.SetActive(true);
                 ButtonGoOutskirt.SetActive(false);
+                Townlocationlabels.SetActive(false);
+                Townoutskirtslocationlabels.SetActive(true);
 
                 break;
 

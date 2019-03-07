@@ -11,7 +11,7 @@ namespace ISEKAI_Model
             totalFoodProduction = 10f;
             totalPleasantAmount = 100f;
             pleasantWeightFactor = 1f;
-            suggestedFoodConsumption = 80f;
+            suggestedFoodConsumption = 50f;
             totalIronProduction = 0f;
             totalHorseAmount = 0f;
             totalHorseProduction = 0f;
