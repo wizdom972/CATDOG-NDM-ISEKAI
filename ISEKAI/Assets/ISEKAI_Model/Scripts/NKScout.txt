@@ -1,4 +1,4 @@
-Load Background "Background\Town"
+﻿Load Background "Background\Town"
 Load Character "Character\Heroine\c\alarmed" -center
 ## "선녀" "쟝 동무! 큰 일이오!" -center
 ## "선녀" "어서 따라와 이걸 봐야 할것 같소!" -center
@@ -11,9 +11,9 @@ Unload Character -center
 VFX Transition
 Load Background "Background\Road"
 # "어서 선녀를 따라 옛 마을로 들어오는 길을 따라 산쪽으로 걸어가다 보니, 작업반장 동지와 통계원 동지가 함께 기다리고 있었다."
-Load Character "Character\Father\c\alarmed" -left
+Load Character "Character\Father\b\alarmed" -left
 Load Character "Character\Heroine\c\alarmed" -center
-Load Character "Character\Rancher\c\alarmed" -right
+Load Character "Character\Rancher\b\alarmed" -right
 ## "작업반장 동지" "오, 쟝 동지, 정말 잘 왔네, 자네가 꼭 결정해야 만 하는 일일세." -left
 ## "통계원 동지" "큭....언젠가는 이런 날이 오게 될줄 알았는데....." -right
 # "둘다 똥씹은 듯한, 곤란한 표정을 짓고 있었다."

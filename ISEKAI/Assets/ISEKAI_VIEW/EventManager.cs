@@ -228,9 +228,6 @@ public class EventManager : MonoBehaviour
             case 18:
                 _VFXPause(c as VFXPause);
                 break;
-            case 19:
-                _GameEnd(c as GameEnd);
-                break;
             default:
                 throw new NotImplementedException("The command which holds that number is not implemented.");
         }
@@ -935,10 +932,5 @@ public class EventManager : MonoBehaviour
         UI_ruby.SetActive(state);
         EventItems.SetActive(state);
         EventSceneCamera.SetActive(state);
-    }
-
-    private void _GameEnd(GameEnd gameEnd)
-    {
-        SceneManager.LoadScene("MainScene");
     }
 }

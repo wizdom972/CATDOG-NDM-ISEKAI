@@ -43,7 +43,7 @@ Load Character "Character\Smith\d\crying" -right
 ## "선녀" "그...장 동지, 이거 캘래면 어떻게 해야 하오?"
 Load Character "Character\Smith\d\tearsineye" -right
 ## "기술지도원" "그건 내가 책임지고 하겠소. 어서 마을 사람들을 곡괭이를 들고 불러오소, 같이 철광석을 캡시다!"
-Load Minigame "MiningGame"
+Load Minigame "Mininggame"
 # "그렇게 몇달동안 마을의 모든 인력을 동원해 캔 뒤에도, 조금 씩 인력을 줄여서 계속 지속적으로 철광석을 캐는 작업을 시작했다."
 # "이 철광석을 녹여 강철을 얻는 방법 또한 보니 이 세계 주민들의 방법이 비효율적이어서, 내가 시토회 수도사들에게 배웠던 용광로 제작법을 알려 주어 효율을 향상시키기도 했다."
 # "전체적으로 결과는 만족스러웠다."

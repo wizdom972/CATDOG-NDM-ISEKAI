@@ -26,8 +26,7 @@ namespace ISEKAI_Model
              @"^(\d?)\-?\-?(\d?) ?Choice$", //15
              @"-- ""(.*)""( \-(\w+) \(([\+\-\*])(\d+)\))*", // 16
              @"^(\d?)\-?\-?(\d?) ?VFX Transition$", //17
-             @"^(\d?)\-?\-?(\d?) ?VFX Pause \-(.*)$", //18
-             @"^(\d?)\-?\-?(\d?) ?GAME END$"}; //19
+             @"^(\d?)\-?\-?(\d?) ?VFX Pause \-(.*)$"}; //18
         private static SpriteLocation _ParseSpriteLocation(string location)
         {
             if(location.Equals("left"))
@@ -244,12 +243,6 @@ namespace ISEKAI_Model
                     var vfxPause = new VFXPause(int.Parse(second));
                     _SetChoiceDependency(vfxPause, match.Groups[1].Value, match.Groups[2].Value);
                     refinedList.Add(vfxPause);
-                }
-                else if ((match = Regex.Match(command, _commandPattern[19])).Success)
-                {
-                    var GameEnd = new GameEnd();
-                    _SetChoiceDependency(GameEnd, match.Groups[1].Value, match.Groups[2].Value);
-                    refinedList.Add(GameEnd);
                 }
             }
             return refinedList;
