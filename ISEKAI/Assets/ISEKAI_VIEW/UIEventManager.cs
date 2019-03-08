@@ -4,6 +4,7 @@ using UnityEngine;
 using ISEKAI_Model;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class UIEventManager : MonoBehaviour
 {
@@ -65,6 +66,8 @@ public class UIEventManager : MonoBehaviour
         }
     }*/
 
+
+
     public void OnClickSkipButton()
     {
         isSkip = !isSkip;
@@ -90,20 +93,34 @@ public class UIEventManager : MonoBehaviour
     {   
         _isSkipRunning = true;
 
-        while (true)
+        try
         {
-            if (eventManager.scriptEnumerator.Current.commandNumber == 15)       //if choice, stop excute and restart auto by update
+            while (true)
             {
-                _isAutoRunning = false;
-                break;
-            }
+                if(eventManager.scriptEnumerator.Current == null) // 더이상 스크립트 없을떄 (인거같음) 그냥 꺼버리게 설정.
+                {
+                    _isAutoRunning = false;
+                    break;
+                }
 
-            if(isSkip == false)
-            {
-                break;
-            }
+                if (eventManager.scriptEnumerator.Current.commandNumber == 15)       //if choice, stop excute and restart auto by update
+                {
+                    _isAutoRunning = false;
+                    break;
+                }
 
-            eventManager.ExecuteOneScript();
+                if (isSkip == false)
+                {
+                    break;
+                }
+
+                eventManager.ExecuteOneScript();
+            }
+        }
+        catch(Exception e)
+        {
+            Debug.Log(eventManager);
+            Debug.Log(e.Data);
         }
     }
     
@@ -156,6 +173,11 @@ public class UIEventManager : MonoBehaviour
     }
 
     public void OnClickNextButton()
+    {
+        eventManager.ExecuteOneScript();
+    }
+
+    public void OnTouchScreen()
     {
         eventManager.ExecuteOneScript();
     }

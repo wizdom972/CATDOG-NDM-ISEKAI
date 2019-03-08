@@ -7,6 +7,7 @@ using UnityEditor;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
+using UnityEngine.EventSystems;
 
 public class EventManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class EventManager : MonoBehaviour
     public GameObject containerConversation;
 
     public GameObject[] spritePeople;   // use same location index from SpriteLocation
+    public GameObject[] spritePeopleTmp;
 
     public GameObject spriteBackground;
     public GameObject spriteBackgroundTemp;
@@ -46,7 +48,25 @@ public class EventManager : MonoBehaviour
     public GameObject scriptText;
 
     public Button NextButton;
-    public bool isNextButtonActive = true;
+
+    public GameObject screenTouchSensor;
+
+    public UIEventManager uiEventManager;
+
+    [HideInInspector]
+    public bool inputInteractable;
+
+    /// <summary>
+    /// 모든 next 버튼을 잠굽니다.
+    /// </summary>
+    public bool isNextButtonActive
+    { set
+        {
+            NextButton.interactable = value;
+            screenTouchSensor.SetActive(value);
+            inputInteractable = value;
+        }
+    }
     public SpriteLocation characterBrightNum = SpriteLocation.None;
 
     public GameObject UIButton;
@@ -57,6 +77,8 @@ public class EventManager : MonoBehaviour
 
     private int _loadingCharacterCount = 0;
 
+    private bool isVideoPlaying;
+
     void Start()
     {
         SetUpEventManager();
@@ -65,17 +87,33 @@ public class EventManager : MonoBehaviour
 
     void Update()
     {
-        if (videoVFX.isPlaying && Input.GetKeyDown(KeyCode.Escape))
+        //비디오
+        if (videoVFX.isPlaying && (Input.anyKeyDown || Input.touchCount>0))
         {
             Debug.Log("stop");
-            StopCoroutine("loadVideo");
+            StopCoroutine("loadVideoandPlay");
             videoVFX.Stop();
+            isVideoPlaying = false;
+            ExecuteOneScript();
+
+            //스크립트 실행하고 살리기
             UIButton.SetActive(true);
             UIScript.SetActive(true);
-            ExecuteOneScript();
+            isNextButtonActive = true;
         }
 
-        NextButton.interactable = isNextButtonActive;
+        //인풋 들어오는지.
+        //다른거로 바꿀 준비.
+        //if (Input.GetAxis("Submit") != 0) //이거로 하면 한번에 2개씩 나감.
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            if (inputInteractable)
+            {
+                isNextButtonActive = false;
+                ExecuteOneScript();
+            }
+        }
+        //NextButton.interactable = isNextButtonActive;
     }
 
     public void SetUpEventManager() // when playing new event, this instance should be made.
@@ -87,7 +125,21 @@ public class EventManager : MonoBehaviour
     public EventCore eventCore { get; private set; } // when event SD is clicked and scene changed, it should be set to that event.
 
     public List<Command>.Enumerator scriptEnumerator;
+    /* 왜인지 모르겠는데 이거 하면 터짐 ㅂㄷ..
+    {
+        get
+        {
+            return _scriptEnumerator;
+        }
 
+        set
+        {
+            Debug.Log(value);
+            _scriptEnumerator = value;
+        }
+    }
+    public List<Command>.Enumerator _scriptEnumerator;
+    */
     public void ExecuteOneScript()
     {
         if (!scriptEnumerator.MoveNext())
@@ -117,7 +169,7 @@ public class EventManager : MonoBehaviour
 
     private void _ExecuteCommand(Command c)
     {
-        NextButton.interactable = true;
+        isNextButtonActive = true;
 
         int choiceDependencyNum;
         choiceDependencyNum = c.choiceDependency.Item1;
@@ -139,7 +191,7 @@ public class EventManager : MonoBehaviour
 
                 List<(int, int)> choiceHistory = new List<(int, int)>();
                 GameManager.instance.game.choiceHistories.TryGetValue(currentEvent, out choiceHistory);
-
+                Debug.Log(choiceHistory.Count);
                 int choiceBranch;
                 choiceBranch = choiceHistory[choiceHistory.Count - 1].Item2;
 
@@ -354,37 +406,62 @@ public class EventManager : MonoBehaviour
 
         ExecuteOneScript();
 
-        var locationGameObject = spritePeople[(int)loadCharacter.location];
-        var spriteRenderer = locationGameObject.GetComponent<SpriteRenderer>();
+        bool isOrigin = false;
 
-        Color color = spriteRenderer.color;
+        // 원래 캐릭터 위치.
+        var charGameObject1 = spritePeople[(int)loadCharacter.location];
+        var spriteRenderer1 = charGameObject1.GetComponent<SpriteRenderer>();
 
-        if (spriteRenderer.sprite != null)
+
+        //바꿀 캐릭터 위치
+        var charGameObject2 = spritePeopleTmp[(int)loadCharacter.location];
+        var spriteRenderer2 = charGameObject2.GetComponent<SpriteRenderer>();
+
+
+        //캐릭터가 있을때.
+        if (spriteRenderer1.sprite != null)
         {
-            while (color.a > 0.2f)
-            {
-                color.a -= 0.1f;
-                spriteRenderer.color = color;
-
-                yield return new WaitForSeconds(0.04f);
-            }
+            isOrigin = true;
         }
 
-        color.a = 0.2f;
-        spriteRenderer.color = color;
+        //새로운 캐릭터 켜기.
+        charGameObject2.SetActive(true);
 
+        //새로운 캐릭터 가져오기
         Sprite newCharacter = Resources.Load<Sprite>(loadCharacter.filePath);
-        spriteRenderer.sprite = newCharacter;
+        spriteRenderer2.sprite = newCharacter;
 
-        spritePeople[(int)loadCharacter.location].SetActive(true);
+        //색 처음색 가져오기.
+        Color color1 = spriteRenderer1.color;
+        Color color2 = spriteRenderer2.color;
 
-        while (color.a < 1.0f)
+        //페이드 인 아웃 동시에
+        while (color2.a < 1.0f)
         {
-            color.a += 0.1f;
-            spritePeople[(int)loadCharacter.location].GetComponent<SpriteRenderer>().color = color;
+            //페이드아웃
+            if(isOrigin)
+            {
+                color1.a -= 0.1f;
+                spriteRenderer1.color = color1;
+            }
+
+            //페이드 인
+            color2.a += 0.1f;
+            spriteRenderer2.color = color2;
 
             yield return new WaitForSeconds(0.04f);
         }
+
+        //마지막색 설정.
+        color1.a = 0.2f;
+        spriteRenderer1.color = color1;
+
+        //원래거 끄기.
+        charGameObject1.SetActive(false);
+
+        //바꿔두기
+        spritePeople[(int)loadCharacter.location] = charGameObject2;
+        spritePeopleTmp[(int)loadCharacter.location] = charGameObject1;
 
         // ExecuteOneScript();
         _loadingCharacterCount--;
@@ -806,6 +883,7 @@ public class EventManager : MonoBehaviour
 
         videoVFX.clip = videoClip;
 
+        isNextButtonActive = false;
         UIButton.SetActive(false);
         UIScript.SetActive(false);
 
@@ -824,18 +902,26 @@ public class EventManager : MonoBehaviour
         UIButton.SetActive(true);
         UIScript.SetActive(true);
 
+        if (isVideoPlaying)
+        {
         ExecuteOneScript();
+        }
     }
 
     private void _Choice(Choice choice)
     {
         Debug.Log("Choice");
 
+        //버튼 죽이기
+        isNextButtonActive = false;
+
+        //모든 ui 제거
         containerChoice.SetActive(true);
         containerConversation.SetActive(false);
         containerFullScript.SetActive(false);
         UI.transform.Find("ContainerSetting").gameObject.SetActive(false);
         UI.transform.Find("ButtonNext").gameObject.SetActive(false);
+
 
         //choice fuction
         _choiceHandler(choice);
@@ -942,6 +1028,9 @@ public class EventManager : MonoBehaviour
 
         UI.transform.Find("ContainerSetting").gameObject.SetActive(true);
         UI.transform.Find("ButtonNext").gameObject.SetActive(true);
+
+        //버튼 살리기
+        isNextButtonActive = true;
     }
 
     private void _VFXTransition(VFXTransition vfxTransition)

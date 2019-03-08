@@ -253,6 +253,7 @@ namespace ISEKAI_Model
                 }
                 else if ((match = Regex.Match(command, _commandPattern[17])).Success)
                 {
+                    // 페이드인 페이드 아웃
                     var vfxTransition = new VFXTransition();
                     _SetChoiceDependency(vfxTransition, match.Groups[1].Value, match.Groups[2].Value);
                     refinedList.Add(vfxTransition);

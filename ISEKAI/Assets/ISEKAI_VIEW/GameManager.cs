@@ -13,12 +13,18 @@ public class GameManager : MonoBehaviour
     public Transform eventPrefab;
     public static GameManager instance;
     public EventCore currentEvent;
-
-    public Sprite[] monthsLeftSprites;
     public Sprite[] seasonSprites;
-    public Sprite[] numberSprites;
 
+    public Sprite[] LeeSprites;
+    public Sprite[] LeeFSprites;
+    public Sprite[] MokSprites;
+    public Sprite[] MooSprites;
+    public Sprite[] NorSprites;
+    public Sprite[] RohSprites;
+    public Sprite[] SolSprites;
+    public Sprite[] TongSprites;
 
+    public Sprite[] DefaultSprites;
 
     public Transform town;
     public Transform outskirts;
@@ -113,6 +119,40 @@ public class GameManager : MonoBehaviour
                     sd.GetChild(4).gameObject.SetActive(false);
                 else
                     sd.GetChild(4).GetComponent<SpriteRenderer>().sprite = seasonSprites[(int)e.availableSeason - 1];
+
+                var sdSprite = sd.GetChild(0).GetComponent<SpriteRenderer>();
+
+                switch(e.characterName) //선녀/작업반장/기술지도원/통계원/목수/임페리우스/봄이/군인
+                {
+                    case "선녀":
+                        sd.GetComponent<EventLoader>().thisSprites = LeeSprites;
+                        break;
+                    case "작업반장":
+                        sd.GetComponent<EventLoader>().thisSprites = LeeFSprites;
+                        break;
+                    case "기술지도원":
+                        sd.GetComponent<EventLoader>().thisSprites = RohSprites;
+                        break;
+                    case "통계원":
+                        sd.GetComponent<EventLoader>().thisSprites = TongSprites;
+                        break;
+                    case "목수":
+                        sd.GetComponent<EventLoader>().thisSprites = MokSprites;
+                        break;
+                    case "임페리우스":
+                        sd.GetComponent<EventLoader>().thisSprites = MooSprites;
+                        break;
+                    case "봄이":
+                        sd.GetComponent<EventLoader>().thisSprites = NorSprites;
+                        break;
+                    case "군인":
+                        sd.GetComponent<EventLoader>().thisSprites = SolSprites;
+                        break;
+                    default:
+                        sd.GetComponent<EventLoader>().thisSprites = DefaultSprites;
+                        break;
+                }
+                sd.GetChild(0).GetComponent<SpriteRenderer>().sprite = sd.GetComponent<EventLoader>().thisSprites[0];
                 eventSDList.Add(sd);
             }
         }
