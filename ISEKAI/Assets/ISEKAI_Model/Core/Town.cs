@@ -8,7 +8,7 @@ namespace ISEKAI_Model
         {
             remainFoodAmount = 50f;
             maxFoodConsumption = 100f;
-            totalFoodProduction = 10f;
+            totalFoodProduction = 10000000f;
             totalPleasantAmount = 100f;
             pleasantWeightFactor = 1f;
             suggestedFoodConsumption = 50f;

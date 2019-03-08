@@ -33,7 +33,6 @@ Load Character "Character\Townperson2\a\normal" -right
 # "다행이다, 말이 아직 통하는 거 같다."
 ## "나" "다들 많이 화나신거 같은데, 차례대로 한번 -"
 VFX Load Sprite "VFX\Sprite\Blood"
-VFX Sound "VFX\Sound\Rockhit"
 VFX Pause -1000
 VFX Transition
 Load Background "Background\Blackbackground"
@@ -48,3 +47,4 @@ Load CG "CG\Stake"
 # "마을 사람중 한명이 다가와, 나에게 침을 뱉더니 가지 더미에다 불을 붙혔다."
 # "불길이 점점 솟아 오르자, 나는 다시 정신을 잃고 다시는 생각을 하지 못했다."
 Load CG "CG\DeadEnd"
+GAME END

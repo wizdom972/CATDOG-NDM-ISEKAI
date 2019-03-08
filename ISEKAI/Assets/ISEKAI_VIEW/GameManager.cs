@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public Sprite[] seasonSprites;
     public Sprite[] numberSprites;
 
+
+
     public Transform town;
     public Transform outskirts;
 
@@ -66,15 +68,18 @@ public class GameManager : MonoBehaviour
             return;
         LoadEventScene(forcedEventEnumerator.Current);
     }
+
+    //public GameObject EventSDList;
     public List<Transform> eventSDList = new List<Transform>();
 
     public void TryInstantiateEventSDs() // find an events which is newly set to visible and make an SD of them.
     {
+        eventSDList.RemoveAll(t => t == null);
         foreach (EventCore e in game.visibleEventsList)
         {
             if (e.forcedEventPriority > 0) continue; // if event is forced event, there is no need to make SD.
-            if (e.isNew) // if 
-            {
+            //if (e.isNew) // if 
+            else {
                 var sd = Instantiate(eventPrefab, new Vector3(0, 0, 0), Quaternion.identity);
 
                 sd.position = GetEventSDVectorByLocation(e.location);
@@ -115,7 +120,7 @@ public class GameManager : MonoBehaviour
 
     public void TryUpdateEventSDs()
     {
-        eventSDList.RemoveAll(t => t == null);
+        //eventSDList.RemoveAll(t => t == null);
         List<Transform> toDestroyList = new List<Transform>();
         foreach (Transform sd in eventSDList)
         {

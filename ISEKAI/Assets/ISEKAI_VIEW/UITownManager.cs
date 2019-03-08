@@ -146,6 +146,8 @@ public class UITownManager : MonoBehaviour
         textFood.text = _game.town.remainFoodAmount.ToString();
         textPleasant.text = _game.town.totalPleasantAmount + "/" + 200;
         textTurn.text = _game.turn.ToString();
+        GameManager.instance.forcedEventEnumerator = _game.forcedVisibleEventList.GetEnumerator();
+        GameManager.instance.TryOccurForcedEvent();
         GameManager.instance.TryInstantiateEventSDs();
         GameManager.instance.TryUpdateEventSDs();
         SetParentsOfEvents();
@@ -156,8 +158,11 @@ public class UITownManager : MonoBehaviour
         GameManager gm = GameManager.instance;
         foreach(Transform t in gm.eventSDList)
         {
+
             if (t == null)
-                continue;
+            {
+                gm.eventSDList.Remove(t);
+            }
             else
             {
                 if (gm.SmallLocationToBigLocation(gm.GetEventCoreFromEventSd(t).location) == Location.Town)

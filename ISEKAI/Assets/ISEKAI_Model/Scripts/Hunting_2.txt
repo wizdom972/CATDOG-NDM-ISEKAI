@@ -26,7 +26,6 @@ Choice
 --1 ## "나" "「아,, 내가 일단 하나 만들어서 보여주겠네. 혼자 만들긴 힘드니 도와주게.」"
 VFX Transition
 --1 Load Background "Background\Blackbackground"
---1 VFX Sound "VFX\Sound\Woodwork"
 --0 Load CG "CG\Bow"
 --1 Load CG "CG\Crossbow"
 --0 ## "나" "「응차. 여기있네.」"

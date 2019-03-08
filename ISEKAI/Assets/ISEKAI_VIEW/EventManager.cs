@@ -94,9 +94,9 @@ public class EventManager : MonoBehaviour
             eventCore.Complete();
             SceneManager.LoadScene("TownScene", LoadSceneMode.Single);
             Debug.Log("HONTONI: " + GameManager.instance.game.turn.totalMonthNumber.ToString());
-            GameManager.instance.TryOccurForcedEvent();
-            GameManager.instance.TryInstantiateEventSDs();
-            GameManager.instance.TryUpdateEventSDs();
+            //GameManager.instance.TryOccurForcedEvent();
+            //GameManager.instance.TryInstantiateEventSDs();
+            //GameManager.instance.TryUpdateEventSDs();
         }
         else
         {
