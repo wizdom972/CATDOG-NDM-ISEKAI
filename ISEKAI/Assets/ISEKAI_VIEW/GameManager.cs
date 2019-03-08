@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public EventCore currentEvent;
 
-    public Sprite[] turnsLeftSprites;
+    public Sprite[] monthsLeftSprites;
     public Sprite[] seasonSprites;
     public Sprite[] numberSprites;
 
@@ -79,19 +79,14 @@ public class GameManager : MonoBehaviour
 
                 sd.position = GetEventSDVectorByLocation(e.location);
                 sd.name = e.eventName;
-                if (e.givenMaxTurn < 0)
+                if (e.givenMaxMonth < 0)
                     sd.GetChild(2).gameObject.SetActive(false);
                 //else
                     //sd.GetChild(2).GetComponent<SpriteRenderer>().sprite = turnsLeftSprites[e.givenMaxTurn - 1]; // sprite array index is 0-based, but starts with sprite of 1, so -1 is needed.
                 else
                 {
-                    int monthOffset;
-                    if (game.turn.monthNumber >= 0 && game.turn.monthNumber < 6)
-                        monthOffset = 5 - game.turn.monthNumber;
-                    else
-                        monthOffset = 11 - game.turn.monthNumber;
-
-                    int totalMonthLeft = 6 * (e.turnsLeft - 1) + monthOffset;
+                    
+                    int totalMonthLeft = e.monthsLeft;
 
                     int year = totalMonthLeft / 12;
                     int month = totalMonthLeft % 12 + 1;
@@ -130,19 +125,14 @@ public class GameManager : MonoBehaviour
             else
                 sd.gameObject.SetActive(false);
 
-            if (e.givenMaxTurn < 0)
+            if (e.givenMaxMonth < 0)
                 continue;
 
-            if (e.turnsLeft >= 1)
+            if (e.monthsLeft >= 1)
             {
                 //sd.GetChild(2).GetComponent<SpriteRenderer>().sprite = turnsLeftSprites[e.turnsLeft - 1]; // sprite array index is 0-based, but starts with sprite of 1, so -1 is needed.
-                int monthOffset;
-                if (game.turn.monthNumber >= 0 && game.turn.monthNumber < 6)
-                    monthOffset = 5 - game.turn.monthNumber;
-                else
-                    monthOffset = 11 - game.turn.monthNumber;
-
-                int totalMonthLeft = 6 * (e.turnsLeft - 1) + monthOffset;
+                
+                int totalMonthLeft = e.monthsLeft;
 
                 int year = totalMonthLeft / 12;
                 int month = totalMonthLeft % 12 + 1;
@@ -162,9 +152,9 @@ public class GameManager : MonoBehaviour
                 sd.GetChild(4).gameObject.SetActive(false);
             else
                 sd.GetChild(4).GetComponent<SpriteRenderer>().sprite = seasonSprites[(int)e.availableSeason - 1];
-            if (e.turnsLeft != e.givenMaxTurn)
+            if (e.monthsLeft != e.givenMaxMonth)
                 sd.GetChild(3).gameObject.SetActive(false);
-            if (e.turnsLeft <= 0)
+            if (e.monthsLeft <= 0)
             {
                 toDestroyList.Add(sd);
                 continue;

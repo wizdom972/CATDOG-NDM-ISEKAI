@@ -68,8 +68,8 @@ namespace ISEKAI_Model
 
         private void _InitEvents() // should add EVERY events when new event plan comes.
         {
-            allEventsList.Add(new Prolog_1(this));
-            allEventsList.Add(new Prolog_2(this));
+            //allEventsList.Add(new Prolog_1(this));
+            //allEventsList.Add(new Prolog_2(this));
 
             allEventsList.Add(new ReturnWarning(this));
 
@@ -224,7 +224,7 @@ namespace ISEKAI_Model
         {
             town.ApplyPostTurnChange();
             turn.IncreaseTurnNumber();
-            _ReduceEveryEventsTurnsLeft();
+            //_ReduceEveryEventsTurnsLeft();
         }
 
         public void ApplyChoiceEffect(ChoiceEffect choiceEffect)
@@ -283,7 +283,7 @@ namespace ISEKAI_Model
             }
         }
 
-        private void _ReduceEveryEventsTurnsLeft() // Not recommended to call manually. Only called by Proceed().
+        /*private void _ReduceEveryEventsTurnsLeft() // Not recommended to call manually. Only called by Proceed().
         {
             foreach (EventCore e in allEventsList)
             {
@@ -295,6 +295,26 @@ namespace ISEKAI_Model
                     e.ReduceTurnsLeft();
 
                 if (e.turnsLeft <= 0 && e.isActivatedAlready)
+                {
+                    e.status = EventStatus.Ready;
+                    e.isActivatedAlready = false;
+                    e.isRemovedLastTurn = true;
+                }
+            }
+        }*/
+
+        public void _ReduceEveryEventsMonthsLeft(int monthsPassed) // Not recommended to call manually. Only called by Proceed().
+        {
+            foreach (EventCore e in allEventsList)
+            {
+                if (e.givenMaxMonth < 0)
+                    continue;
+                if (e.status == EventStatus.Completed)
+                    continue;
+                if (e.isActivatedAlready)
+                    e.ReduceMonthsLeft(monthsPassed);
+
+                if (e.monthsLeft <= 0 && e.isActivatedAlready)
                 {
                     e.status = EventStatus.Ready;
                     e.isActivatedAlready = false;
@@ -328,7 +348,7 @@ namespace ISEKAI_Model
                 }
                 else if (e.isActivatedAlready)
                 {
-                    if (e.SeasonCheck() && e.turnsLeft > 0)
+                    if (e.SeasonCheck() && e.monthsLeft > 0)
                         e.status = EventStatus.Visible;
                     else
                         e.status = EventStatus.Ready;

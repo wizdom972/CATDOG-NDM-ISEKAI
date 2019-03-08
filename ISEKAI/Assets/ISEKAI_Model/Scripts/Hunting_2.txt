@@ -7,7 +7,6 @@ Load Background "Background\Door"
 ## "나" "「계십니까.」"
 # "잠시 기다렸지만 아무 소리도 없었다."
 # "딱 떠나려는 참에, 문이 열렸다."
-VFX Sound "VFX\Sound\Dooropening"
 Load Character "Character\Carpenter\a\normal" -center
 ## "마을 목수" "「누구십니.. 아 장동무 아니십니까.」" -center
 ## "나" "「아. 나무를 다룰줄 안다고 들어서 왔습니다만.. 다룰줄 압니까?」"

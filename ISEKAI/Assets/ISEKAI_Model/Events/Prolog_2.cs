@@ -20,7 +20,7 @@ namespace ISEKAI_Model
 
         public Prolog_2(Game game) : base(game)
         {
-            turnsLeft = 0;
+            monthsLeft = 0;
         }
     }
 }

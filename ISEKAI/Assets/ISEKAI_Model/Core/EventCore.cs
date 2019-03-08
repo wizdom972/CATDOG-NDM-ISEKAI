@@ -29,14 +29,16 @@ namespace ISEKAI_Model
     }
     public abstract class EventCore // Every future event must inherit this.
     {
-        public bool isNew => (_seasonMadeIn == game.turn.season) && (turnsLeft == givenMaxTurn);
+        public bool isNew => (_seasonMadeIn == game.turn.season) && (monthsLeft == givenMaxMonth);
         public bool isForcedEvent => forcedEventPriority > 0;
         public bool isActivatedAlready;
         public abstract int forcedEventPriority {get;} // 0 if the event is not forced event.
         public abstract string eventName {get;}
         public EventStatus status {get; set;}
         public abstract int givenMaxTurn {get;} // -1 if the event is permanent.
-        public int turnsLeft {get; protected set;} // how many turns left for this event to be gone.
+        public int givenMaxMonth { get { return (6 * givenMaxTurn); } }
+        //public int turnsLeft {get; protected set;} // how many turns left for this event to be gone.
+        public int monthsLeft { get; protected set; }
         public abstract int cost {get;} // how many AP this event takes.
         public abstract Season availableSeason {get;} // when this event is available.
         public abstract EventLocation location { get; }
@@ -53,7 +55,7 @@ namespace ISEKAI_Model
         public void ActivateEvent()
         {
             status = EventStatus.Visible;
-            turnsLeft = givenMaxTurn;
+            monthsLeft = givenMaxMonth;
             isActivatedAlready = true;
         }
 
@@ -61,7 +63,7 @@ namespace ISEKAI_Model
         {
             status = EventStatus.Ready;
             this.game = game;
-            turnsLeft = 0;
+            monthsLeft = 0;
         }
 
         
@@ -84,9 +86,15 @@ namespace ISEKAI_Model
         }
 
 
-        public void ReduceTurnsLeft()
+        /*public void ReduceTurnsLeft()
         {
             turnsLeft--;
+        }*/
+
+
+        public void ReduceMonthsLeft(int monthspassed)
+        {
+            monthsLeft -= monthspassed;
         }
 
         public virtual void Complete()
@@ -96,6 +104,7 @@ namespace ISEKAI_Model
             game.turn.totalMonthNumber += cost;
 
             game.Proceed(beforeSeason);
+            game._ReduceEveryEventsMonthsLeft(cost);
             game.OccurEvents();
             /*
             if (beforeSeason != game.turn.season)

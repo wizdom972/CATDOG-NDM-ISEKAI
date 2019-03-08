@@ -91,12 +91,10 @@ public class EventManager : MonoBehaviour
     {
         if (!scriptEnumerator.MoveNext())
         {
-            Debug.Log(GameManager.instance.game.allEventsList.Find(e => e.eventName.Equals("농사 이벤트 2")).status + " " + GameManager.instance.game.allEventsList.Find(e => e.eventName.Equals("농사 이벤트 2")).IsFirstVisible());
             eventCore.Complete();
-            Debug.Log(GameManager.instance.game.allEventsList.Find(e => e.eventName.Equals("농사 이벤트 2")).status + " " + GameManager.instance.game.allEventsList.Find(e => e.eventName.Equals("농사 이벤트 2")).IsFirstVisible());
             SceneManager.LoadScene("TownScene", LoadSceneMode.Single);
+            Debug.Log("HONTONI: " + GameManager.instance.game.turn.totalMonthNumber.ToString());
             GameManager.instance.TryOccurForcedEvent();
-            Debug.Log(GameManager.instance.game.allEventsList.Find(e => e.eventName.Equals("농사 이벤트 2")).status + " " + GameManager.instance.game.allEventsList.Find(e => e.eventName.Equals("농사 이벤트 2")).IsFirstVisible());
             GameManager.instance.TryInstantiateEventSDs();
             GameManager.instance.TryUpdateEventSDs();
         }
