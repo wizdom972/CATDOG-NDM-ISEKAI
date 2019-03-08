@@ -18,6 +18,7 @@ namespace ISEKAI_Model
 
         protected override bool exclusiveCondition()
         {
+            return true;
             int chance = (new Random()).Next() / 10;
             bool chanceCondition = chance <= 0;
             bool prevCondition = game.allEventsList.Find(e => e.eventName == "농사 이벤트 3").status == EventStatus.Completed &&

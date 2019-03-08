@@ -184,22 +184,52 @@ public class GameManager : MonoBehaviour
 
     public Vector3 GetEventSDVectorByLocation(EventLocation location)
     {
-        return new Vector3((int)location - 6, (int)location - 6);
-        /*switch((int)location)
-        {
-            case 1:
-                return new Vector3(-1, 5);
-            case 2:
-                return new Vector3(1, -1);
-            case 3:
-                return new Vector3(8, 4);
-            case 4:
-                return new Vector3(0, 0);
-            case 5:
-                return new Vector3(0, 0);
-            case 6:
-                return new Vector3(3, 3);
+        float x = 0;
+        float y = 0;
 
-        }*/
+        switch(location)
+        {
+            case EventLocation.BackMount:
+                x = -13; y = -4;
+                break;
+            case EventLocation.CarpenterHouse:
+                x = -5; y = -4.5f;
+                break;
+            case EventLocation.Farm:
+                x = -8; y = 0;
+                break;
+            case EventLocation.Field:
+                x = -4; y = -1;
+                break;
+            case EventLocation.FrontMount:
+                x = -1; y = 5.5f;
+                break;
+            case EventLocation.Mine:
+                x = 2; y = -6;
+                break;
+            case EventLocation.SecretaryHouse:
+                x = -5; y = 5.25f;
+                break;
+            case EventLocation.TaskLeaderHouse:
+                x = 6; y = 0.5f;
+                break;
+            case EventLocation.TechGuideStaffHouse:
+                x = 5; y = -4.5f;
+                break;
+            case EventLocation.TownSquare:
+                x = -2.5f; y = 0;
+                break;
+            case EventLocation.TownWell:
+                x = 2; y = 1.5f;
+                break;
+            case EventLocation.TownWitchHouse:
+                x = 6; y = 6.5f;
+                break;
+            case EventLocation.WayToTown:
+                x = 7; y = 0;
+                break;
+        }
+
+        return new Vector3(x, y);
     }
 }

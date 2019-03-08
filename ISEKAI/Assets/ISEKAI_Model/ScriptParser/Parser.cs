@@ -2,7 +2,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
-
+using UnityEngine;
 
 namespace ISEKAI_Model
 {
@@ -89,7 +89,23 @@ namespace ISEKAI_Model
         }
         public static List<Command> ParseScript(string scriptPath)
         {
-            string[] commandList = File.ReadAllText(scriptPath).Trim().Split('\n');
+            //구 경로 삭제
+            if (scriptPath.Contains("Assets/ISEKAI_Model/"))
+            {
+                scriptPath = scriptPath.Replace("Assets/ISEKAI_Model/","");
+            }
+            //마지막 .txt 제거
+            if(scriptPath.IndexOf(".txt") >= scriptPath.Length - 5)
+            {
+                scriptPath = scriptPath.Replace(".txt", "");
+            }
+
+            //스크립트 가져오기
+            TextAsset script = Resources.Load(scriptPath,typeof(TextAsset)) as TextAsset;
+            
+
+            //읽은거 쪼개기
+            string[] commandList = script.text.Trim().Split('\n');
             for (int i = 0; i < commandList.Length; i++)
                 commandList[i] = commandList[i].Trim();
             

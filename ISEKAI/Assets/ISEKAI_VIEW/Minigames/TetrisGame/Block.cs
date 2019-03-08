@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Block : MonoBehaviour
 {
@@ -12,9 +13,17 @@ public class Block : MonoBehaviour
         tetrisGameManager = FindObjectOfType<TetrisGameManager>();
         if (!isValidGridPos())
         {
-            Debug.Log("GAME OVER");
             Destroy(gameObject);
+            _StartGameEndingProcess();
         }
+    }
+
+    private void _StartGameEndingProcess()
+    {
+        tetrisGameManager.eventManager.SetActiveEventSceneThings(true);
+        tetrisGameManager.eventManager.ExecuteOneScript();
+        SceneManager.SetActiveScene(tetrisGameManager.eventManager.gameObject.scene);
+        SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 
     // Update is called once per frame
