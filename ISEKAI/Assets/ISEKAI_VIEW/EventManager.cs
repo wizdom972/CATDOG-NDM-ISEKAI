@@ -519,7 +519,7 @@ public class EventManager : MonoBehaviour
         var tmpBackgroundRenderer = spriteBackgroundTemp.GetComponent<SpriteRenderer>();
         if (tmpBackgroundRenderer == null) return;
 
-        if(mainBackgroundRenderer.sprite == null || mainBackgroundRenderer.sprite.Equals(background))
+        if(mainBackgroundRenderer.sprite == null)
         {
             // 그냥 페이드 인
             spriteBackgroundTemp.SetActive(false);
@@ -529,7 +529,7 @@ public class EventManager : MonoBehaviour
         else
         {
             // Dissolve
-            spriteBackground.transform.localScale = new Vector3(1, 1, 1);
+            //spriteBackground.transform.localScale = new Vector3(1, 1, 1);
 
             var width = mainBackgroundRenderer.sprite.bounds.size.x;
             var height = mainBackgroundRenderer.sprite.bounds.size.y;
@@ -537,8 +537,8 @@ public class EventManager : MonoBehaviour
             var worldScreenHeight = Camera.main.orthographicSize * 2.0;
             var worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
 
-            spriteBackground.transform.localScale = new Vector3((float)worldScreenWidth / width, (float)worldScreenHeight / height, 1);
-            //spriteBackgroundTemp.transform.localScale = new Vector3((float)worldScreenWidth / width, (float)worldScreenHeight / height, 1);
+            //spriteBackground.transform.localScale = new Vector3((float)worldScreenWidth / width, (float)worldScreenHeight / height, 1);
+            spriteBackgroundTemp.transform.localScale = new Vector3((float)worldScreenWidth / width, (float)worldScreenHeight / height, 1);
 
             spriteBackground.SetActive(true);
             spriteBackgroundTemp.SetActive(true);
@@ -625,7 +625,7 @@ public class EventManager : MonoBehaviour
 
         mainBackgroundRenderer.sprite = background;
         mainBackgroundRenderer.color = mainBackgroundColor;
-
+        spriteBackground.transform.localScale = new Vector3((float)tmpWorldScreenWidth / tmpWidth, (float)tmpWorldScreenHeight / tmpHeight, 1);
         isNextButtonActive = true;
        
         ExecuteOneScript();
