@@ -35,7 +35,7 @@ Load Character "Character\Rancher\a\frown" -right
 Load Character "Character\Smith\a\embarassed" -left
 Load Character "Character\Rancher\a\embarassed" -right
 ## "???" "「으으음...」" -left
-Load Character "Character\Father\a\comtemplating" - center
+Load Character "Character\Father\a\comtemplating" -center
 ## "작업반장 동지(선녀의 아버지)" "「━━━━ 동무들, 이런 늦은 시각에 성난 『{산:멧}{도:돼}{티:지}』에 덤벼들어 생전 처음 본 새기를 구해준거 보면 나쁜 쓰나이인것 같지는 않소다。」" -center
 ## "작업반장 동지(선녀의 아버지)" "「내래 집에 방 하나를 마련해 줄 수 있으니 며칠 재워주고 봅시다。」" -center
 ## "???" "「뭐 작업반장 동지가 그렇다면야━━」" -right

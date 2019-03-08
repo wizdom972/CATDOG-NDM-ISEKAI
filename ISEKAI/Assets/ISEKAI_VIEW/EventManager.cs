@@ -119,6 +119,7 @@ public class EventManager : MonoBehaviour
     public void SetUpEventManager() // when playing new event, this instance should be made.
     {
         eventCore = GameManager.instance.currentEvent;
+        characterBrightNum = SpriteLocation.None;
         scriptEnumerator = GameManager.instance.currentEvent.script.GetEnumerator();
     }
 
@@ -154,22 +155,14 @@ public class EventManager : MonoBehaviour
         else
         {
             Command c = scriptEnumerator.Current;
-            if (c.commandNumber == 2)
-                _setBright(characterBrightNum);
-            else
-                _setBright(SpriteLocation.None);
             _ExecuteCommand(c);
-            if (c.commandNumber != 1)
-            {
-                characterBrightNum = SpriteLocation.None;
-                _setBright(characterBrightNum);
-            }
         }
     }
 
     private void _ExecuteCommand(Command c)
     {
         isNextButtonActive = true;
+        
 
         int choiceDependencyNum;
         choiceDependencyNum = c.choiceDependency.Item1;
@@ -297,22 +290,13 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    IEnumerator WaitUntilCharacterLoaded()
+    IEnumerator WaitUntilCharacterLoadedExplanation(Explanation explanation)
     {
         if (_loadingCharacterCount != 0)
         {
             Debug.Log("Wait Until Character Loaded");
         }
         yield return new WaitUntil(() => _loadingCharacterCount == 0);
-    }
-
-    private void _Explanation(Explanation explanation)
-    {
-        Debug.Log("explanation");
-        UIScript.SetActive(true);
-
-        StartCoroutine(WaitUntilCharacterLoaded());
-
         containerChoice.SetActive(false);
         containerConversation.SetActive(false);
         containerFullScript.SetActive(true);
@@ -326,6 +310,50 @@ public class EventManager : MonoBehaviour
         }
 
         fullScriptText.GetComponent<RubyText>().isCalled = false;
+    }
+
+    IEnumerator WaitUntilCharacterLoadedConversation(Conversation conversation)
+    {
+        if (_loadingCharacterCount != 0)
+        {
+            Debug.Log("Wait Until Character Loaded");
+        }
+        yield return new WaitUntil(() => _loadingCharacterCount == 0);
+
+        containerChoice.SetActive(false);
+        containerConversation.SetActive(true);
+        containerFullScript.SetActive(false);
+
+        textCharacterInfo.text = conversation.characterName;
+        textScript.text = conversation.contents;
+
+        if (conversation.brightCharacter != SpriteLocation.None)
+        {
+            _setBright(conversation.brightCharacter);
+        }
+        else
+        {
+            _setBright(SpriteLocation.None);
+        }
+
+
+        foreach (Transform child in scriptText.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+            Debug.Log("웨않되2");
+        }
+
+        scriptText.GetComponent<RubyText>().isCalled = false;
+    }
+
+    private void _Explanation(Explanation explanation)
+    {
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
+        Debug.Log("explanation");
+        UIScript.SetActive(true);
+
+        StartCoroutine(WaitUntilCharacterLoadedExplanation(explanation));
     }
 
     private String _fullScriptHandler(String s)
@@ -354,36 +382,16 @@ public class EventManager : MonoBehaviour
     {
         Debug.Log("conversation");
         UIScript.SetActive(true);
-
-        StartCoroutine(WaitUntilCharacterLoaded());
-
-        containerChoice.SetActive(false);
-        containerConversation.SetActive(true);
-        containerFullScript.SetActive(false);
-
-        textCharacterInfo.text = conversation.characterName;
-        textScript.text = conversation.contents;
-        if (conversation.brightCharacter != SpriteLocation.None)
-        {
-            _setBright(conversation.brightCharacter);
-            characterBrightNum = conversation.brightCharacter;
-        }
-        else
-            _setBright(SpriteLocation.None);
-
-        foreach (Transform child in scriptText.transform)
-        {
-            GameObject.Destroy(child.gameObject);
-            Debug.Log("웨않되2");
-        }
-
-        scriptText.GetComponent<RubyText>().isCalled = false;
+        
+        characterBrightNum = conversation.brightCharacter;
+        StartCoroutine(WaitUntilCharacterLoadedConversation(conversation));
     }
 
 
 
     private void _LoadCharacter(LoadCharacter loadCharacter)
     {
+
         containerChoice.SetActive(false);
         containerConversation.SetActive(false);
         containerFullScript.SetActive(false);
@@ -394,7 +402,7 @@ public class EventManager : MonoBehaviour
         {
             isNextButtonActive = false;
             StartCoroutine(fadeCharacter(loadCharacter));
-
+            //ExecuteOneScript();
         }
 
 
@@ -403,7 +411,7 @@ public class EventManager : MonoBehaviour
     IEnumerator fadeCharacter(LoadCharacter loadCharacter)
     {
         _loadingCharacterCount++;
-
+        
         ExecuteOneScript();
 
         bool isOrigin = false;
@@ -435,6 +443,9 @@ public class EventManager : MonoBehaviour
         Color color1 = spriteRenderer1.color;
         Color color2 = spriteRenderer2.color;
 
+        color1.a = 1.0f;
+        color2.a = 0.0f;
+
         //페이드 인 아웃 동시에
         while (color2.a < 1.0f)
         {
@@ -463,13 +474,21 @@ public class EventManager : MonoBehaviour
         spritePeople[(int)loadCharacter.location] = charGameObject2;
         spritePeopleTmp[(int)loadCharacter.location] = charGameObject1;
 
-        // ExecuteOneScript();
+
+        if (characterBrightNum != loadCharacter.location)
+        { 
+            characterBrightNum = SpriteLocation.None;
+            _setBright(SpriteLocation.None);
+        }
+        //ExecuteOneScript();
         _loadingCharacterCount--;
         isNextButtonActive = true;
     }
 
     private void _UnloadCharacter(UnloadCharacter unloadCharacter)
     {
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         Debug.Log("UnloadCharacter");
 
         if (unloadCharacter.location != SpriteLocation.None)
@@ -477,14 +496,15 @@ public class EventManager : MonoBehaviour
             spritePeople[(int)unloadCharacter.location].GetComponent<SpriteRenderer>().sprite = null;
             spritePeople[(int)unloadCharacter.location].SetActive(false);
         }
-
+        
         ExecuteOneScript();
     }
 
     private void _LoadBackground(LoadBackground loadBackground)
     {
         Debug.Log("LoadBackground");
-
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         Sprite background = Resources.Load<Sprite>(loadBackground.filePath);
 
         if (background == null)
@@ -499,8 +519,7 @@ public class EventManager : MonoBehaviour
         var tmpBackgroundRenderer = spriteBackgroundTemp.GetComponent<SpriteRenderer>();
         if (tmpBackgroundRenderer == null) return;
 
-
-        if (mainBackgroundRenderer.sprite == null || mainBackgroundRenderer.sprite.Equals(background))
+        if(mainBackgroundRenderer.sprite == null || mainBackgroundRenderer.sprite.Equals(background))
         {
             // 그냥 페이드 인
             spriteBackgroundTemp.SetActive(false);
@@ -519,6 +538,7 @@ public class EventManager : MonoBehaviour
             var worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
 
             spriteBackground.transform.localScale = new Vector3((float)worldScreenWidth / width, (float)worldScreenHeight / height, 1);
+            //spriteBackgroundTemp.transform.localScale = new Vector3((float)worldScreenWidth / width, (float)worldScreenHeight / height, 1);
 
             spriteBackground.SetActive(true);
             spriteBackgroundTemp.SetActive(true);
@@ -526,6 +546,7 @@ public class EventManager : MonoBehaviour
             isNextButtonActive = false;
             StartCoroutine(DissolveBackground(loadBackground, background, mainBackgroundRenderer, tmpBackgroundRenderer));
         }
+
     }
 
 
@@ -558,6 +579,7 @@ public class EventManager : MonoBehaviour
         }
 
         isNextButtonActive = true;
+       
         ExecuteOneScript();
     }
 
@@ -605,6 +627,7 @@ public class EventManager : MonoBehaviour
         mainBackgroundRenderer.color = mainBackgroundColor;
 
         isNextButtonActive = true;
+       
         ExecuteOneScript();
     }
 
@@ -612,29 +635,32 @@ public class EventManager : MonoBehaviour
     private void _PlayMusic(PlayMusic playMusic)
     {
         Debug.Log("PlayMusic");
-
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         AudioClip bgm;
         bgm = Resources.Load<AudioClip>(playMusic.filePath);
         audioBGM.clip = bgm;
 
         audioBGM.Play();
-
+        
         ExecuteOneScript();
     }
 
     private void _StopMusic(StopMusic stopMusic)
     {
         Debug.Log("StopMusic");
-
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         audioBGM.Stop();
-
+        
         ExecuteOneScript();
     }
 
     private void _LoadCG(LoadCG loadCG)
     {
         Debug.Log("LoadCG");
-
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         Sprite cg;
         cg = Resources.Load<Sprite>(loadCG.filePath);
         spriteCG.GetComponent<SpriteRenderer>().sprite = cg;
@@ -672,16 +698,17 @@ public class EventManager : MonoBehaviour
         isNextButtonActive = true;
         UIButton.SetActive(true);
         UIScript.SetActive(true);
-
+        
         ExecuteOneScript();
     }
 
     private void _UnloadCG(UnloadCG unloadCG)
     {
         Debug.Log("UnloadCG");
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         SpriteRenderer cgRenderer = spriteCG.GetComponent<SpriteRenderer>();
         spriteCG.SetActive(false);
-
         ExecuteOneScript();
 
         StartCoroutine(dissolveCG(cgRenderer));
@@ -707,7 +734,8 @@ public class EventManager : MonoBehaviour
     private void _VFXCamerashake(VFXCameraShake vfxCameraShake)
     {
         Debug.Log("VFXCamerashake");
-
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         isNextButtonActive = false;
         StartCoroutine(cameraShake());
     }
@@ -746,7 +774,8 @@ public class EventManager : MonoBehaviour
     private void _VFXLoadSprite(VFXLoadSprite vfxLoadSprite)
     {
         Debug.Log("VFXLoadSprite");
-
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         Sprite vfxSprite;
         vfxSprite = Resources.Load<Sprite>(vfxLoadSprite.filePath);
 
@@ -790,6 +819,7 @@ public class EventManager : MonoBehaviour
         //UIButton.SetActive(true);
         UIScript.SetActive(true);
         isNextButtonActive = true;
+        
         ExecuteOneScript();
     }
 
@@ -807,14 +837,18 @@ public class EventManager : MonoBehaviour
         }
         UIScript.SetActive(true);
         isNextButtonActive = true;
+        
         ExecuteOneScript();
     }
 
     private void _VFXUnloadSprite(VFXUnloadSprite vfxUnloadSprite)
     {
         Debug.Log("VFXUnloadSprite");
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         SpriteRenderer spriteRenderer = spriteVFX.GetComponent<SpriteRenderer>();
         StartCoroutine(dissolveSprite(spriteRenderer));
+        
         ExecuteOneScript();
     }
 
@@ -841,11 +875,13 @@ public class EventManager : MonoBehaviour
         AudioClip vfx;
         vfx = Resources.Load<AudioClip>(vfxSound.filePath);
         audioVFX.clip = vfx;
-
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         float soundLength;
         soundLength = (float)audioVFX.clip.length;
 
         audioVFX.Play();
+        
         ExecuteOneScript();
         //StartCoroutine(soundVFXPlay(vfxSound));
     }
@@ -869,6 +905,8 @@ public class EventManager : MonoBehaviour
     private void _LoadMinigame(LoadMinigame loadMinigame)
     {
         Debug.Log("LoadMinigame");
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         SetActiveEventSceneThings(false);
         SceneManager.LoadScene(loadMinigame.minigameName, LoadSceneMode.Additive);
         //ExecuteOneScript();
@@ -877,7 +915,8 @@ public class EventManager : MonoBehaviour
     private void _LoadVideo(LoadVideo loadVideo)
     {
         Debug.Log("LoadVideo");
-
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         VideoClip videoClip;
         videoClip = Resources.Load<VideoClip>(loadVideo.filePath);
 
@@ -904,14 +943,15 @@ public class EventManager : MonoBehaviour
 
         if (isVideoPlaying)
         {
-        ExecuteOneScript();
+            ExecuteOneScript();
         }
     }
 
     private void _Choice(Choice choice)
     {
         Debug.Log("Choice");
-
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         //버튼 죽이기
         isNextButtonActive = false;
 
@@ -1023,20 +1063,22 @@ public class EventManager : MonoBehaviour
         GameManager.instance.game.choiceHistories = choiceHistory;
 
         Debug.Log((GameManager.instance.game.choiceHistories[currentEventName])[0]);
-
-        ExecuteOneScript();
+        
+        //ExecuteOneScript();
 
         UI.transform.Find("ContainerSetting").gameObject.SetActive(true);
         UI.transform.Find("ButtonNext").gameObject.SetActive(true);
 
         //버튼 살리기
         isNextButtonActive = true;
+        ExecuteOneScript();
     }
 
     private void _VFXTransition(VFXTransition vfxTransition)
     {
         Debug.Log("VFXTransition");
-        
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         StartCoroutine(transtionVFXPlay());
     }
 
@@ -1052,6 +1094,7 @@ public class EventManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
         isNextButtonActive = true;
+       
         ExecuteOneScript();
         yield return new WaitForSeconds(0.25f);
 
@@ -1095,7 +1138,8 @@ public class EventManager : MonoBehaviour
     private void _VFXPause(VFXPause vfxPause)
     {
         Debug.Log("VFXPause");
-
+        characterBrightNum = SpriteLocation.None;
+        _setBright(SpriteLocation.None);
         isNextButtonActive = false;
         StartCoroutine(pauseVFXPlay(vfxPause.second / 1000));       //millisecond to second
     }
@@ -1105,7 +1149,7 @@ public class EventManager : MonoBehaviour
         yield return new WaitForSeconds(seconds);
 
         isNextButtonActive = true;
-
+        
         ExecuteOneScript();
     }
 
