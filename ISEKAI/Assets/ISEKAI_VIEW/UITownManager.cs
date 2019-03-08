@@ -76,8 +76,8 @@ public class UITownManager : MonoBehaviour
         switch (_location)
         {
             case Location.Outskirts:
-                background.transform.GetChild(0).gameObject.SetActive(true);
-                background.transform.GetChild(1).gameObject.SetActive(false);
+                background.transform.GetChild(0).gameObject.SetActive(false);
+                background.transform.GetChild(1).gameObject.SetActive(true);
                 _location = Location.Town;
                 outskirts.gameObject.SetActive(false);
                 town.gameObject.SetActive(true);
@@ -106,8 +106,8 @@ public class UITownManager : MonoBehaviour
         {
 
             case Location.Town:
-                background.transform.GetChild(0).gameObject.SetActive(false);
-                background.transform.GetChild(1).gameObject.SetActive(true);
+                background.transform.GetChild(0).gameObject.SetActive(true);
+                background.transform.GetChild(1).gameObject.SetActive(false);
                 _location = Location.Outskirts;
                 outskirts.gameObject.SetActive(true);
                 town.gameObject.SetActive(false);
