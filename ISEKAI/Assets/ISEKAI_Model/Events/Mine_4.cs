@@ -24,7 +24,7 @@ namespace ISEKAI_Model
 
         public Mine_4(Game game): base(game)
         {
-            characterName = "선녀짱";
+            characterName = "선녀";
         }
         public override void Complete()
         {

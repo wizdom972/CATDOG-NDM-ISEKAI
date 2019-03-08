@@ -38,7 +38,7 @@ namespace ISEKAI_Model
 
         public Blasphemy_1(Game game): base(game)
         {
-            characterName = "노파";
+            characterName = "임페리우스";
         }
 
         public override void Complete()

@@ -27,7 +27,7 @@ namespace ISEKAI_Model
 
         public NKAgent_4(Game game): base(game)
         {
-            characterName = "봄이짱";
+            characterName = "봄이";
         }
     }
 }

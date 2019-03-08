@@ -19,7 +19,7 @@ namespace ISEKAI_Model
 
         public Farming_2(Game game) : base(game)
         {
-            characterName = "선녀짱";
+            characterName = "선녀";
         }
     }
 }

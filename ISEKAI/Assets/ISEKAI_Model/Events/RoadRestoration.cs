@@ -39,7 +39,7 @@ namespace ISEKAI_Model
 
         public RoadRestoration(Game game): base(game)
         {
-            characterName = "통계원";
+            characterName = "선녀";
         }
 
         public override void Complete()

@@ -35,7 +35,7 @@ namespace ISEKAI_Model
 
         public HorseRaising_4(Game game): base(game)
         {
-            characterName = "선녀짱";
+            characterName = "통계원";
         }
 
         public override void Complete()

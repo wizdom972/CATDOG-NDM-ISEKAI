@@ -20,7 +20,7 @@ namespace ISEKAI_Model
 
         public Farming_3(Game game) : base(game)
         {
-            monthsLeft = 0;
+            characterName = "선녀";
         }
     }
 }

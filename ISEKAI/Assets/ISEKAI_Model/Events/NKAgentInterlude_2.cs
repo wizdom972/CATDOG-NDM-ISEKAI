@@ -29,7 +29,7 @@ namespace ISEKAI_Model
 
         public NKAgentInterlude_2(Game game): base(game)
         {
-            characterName = "봄이짱";
+            characterName = "봄이";
         }
     }
 }

@@ -36,7 +36,7 @@ namespace ISEKAI_Model
 
         public Hunting_3(Game game): base(game)
         {
-            characterName = "선녀짱";
+            characterName = "선녀";
         }
 
         public override void Complete()
