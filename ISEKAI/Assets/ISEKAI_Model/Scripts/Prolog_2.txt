@@ -1,4 +1,4 @@
-Load Background "Background\Darkforest"
+﻿Load Background "Background\Darkforest"
 Play Music "BGM\Silentforest"
 # "마음이 같아서는 당장 여자를 붙잡고 무슨 말이냐 물어보고 싶었지만, 대신 나는 침묵을 유지한채 다시 여자를 등에 엎고 길을 걸어가기 시작했다。"
 # "내가 모르는 상황일 수록 침착해지지 않으면 안됬다。냉정하게 상황을 파악한 뒤 행동을 취해야 했다。"
@@ -113,4 +113,4 @@ Load Character "Character\Rancher\a\frown" -right
 ## "나" "「정말 감사합니다。」"
 ## "작업반장 동지" "「허허, 어차피 쟝 동무 같은 건장한 쓰나이 한명이면 일손이 느니 좋은거지메。나랑 통계원 동무가 필요한 서류 같은 걸 준비를 하는 동안 여기 내 딸내미에게 부락에 대한 설명이나 들어보기오。」" -center
 Load Character "Character\Heroine\a\embarassed" -left
-## "선녀" "「아, 알겠슴메, 아바이! 쟝 동무, 어서 따라오습세다!」"
+## "선녀" "「아, 알겠슴메, 아바이! 쟝 동무, 어서 따라오습세다!」" -left

@@ -47,6 +47,7 @@ public class EventManager : MonoBehaviour
 
     public Button NextButton;
     public bool isNextButtonActive = true;
+    public SpriteLocation characterBrightNum = SpriteLocation.None;
 
     public GameObject UIButton;
     public GameObject UIScript;
@@ -100,7 +101,17 @@ public class EventManager : MonoBehaviour
         }
         else
         {
-            _ExecuteCommand(scriptEnumerator.Current);
+            Command c = scriptEnumerator.Current;
+            if (c.commandNumber == 2)
+                _setBright(characterBrightNum);
+            else
+                _setBright(SpriteLocation.None);
+            _ExecuteCommand(c);
+            if (c.commandNumber != 1)
+            {
+                characterBrightNum = SpriteLocation.None;
+                _setBright(characterBrightNum);
+            }
         }
     }
 
@@ -301,7 +312,12 @@ public class EventManager : MonoBehaviour
         textCharacterInfo.text = conversation.characterName;
         textScript.text = conversation.contents;
         if (conversation.brightCharacter != SpriteLocation.None)
+        {
             _setBright(conversation.brightCharacter);
+            characterBrightNum = conversation.brightCharacter;
+        }
+        else
+            _setBright(SpriteLocation.None);
 
         foreach (Transform child in scriptText.transform)
         {
