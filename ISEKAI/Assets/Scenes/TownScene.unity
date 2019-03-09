@@ -6480,9 +6480,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 36ab66c8010c1f245a169f9757274e84, type: 3}
   - {fileID: 21300000, guid: d60f549a2799c834cb92ae93a9bd900e, type: 3}
   DefaultSprites:
-  - {fileID: 21300000, guid: d557a818cc46bd94eb311592033fffe1, type: 3}
-  - {fileID: 21300000, guid: d557a818cc46bd94eb311592033fffe1, type: 3}
-  - {fileID: 21300000, guid: d557a818cc46bd94eb311592033fffe1, type: 3}
+  - {fileID: 21300000, guid: 1a80e5074bd7e284599bd59fa0bad25d, type: 3}
+  - {fileID: 21300000, guid: 100eb84310ed74b4ba240f2fe6b8cdfc, type: 3}
+  - {fileID: 21300000, guid: 288098c2fb0ff2d4eb8fe3914221c82d, type: 3}
   town: {fileID: 277250603}
   outskirts: {fileID: 1303797059}
   isTutorialPlayed: 0
